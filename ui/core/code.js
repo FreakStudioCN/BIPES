@@ -707,6 +707,8 @@ Code.init = function() {
         } else if (lib == "gy33i2c") {
           lib = "gy33I2C"
           reader.readAsText(gy33I2CBlob);
+        } else if (lib == "ble_simple_peripheral") {
+          reader.readAsText(ble_simple_peripheralBlob);
         } else {
           console.log("Blob file not available for: " + lib + " library.");
         }

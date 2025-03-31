@@ -6337,6 +6337,60 @@ Blockly.Python['bluetooth_repl_start'] = function(block) {
   return code;
 };
 
+Blockly.Python['bluetooth_pico_w_setup'] = function(block) {
+	Blockly.Python.definitions_['import_bluetooth'] = 'import bluetooth';
+	Blockly.Python.definitions_['import_ble_simple_peripheral'] = 'from ble_simple_peripheral import BLESimplePeripheral';
+	var t = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+	var code = 'ble = bluetooth.BLE()\n';
+	code += 'sp = BLESimplePeripheral(ble, ' + t + ')\n';
+	return code;
+  };
+  
+Blockly.Python['bluetooth_pico_w_check_connection'] = function(block) {
+	var code =  'sp.is_connected()';
+
+	return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['bluetooth_pico_w_send'] = function(block) {
+	var t = Blockly.Python.valueToCode(block, 'TEXT', Blockly.Python.ORDER_ATOMIC);
+	var code =  'sp.send(' + t + ')\n';
+
+	return code;
+};
+
+Blockly.Python['bluetooth_pico_w_receive'] = function(block) {
+	var t = Blockly.Python.valueToCode(block, 'VALUE', Blockly.Python.ORDER_ATOMIC);
+	var statements_code = Blockly.Python.statementToCode(block, 'code');
+	// Fix for global variables inside callback
+	// Piece of code from generators/python/procedures.js
+	// Define a procedure with a return value.
+	// First, add a 'global' statement for every variable that is not shadowed by
+	// a local parameter.
+	var globals = [];
+	var workspace = block.workspace;
+	var variables = Blockly.Variables.allUsedVarModels(workspace) || [];
+	for (var i = 0, variable; (variable = variables[i]); i++) {
+		var varName = variable.name;
+		if (block.getVars().indexOf(varName) == -1) {
+			if (varName != t) {
+				globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.VARIABLE_CATEGORY_NAME));
+			}
+		};
+	}
+	globals = globals.length ? Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' : '';
+
+	Blockly.Python.definitions_[`bluetooth_rcv_interrupt`] = `\n#Interrupt handler\ndef on_rx(${t}):\n${globals}\n  ${t} = ${t}.decode()\n${statements_code}\n\n`;
+
+	var code = 'def on_rx(' + t + '):\n'
+
+	code+= '	print("Data received: ", ' + t + '.decode())\n'
+
+	var code = 'sp.on_write(on_rx)\n';
+	return code;
+};
+
+
 Blockly.Python['bluetooth_repl_setup'] = function(block) {
   Blockly.Python.definitions_['import_bluetoot_repl'] = 'import ble_uart_repl';
   var code = '\n';
