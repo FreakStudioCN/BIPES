@@ -709,6 +709,8 @@ Code.init = function() {
           reader.readAsText(gy33I2CBlob);
         } else if (lib == "ble_simple_peripheral") {
           reader.readAsText(ble_simple_peripheralBlob);
+        } else if (lib == "ahtx0") {
+          reader.readAsText(ahtx0Blob);
         } else {
           console.log("Blob file not available for: " + lib + " library.");
         }

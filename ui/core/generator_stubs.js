@@ -739,6 +739,36 @@ Blockly.Python['dht_read_humidity'] = function(block) {
   return [code, Blockly.Python.ORDER_NONE];
 };
 
+/// AHT10/20
+/// Start AHT Sensor
+Blockly.Python['aht_init'] = function(block) {
+	var type = block.getFieldValue('AHT_TYPE');
+	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+	var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+
+	Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+	Blockly.Python.definitions_['import_ahtx0'] = 'import ahtx0';
+  
+	var code = 'i2cAHTX0=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+  	code += 'ahtx0=ahtx0.' + type + '(i2cAHTX0)\n';
+	return code;
+  };
+  
+  
+  /// Read AHT10/20 Temperature
+  Blockly.Python['aht_read_temp'] = function(block) {
+	var code = 'ahtx0.temperature';
+	return [code, Blockly.Python.ORDER_NONE];
+  };
+  
+  /// Read AHT10/20 Humidity
+  Blockly.Python['aht_read_humidity'] = function(block) {
+	var code = 'ahtx0.relative_humidity';
+	return [code, Blockly.Python.ORDER_NONE];
+  };
+  
+
 /// TM1637 Display
 Blockly.Python['tm1637_init'] = function(block) {
 	var clk = Blockly.Python.valueToCode(block, 'clk', Blockly.Python.ORDER_ATOMIC);

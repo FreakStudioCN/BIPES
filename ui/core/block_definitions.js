@@ -2582,6 +2582,74 @@ Blockly.Blocks['dht_read_humidity'] = {
   }
 };
 
+/// Start AHT Sensor
+Blockly.Blocks['aht_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/aht20.JPG",
+                     55,
+                     55,
+                     "*"))
+        .appendField(MSG["aht_init"]);
+    this.appendDummyInput()
+        .appendField("Init AHTx0 Sensor");
+    this.appendDummyInput()
+        .appendField(MSG['type'])
+        .appendField(new Blockly.FieldDropdown([
+                     ['AHT10', 'AHT10'],
+                     ['AHT20', 'AHT20']
+        ]), 'AHT_TYPE');
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init AHT10 or AHT20 sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+
+/// Read AHT10/20 Temperature
+Blockly.Blocks['aht_read_temp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Temperature (Degrees C)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read AHT10/20 Temperature");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/// Read AHT10/20 Humidity
+Blockly.Blocks['aht_read_humidity'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Humidity");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read AHT10/20 Humidity");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+
 /// MQTT
 /// Start MQTT Client
 Blockly.Blocks['mqtt_init'] = {
