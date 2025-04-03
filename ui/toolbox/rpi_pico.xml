@@ -1625,10 +1625,6 @@
       </block>
     </category>
 
-    <category name="BH1750 Sensor">
-      <label text="Library: https://github.com/flrrth/pico-bh1750"></label>
-      <button text="Install bh1750 library" callbackKey="installPyLib"></button>
-
   <category name="%{BKY_CAT_ULTRASOUND}">
       <label text="HCSR04 ultrasound distance sensor"></label>
       <label text="Library: https://github.com/rsc1975/micropython-hcsr04"></label>
