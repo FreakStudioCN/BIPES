@@ -2582,6 +2582,56 @@ Blockly.Blocks['dht_read_humidity'] = {
   }
 };
 
+/// Initialize BH1750 Sensor
+Blockly.Blocks['bh1750_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/bh1750.jpg",
+                     55,
+                     55,
+                     "*"))
+        .appendField(MSG["bh1750_init"]);
+    this.appendDummyInput()
+        .appendField("Init BH1750 Sensor");
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init BH1750 sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+
+/// Read BH1750 
+Blockly.Blocks['bh1750_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Ambient Light Level");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read BH1750 Ambient Light Level");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+
 /// Start AHT Sensor
 Blockly.Blocks['aht_init'] = {
   init: function() {
@@ -2648,7 +2698,6 @@ Blockly.Blocks['aht_read_humidity'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
-
 
 /// MQTT
 /// Start MQTT Client

@@ -768,6 +768,28 @@ Blockly.Python['aht_init'] = function(block) {
 	return [code, Blockly.Python.ORDER_NONE];
   };
   
+/// BH1750
+/// Start BH1750 Sensor
+Blockly.Python['bh1750_init'] = function(block) {
+	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+	var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+
+	Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+	Blockly.Python.definitions_['import_bh1750'] = 'from bh1750 import BH1750';
+  
+	var code = 'i2cBH1750=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+  	code += 'bh1750 = BH1750(35, i2cBH1750)\n';
+	return code;
+  };
+  
+  
+  /// Read BH1750
+  Blockly.Python['bh1750_read'] = function(block) {
+	var code = 'bh1750.measurement';
+	return [code, Blockly.Python.ORDER_NONE];
+  };
+
 
 /// TM1637 Display
 Blockly.Python['tm1637_init'] = function(block) {

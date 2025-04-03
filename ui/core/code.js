@@ -711,6 +711,8 @@ Code.init = function() {
           reader.readAsText(ble_simple_peripheralBlob);
         } else if (lib == "ahtx0") {
           reader.readAsText(ahtx0Blob);
+        } else if (lib == "bh1750") {
+          reader.readAsText(bh1750Blob);
         } else {
           console.log("Blob file not available for: " + lib + " library.");
         }
