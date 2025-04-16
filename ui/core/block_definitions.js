@@ -1121,6 +1121,75 @@ Blockly.Blocks['mpu6050_read_temperature'] = {
 
 //End of MPU6050
 
+Blockly.Blocks['init_pca9685'] = {
+  init: function() {
+    this.setColour(135);
+    this.appendDummyInput()
+        .appendField("Init PCA9685 Servo Driver");
+
+ this.appendDummyInput()
+      .appendField(new Blockly.FieldImage(
+        "media/pca9685.jpg",
+        55,
+        55,
+        "*"));
+        //.setAlign(Blockly.ALIGN_CENTRE);
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("min_pulse_width")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Min Pulse Width");
+
+    this.appendValueInput("max_pulse_width")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Max Pulse Width");
+
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['move_pca9685'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Position Servo");
+
+    this.appendValueInput("servo_id")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Servo ID (0 - 15)");
+    this.appendValueInput("angle")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Angle (0 - 180");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+
+    this.setTooltip("Position one of the servos");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+
 Blockly.Blocks['init_oled'] = {
   init: function() {
     this.setColour(135);

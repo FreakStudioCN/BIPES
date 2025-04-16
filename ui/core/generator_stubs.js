@@ -592,6 +592,39 @@ Blockly.Python['move_servo'] = function(block) {
 	return code;
 };
 
+Blockly.Python['init_pca9685'] = function(block) {
+	Blockly.Python.definitions_['import_pca9685'] = 'from pca9685 import PCA9685';
+	Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+
+	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+	var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+	var min_pulse_width = Blockly.Python.valueToCode(block, 'min_pulse_width', Blockly.Python.ORDER_ATOMIC);
+	var max_pulse_width = Blockly.Python.valueToCode(block, 'max_pulse_width', Blockly.Python.ORDER_ATOMIC);
+
+	var code = 'MIN_DUTY = int(4096 * ' + min_pulse_width + ' / 20000)\n'
+	code += 'MAX_DUTY = int(4096 * ' + max_pulse_width + ' / 20000)\n'
+	code += 'SERVO_SPAN = MAX_DUTY - MIN_DUTY\n\n'
+
+	code += 'def angleToDutyCycle(angle):\n'
+	code += '\tdutyCycle = int(MIN_DUTY + (angle * SERVO_SPAN / 180))\n'
+	code += '\tdutyCycle = min(MAX_DUTY, max(MIN_DUTY, dutyCycle))\n'
+	code += '\treturn dutyCycle\n\n'
+
+	code += 'pca9685_i2c = I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+	code += 'pca9685 =PCA9685(pca9685_i2c)\n';
+	code += 'pca9685.freq(50)\n';
+	return code;
+};
+
+Blockly.Python['move_pca9685'] = function(block) {
+	var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+	var angle = Blockly.Python.valueToCode(block, 'angle', Blockly.Python.ORDER_ATOMIC);
+
+	var code = 'pca9685.duty(' + servo_id + ', angleToDutyCycle(' + angle + '))\n';
+	return code;
+};
+
 Blockly.Python['net_get_request'] = function(block) {
 	var value_url = Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_ATOMIC);
 
