@@ -608,7 +608,7 @@
   </category>
 
 
-  <category name="Displays">
+  <category name="%{BKY_CAT_DISPLAYS}" colour="olive">
 
     <category name="OLED Display">
       <label text="SSD1306 OLED I2C Display"></label>

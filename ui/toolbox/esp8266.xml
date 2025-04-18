@@ -512,7 +512,7 @@
 </category>
 
 
-<category name="%{BKY_CAT_DISPLAYS}">
+<category name="%{BKY_CAT_DISPLAYS}" colour="olive">
 
 <category name="NeoPixel LED Strip">
       <label text="NeoPixel RGB LED Strip"></label>

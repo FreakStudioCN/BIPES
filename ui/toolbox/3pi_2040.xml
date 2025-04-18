@@ -588,7 +588,7 @@
   </category>
 
 
-  <category name="Displays">
+  <category name="%{BKY_CAT_DISPLAYS}" colour="olive">
 
     <category name="RGB LEDs">
       <label text="RGB LEDs"></label>

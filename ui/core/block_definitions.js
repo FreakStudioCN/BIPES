@@ -1192,7 +1192,7 @@ Blockly.Blocks['move_pca9685'] = {
 
 Blockly.Blocks['init_oled'] = {
   init: function() {
-    this.setColour(135);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("Init I2C SSD1306 OLED Display");
 
@@ -1231,7 +1231,7 @@ Blockly.Blocks['fill_oled'] = {
             .appendField("Fill OLED Display");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Fill OLED Disiplay");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1243,7 +1243,7 @@ Blockly.Blocks['clear_oled'] = {
         .appendField("Clear OLED Display");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Clear OLED Disiplay");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1255,7 +1255,7 @@ Blockly.Blocks['show_oled'] = {
         .appendField("Update OLED Display ");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Update OLED Disiplay");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1281,7 +1281,7 @@ Blockly.Blocks['write_oled'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Write text to OLED Display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1312,7 +1312,7 @@ Blockly.Blocks['line_oled'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw a line on OLED Display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1343,7 +1343,7 @@ Blockly.Blocks['rect_oled'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw a rectangle on OLED Display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1373,7 +1373,7 @@ Blockly.Blocks['fill_rect_oled'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw a solid rectangle on OLED Display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1396,7 +1396,7 @@ Blockly.Blocks['scroll_oled'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Scroll the OLED Display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1638,7 +1638,7 @@ Blockly.Blocks['tm1637_init'] = {
         55,
         55,
         "*"))
-      .appendField("Initialize TM1637 4 Digit Display")
+      .appendField("Init TM1637 4 Digit Display")
 	  ;
 
     this.appendValueInput("clk")
@@ -1653,8 +1653,8 @@ Blockly.Blocks['tm1637_init'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
- this.setTooltip("Initialize TM1637 4 Digit Display");
+    this.setColour("olive");
+ this.setTooltip("Init TM1637 4 Digit Display");
  this.setHelpUrl("http://www.bipes.net.br");
   }
 };
@@ -1677,7 +1677,7 @@ Blockly.Blocks['tm1637_write_char'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Write a character to the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1696,7 +1696,7 @@ Blockly.Blocks['tm1637_write_text'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Write text to the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1720,7 +1720,7 @@ Blockly.Blocks['tm1637_set_time'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Write time to the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1742,7 +1742,7 @@ Blockly.Blocks['tm1637_set_temperature'] = {
       ]), 'DEGREE_TYPE');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Write temperature to the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1766,7 +1766,7 @@ Blockly.Blocks['tm1637_scroll_text'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Scroll text to the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1780,7 +1780,7 @@ Blockly.Blocks['tm1637_clear'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Clear the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1799,7 +1799,7 @@ Blockly.Blocks['tm1637_set_brightness'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Set the brightness of the display");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1813,7 +1813,7 @@ Blockly.Blocks['max7219_init'] = {
         55,
         55,
         "*"))
-      .appendField("Start MAX7219 LED Matrix")
+      .appendField("Init MAX7219 LED Matrix")
 	  ;
 
     this.appendValueInput("spi")
@@ -1838,8 +1838,8 @@ Blockly.Blocks['max7219_init'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
- this.setTooltip("Start MAX7219 LED Matrix");
+    this.setColour("olive");
+ this.setTooltip("Init MAX7219 LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
   }
 };
@@ -1867,7 +1867,7 @@ Blockly.Blocks['max7219_write'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Write to MAX7219 LED Matrix");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -1897,7 +1897,7 @@ Blockly.Blocks['max7219_line'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw a line on LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1928,7 +1928,7 @@ Blockly.Blocks['max7219_rect'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw a rectangle on LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1958,7 +1958,7 @@ Blockly.Blocks['max7219_fill_rect'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw a solid rectangle on LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1981,7 +1981,7 @@ Blockly.Blocks['max7219_scroll'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Scroll the LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -1994,7 +1994,7 @@ Blockly.Blocks['max7219_fill'] = {
             .appendField("Fill LED Matrix");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Fill LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -2006,7 +2006,7 @@ Blockly.Blocks['max7219_clear'] = {
         .appendField("Clear LED Matrix");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Clear LED Matrix");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -2024,7 +2024,7 @@ Blockly.Blocks['max7219_brig'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Set brightness of MAX7129 LED Matrix");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -2108,7 +2108,7 @@ Blockly.Blocks['max7219_custom'] = {
           .appendField(new Blockly.FieldCheckbox("TRUE"), "H7");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour("olive");
       this.setTooltip("Write to LED Matrix");
       this.setHelpUrl("http://www.bipes.net.br");
     }
@@ -10378,7 +10378,7 @@ Blockly.Blocks['rfid_rc522_write_card'] = {
 
 Blockly.Blocks['char_lcd_init'] = {
   init: function() {
-    this.setColour(135);
+    this.setColour("olive");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_LEFT)
         .appendField("Init I2C Character LCD Display");
@@ -10434,7 +10434,7 @@ Blockly.Blocks['char_lcd_init'] = {
 
 Blockly.Blocks['char_lcd_clear'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("Clear LCD");
 
@@ -10447,7 +10447,7 @@ Blockly.Blocks['char_lcd_clear'] = {
 
 Blockly.Blocks['char_lcd_putstr'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("Write text on LCD");
 
@@ -10463,7 +10463,7 @@ Blockly.Blocks['char_lcd_putstr'] = {
 
 Blockly.Blocks['char_lcd_moveto'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("Move LCD Cursor to");
 
@@ -10485,7 +10485,7 @@ Blockly.Blocks['char_lcd_moveto'] = {
 
 Blockly.Blocks['char_lcd_backlight'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("LCD Backlight");
 
@@ -10501,7 +10501,7 @@ Blockly.Blocks['char_lcd_backlight'] = {
 
 Blockly.Blocks['char_lcd_display'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("LCD Power");
 
@@ -10574,7 +10574,7 @@ Blockly.Blocks['char_lcd_custom'] = {
           .appendField(new Blockly.FieldCheckbox("TRUE"), "H4")
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour("olive");
       this.setTooltip("Write to LCD");
       this.setHelpUrl("http://www.bipes.net.br");
     }
@@ -12069,7 +12069,7 @@ Blockly.Blocks['stop'] = {
 //neopixel
 Blockly.Blocks['neopixel_init'] = {
   init: function() {
-    this.setColour(135);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("Init NeoPixel");
 
@@ -12111,7 +12111,7 @@ Blockly.Blocks['neopixel_control_CPY'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
 
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Set NeoPixel");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -12133,7 +12133,7 @@ Blockly.Blocks['neopixel_control'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
 
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("Set NeoPixel");
  this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -12148,7 +12148,7 @@ Blockly.Blocks['neopixel_write'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
 
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("Write NeoPixel");
     this.setHelpUrl("http://www.bipes.net.br");
   }
@@ -12175,7 +12175,7 @@ Blockly.Blocks['neopixel_color_numbers'] = {
         .setCheck(null);
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("NeoPixel LED RGB URL");
     this.setHelpUrl("https://bipes.net.br/wp/?page_id=177");
   },
@@ -12197,7 +12197,7 @@ Blockly.Blocks['neopixel_color_colors'] = {
         .appendField(new Blockly.FieldColour("#ff0000"), "color");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("NeoPixel LED Color");
  this.setHelpUrl("https://bipes.net.br/wp/?page_id=177");
   }
@@ -12220,7 +12220,7 @@ Blockly.Blocks['HSL_to_RGB'] = {
 
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("HUE to RGB color, Hue from 0º to 360º, Saturation and Lightness from 0% to 100%.");
     this.setHelpUrl("https://bipes.net.br/wp/?page_id=177");
   },
@@ -12457,7 +12457,7 @@ Blockly.Blocks['bluetooth_repl_setup'] = {
 //Russ Hughes ST7789 display
 Blockly.Blocks['rh_st7789_init'] = {
   init: function() {
-    this.setColour(135);
+    this.setColour("olive");
     this.appendDummyInput()
       .appendField("Init SPI ST7789 TFT Display");
 
@@ -12547,7 +12547,7 @@ Blockly.Blocks['rh_st7789_fg_color_numbers'] = {
         .setCheck(null);
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("TFT RGB ");
   }
 };
@@ -12568,14 +12568,14 @@ Blockly.Blocks['rh_st7789_bg_color_numbers'] = {
         .setCheck(null);
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("TFT RGB ");
   }
 };
 
 Blockly.Blocks['rh_st7789_text'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Write text on the display\n");
@@ -12626,7 +12626,7 @@ Blockly.Blocks['rh_st7789_text'] = {
 
 Blockly.Blocks['rh_st7789_rect'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Draw a rectangle on the display\n");
@@ -12664,7 +12664,7 @@ Blockly.Blocks['rh_st7789_rect'] = {
 
 Blockly.Blocks['rh_st7789_fill_rect'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Draw a filled rectangle on the display\n");
@@ -12702,7 +12702,7 @@ Blockly.Blocks['rh_st7789_fill_rect'] = {
 
 Blockly.Blocks['rh_st7789_circle'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Draw a circle on the display\n");
@@ -12735,7 +12735,7 @@ Blockly.Blocks['rh_st7789_circle'] = {
 
 Blockly.Blocks['rh_st7789_fill_circle'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Draw a filled circle on the display\n");
@@ -12768,7 +12768,7 @@ Blockly.Blocks['rh_st7789_fill_circle'] = {
 
 Blockly.Blocks['rh_st7789_line'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Draw on the display\n");
@@ -12806,7 +12806,7 @@ Blockly.Blocks['rh_st7789_line'] = {
 
 Blockly.Blocks['rh_st7789_fill'] = {
   init: function() {
-    this.setColour(230);
+    this.setColour("olive");
     this.setInputsInline(false);
     this.appendDummyInput()
       .appendField("Fill the display\n");
@@ -12826,7 +12826,7 @@ Blockly.Blocks['rh_st7789_fill'] = {
 //ST7789 display
 Blockly.Blocks['st7789_init'] = {
   init: function() {
-    this.setColour(135);
+    this.setColour("olive");
     this.appendDummyInput()
         .appendField("Init ST7789 Display");
 
@@ -12892,7 +12892,7 @@ Blockly.Blocks['st7789_bl_power'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Set ST7789 backlight intensity");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -12915,7 +12915,7 @@ Blockly.Blocks['st7789_color_numbers'] = {
         .setCheck(null);
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("ST7789 Color");
     this.setHelpUrl("https://bipes.net.br/wp/?page_id=177");
   },
@@ -12937,7 +12937,7 @@ Blockly.Blocks['st7789_color_colors'] = {
         .appendField(new Blockly.FieldColour("#ff0000"), "color");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour("olive");
  this.setTooltip("ST7789 Color");
  this.setHelpUrl("https://bipes.net.br/wp/?page_id=177");
   }
@@ -12964,7 +12964,7 @@ Blockly.Blocks['st7789_fill'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Plot pixel to ST7789 display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -12993,7 +12993,7 @@ Blockly.Blocks['st7789_pixel'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Plot pixel to ST7789 display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -13030,7 +13030,7 @@ Blockly.Blocks['st7789_line'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
 
  this.setTooltip("Draw line on ST7789 display");
  this.setHelpUrl("http://www.bipes.net.br");
@@ -13291,7 +13291,7 @@ Blockly.Blocks['threepi_rgb_leds_set_brightness'] = {
         .appendField("brightness");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("set RGB LEDs brightness");
     this.setHelpUrl("");
   }
@@ -13303,7 +13303,7 @@ Blockly.Blocks['threepi_rgb_leds_show'] = {
         .appendField("RGB LEDs show");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("show RGB LEDs");
     this.setHelpUrl("");
   }
@@ -13315,7 +13315,7 @@ Blockly.Blocks['threepi_rgb_leds_off'] = {
         .appendField("RGB LEDs off");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("turn off RGB LEDs");
     this.setHelpUrl("");
   }
@@ -13335,7 +13335,7 @@ Blockly.Blocks['threepi_rgb_leds_set'] = {
         .appendField("Color");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour("olive");
     this.setTooltip("control RGB LEDs");
     this.setHelpUrl("");
   }

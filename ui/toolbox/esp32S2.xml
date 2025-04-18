@@ -511,7 +511,7 @@
 </category>
 
 
-<category name="%{BKY_CAT_DISPLAYS}">
+<category name="%{BKY_CAT_DISPLAYS}" colour="olive">
 
 <category name="NeoPixel LED">
       <label text="Single RGB LED with CircuitPython"></label>

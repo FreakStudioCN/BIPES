@@ -474,7 +474,7 @@
   </category>
 
 
-  <category name="Displays">
+  <category name="%{BKY_CAT_DISPLAYS}" colour="olive">
 
   <category name="Character display">
       <label text="PCF8574 Display controller"></label>
