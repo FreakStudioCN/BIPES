@@ -1310,26 +1310,40 @@
   </category>
 
   <category name="GPS">
-      <label text="Global Positioning System sensor"></label>
-   <label text="Library: https://github.com/"></label>
-        <button text="Install GPS library" callbackKey="installPyLib"></button>
+      <label text="Global Positioning System (GPS) sensor"></label>
+      <label text="Library: https://github.com/rafaelaroca/mini_micropyGPS"></label>
+      <button text="Install mini_micropyGPS library" callbackKey="installPyLib"></button>
 
-	<block type="gps_init">
+      <block type="gps_init">
+      <value name="uart">
+        <shadow type="math_number">
+          <field name="NUM">2</field>
+        </shadow>
+      </value>
+      <value name="tx">
+        <shadow type="math_number">
+          <field name="NUM">17</field>
+        </shadow>
+      </value>
+      <value name="rx">
+        <shadow type="math_number">
+          <field name="NUM">16</field>
+        </shadow>
+      </value>
+      <value name="bps">
+        <shadow type="math_number">
+          <field name="NUM">38400</field>
+        </shadow>
+      </value>
       </block>
-	<block type="gps_update">
-      </block>
-	<block type="gps_get_lat">
-      </block>
-	<block type="gps_get_long">
-      </block>
-	<block type="gps_get_height">
-      </block>
-	<block type="gps_get_speed">
-      </block>
-	<block type="gps_get_datetime">
-      </block>
-
-
+    <block type="gps_update"> </block>
+    <block type="gps_coord_format"> </block>
+    <block type="gps_get_lat"> </block>
+    <block type="gps_get_long"> </block>
+    <block type="gps_get_height"> </block>
+    <block type="gps_get_speed"> </block>
+    <block type="gps_get_date"> </block>
+    <block type="gps_get_time"> </block>
   </category>
 
   <category name="Oximeter">
@@ -1527,6 +1541,52 @@
     </block>
   </category>
 
+  <category name="PCA9685 Servo Driver">
+      <label text="PCA9685 Servo Driver Board"></label>
+      <button text="Install pca9685 library" callbackKey="installPyLib"></button>
+
+      <block type="init_pca9685">
+        <value name="i2c">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="sda">
+          <shadow type="pinout">
+            <field name="PIN">26</field>
+          </shadow>
+        </value>
+        <value name="scl">
+          <shadow type="pinout">
+            <field name="PIN">25</field>
+          </shadow>
+        </value>
+        <value name="min_pulse_width">
+          <shadow type="math_number">
+            <field name="NUM">500</field>
+          </shadow>
+        </value>
+        <value name="max_pulse_width">
+          <shadow type="math_number">
+            <field name="NUM">2500</field>
+          </shadow>
+        </value>
+      </block>
+
+      <block type="move_pca9685">
+        <value name="servo_id">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="angle">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>      
+
+  </category>
 
   <category name="Stepper Motor">
       <label text="Stepper Motor"></label>
