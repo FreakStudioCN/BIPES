@@ -889,12 +889,12 @@
         </value>
         <value name="scl">
           <shadow type="math_number">
-            <field name="NUM">5</field>
+            <field name="NUM">22</field>
           </shadow>
         </value>
         <value name="sda">
           <shadow type="math_number">
-            <field name="NUM">4</field>
+            <field name="NUM">21</field>
           </shadow>
         </value>
     </block>
@@ -924,40 +924,7 @@
     <block type="show_oled"></block>
     <block type="clear_oled"></block>
     <block type="fill_oled"></block>
-
-      <block type="init_tank">
-        <value name="tankXpos">
-          <shadow type="math_number">
-            <field name="NUM">64</field>
-          </shadow>
-        </value>
-        <value name="tankYpos">
-          <shadow type="math_number">
-            <field name="NUM">32</field>
-          </shadow>
-        </value>
-        <value name="tankAngle">
-          <shadow type="math_number">
-            <field name="NUM">90</field>
-          </shadow>
-        </value>
-    </block>
-	    
-      <block type="tank_move"></block>
-
-
-
-      <block type="tank_turn">
-        <value name="turn">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-    </block>
-
-
-
-    </category>
+  </category>
 
   <category name="LED Matrix">
       <label text="TM1640 LED Matrix"></label>
@@ -1911,117 +1878,111 @@ _
 
   </category>
 
-<category name="%{BKY_CAT_COMM}">
-  <label text="%{BKY_CAT_COMM}"></label>
+  <category name="%{BKY_CAT_COMM}">
+    <label text="%{BKY_CAT_COMM}"></label>
 
-  <category name="UART">
-    <label text="UART Serial Port"></label>
-    <block type="uart_init">
-      <value name="port">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="baud">
-        <shadow type="math_number">
-          <field name="NUM">9600</field>
-        </shadow>
-      </value>
-      <value name="tx">
-        <shadow type="pinout">
-          <field name="PIN"></field>
-        </shadow>
-      </value>
-      <value name="rx">
-        <shadow type="pinout">
-          <field name="PIN"></field>
-        </shadow>
-      </value>
-    </block>
+    <category name="UART">
+      <label text="UART Serial Port"></label>
+      <block type="uart_init">
+        <value name="port">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="baud">
+          <shadow type="math_number">
+            <field name="NUM">9600</field>
+          </shadow>
+        </value>
+        <value name="tx">
+          <shadow type="pinout">
+            <field name="PIN"></field>
+          </shadow>
+        </value>
+        <value name="rx">
+          <shadow type="pinout">
+            <field name="PIN"></field>
+          </shadow>
+        </value>
+      </block>
 
-    <block type="uart_write">
-      <value name="buf">
-        <shadow type="text">
-          <field name="TEXT">Hello</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="uart_read">
-    </block>
-    <block type="uart_readline">
-    </block>
-    <block type="uart_read_all">
-    </block>
-    <block type="uart_any">
-    </block>
-  </category>
+      <block type="uart_write">
+        <value name="buf">
+          <shadow type="text">
+            <field name="TEXT">Hello</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="uart_read">
+      </block>
+      <block type="uart_readline">
+      </block>
+      <block type="uart_read_all">
+      </block>
+      <block type="uart_any">
+      </block>
+    </category>
 
-<!-- These blocks need development 
-      <category name="SPI">
+<!--
+    <category name="SPI">
       <label text="SPI"></label>
-<block type="machine.SPI_SPI.init">
-</block>
-<block type="machine.SPI_SPI.deinit">
-</block>
-<block type="machine.SPI_SPI.read">
-</block>
-<block type="machine.SPI_SPI.readinto">
-</block>
-<block type="machine.SPI_SPI.write">
-</block>
-<block type="machine.SPI_SPI.write_readinto">
-</block>
-      </category>
+      <block type="machine.SPI_SPI.init">
+      </block>
+      <block type="machine.SPI_SPI.deinit">
+      </block>
+      <block type="machine.SPI_SPI.read">
+      </block>
+      <block type="machine.SPI_SPI.readinto">
+      </block>
+      <block type="machine.SPI_SPI.write">
+      </block>
+      <block type="machine.SPI_SPI.write_readinto">
+      </block>
+    </category>
 -->
 
-      <category name="GSM Modem">
+    <category name="GSM Modem">
 
-      <block type="gsm_modem_init">
-</block>
-      <block type="gsm_modem_send_sms">
-</block>
-      <block type="gsm_modem_send_at">
-</block>
-      <block type="gsm_modem_http_get">
-</block>
-      <block type="gsm_modem_response">
-</block>
+      <block type="gsm_modem_init"></block>
+      <block type="gsm_modem_send_sms"></block>
+      <block type="gsm_modem_send_at"></block>
+      <block type="gsm_modem_http_get"></block>
+      <block type="gsm_modem_response"></block>
+    </category>
 
-
-<!-- These blocks need development 
-      </category>
-      <category name="I2C">
+<!--
+    <category name="I2C">
       <label text="I2c"></label>
-<block type="machine.I2C_I2C.init">
-</block>
-<block type="machine.I2C_I2C.deinit">
-</block>
-<block type="machine.I2C_I2C.scan">
-</block>
-<block type="machine.I2C_I2C.start">
-</block>
-<block type="machine.I2C_I2C.stop">
-</block>
-<block type="machine.I2C_I2C.readinto">
-</block>
-<block type="machine.I2C_I2C.write">
-</block>
-<block type="machine.I2C_I2C.readfrom">
-</block>
-<block type="machine.I2C_I2C.readfrom_into">
-</block>
-<block type="machine.I2C_I2C.writeto">
-</block>
-<block type="machine.I2C_I2C.writevto">
-</block>
-<block type="machine.I2C_I2C.readfrom_mem">
-</block>
-<block type="machine.I2C_I2C.readfrom_mem_into">
-</block>
-<block type="machine.I2C_I2C.writeto_mem">
-</block>
+      <block type="machine.I2C_I2C.init">
+      </block>
+      <block type="machine.I2C_I2C.deinit">
+      </block>
+      <block type="machine.I2C_I2C.scan">
+      </block>
+      <block type="machine.I2C_I2C.start">
+      </block>
+      <block type="machine.I2C_I2C.stop">
+      </block>
+      <block type="machine.I2C_I2C.readinto">
+      </block>
+      <block type="machine.I2C_I2C.write">
+      </block>
+      <block type="machine.I2C_I2C.readfrom">
+      </block>
+      <block type="machine.I2C_I2C.readfrom_into">
+      </block>
+      <block type="machine.I2C_I2C.writeto">
+      </block>
+      <block type="machine.I2C_I2C.writevto">
+      </block>
+      <block type="machine.I2C_I2C.readfrom_mem">
+      </block>
+      <block type="machine.I2C_I2C.readfrom_mem_into">
+      </block>
+      <block type="machine.I2C_I2C.writeto_mem">
+      </block>
+    </category>
 -->
-      </category>
   </category>
  
  
@@ -2037,6 +1998,11 @@ _
   </block>
 
   <block type="file_open_write"> 
+    <value name="fileHandle">
+      <shadow type="text">
+        <field name="TEXT">f</field>
+      </shadow>
+    </value>
     <value name="filename">
         <shadow type="text">
           <field name="TEXT">file.txt</field>
@@ -2045,54 +2011,59 @@ _
   </block>
 
   <block type="file_open_read"> 
+    <value name="fileHandle">
+      <shadow type="text">
+        <field name="TEXT">f</field>
+      </shadow>
+    </value>
     <value name="filename">
         <shadow type="text">
           <field name="TEXT">file.txt</field>
         </shadow>
     </value>
   </block>
-<block type="file_write"> 
-  <value name="data">
+  <block type="file_write"> 
+    <value name="fileHandle">
+      <shadow type="text">
+        <field name="TEXT">f</field>
+      </shadow>
+    </value>
+    <value name="data">
         <shadow type="text">
           <field name="TEXT">contents</field>
         </shadow>
       </value>
-</block>
-<block type="file_write_line"> 
-  <value name="data">
-        <shadow type="text">
-          <field name="TEXT">Line contents</field>
-        </shadow>
-      </value>
-</block>
-<block type="file_write_byte"> 
-        <value name="data">
-          <shadow type="math_number">
-            <field name="NUM">80</field>
+  </block>
+  <block type="file_write_line"> 
+    <value name="data">
+          <shadow type="text">
+            <field name="TEXT">Line contents</field>
           </shadow>
         </value>
-</block>
+  </block>
+  <block type="file_write_byte"> 
+          <value name="data">
+            <shadow type="math_number">
+              <field name="NUM">80</field>
+            </shadow>
+          </value>
+  </block>
 
 
-<block type="file_read"> 
-
-  <value name="filename">
-        <shadow type="text">
-          <field name="TEXT">file.txt</field>
-        </shadow>
-      </value>
-
-</block>
-<block type="file_close"> 
-
-  <value name="filename">
-        <shadow type="text">
-          <field name="TEXT">file.txt</field>
-        </shadow>
-      </value>
-
-
-</block>
+  <block type="file_read"> 
+    <value name="fileHandle">
+      <shadow type="text">
+        <field name="TEXT">f</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="file_close"> 
+    <value name="fileHandle">
+      <shadow type="text">
+        <field name="TEXT">f</field>
+      </shadow>
+    </value>
+  </block>
 
       <label text="Disk file operations"></label>
 <block type="files_list">
@@ -2566,7 +2537,7 @@ _
         </value>
       </block>
       <block type="mqtt_publish_payload">
-<category name="%{BKY_CAT_ULTRASOUND}">        <value name="topic">
+        <value name="topic">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
