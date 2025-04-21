@@ -1191,12 +1191,12 @@
       </value>
       <value name="sda">
         <shadow type="pinout">
-          <field name="SDA"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="scl">
         <shadow type="pinout">
-          <field name="SCL"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="freq">
@@ -1252,12 +1252,12 @@
       </value>
       <value name="tx">
         <shadow type="pinout">
-          <field name="TX"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="rx">
         <shadow type="pinout">
-          <field name="RX"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="bps">

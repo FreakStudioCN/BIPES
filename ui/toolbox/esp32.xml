@@ -1099,34 +1099,34 @@
       <block type="dht_measure"></block>
       <block type="dht_read_temp"></block>
       <block type="dht_read_humidity"></block>
+    </category>
 
+    <category name="Temperature and Humidity (SHT20)">
       <label text="SHT20 I2C Temperature and Humidity Sensor"></label>
 
       <block type="sht20_init">
 	      <value name="scl">
-		<shadow type="math_number">
-		  <field name="NUM">22</field>
-		</shadow>
+		      <shadow type="math_number">
+            <field name="NUM">22</field>
+          </shadow>
 	      </value>
 	      <value name="sda">
-		<shadow type="math_number">
-		  <field name="NUM">21</field>
-		</shadow>
+          <shadow type="math_number">
+            <field name="NUM">21</field>
+          </shadow>
 	      </value>
       </block>
 
     <block type="sht20_temperature"> </block>
     <block type="sht20_humidity"> </block>
+  </category>
 
-    </category>
 
+  <category name="Anemometer">
+    <label text="Anemometer"></label>
 
-<!--Adicionando os blocos do Anenmômetro-->
-    <category name="Anemômetro">
-    <label text="Anenômetro"></label>
-<!--Iniciar Anemômetro-->
     <block type="anemo_init">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
@@ -1137,21 +1137,21 @@
           </shadow>
         </value>
       </block>
-<!--Parar Anemômetro-->
+
       <block type="anemo_stop">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
         </value>
       </block>
   </category>
-<!--Adicionando os blocos do Pluviômetro--> 
-  <category name="Pluviômetro">
-    <label text= "Pluviômetro"></label>
-<!--Iniciar Pluviômetro-->
+
+  <category name="Rain Gauge">
+    <label text= "Rain Gauge"></label>
+
     <block type="pluvio_init">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
@@ -1162,9 +1162,9 @@
           </shadow>
         </value>
       </block>
-<!--Parar Pluviômetro-->
+
       <block type="pluvio_stop">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
@@ -1173,31 +1173,29 @@
   </category>
 
   <category name="%{BKY_CAT_ULTRASOUND}">
-      <label text="HCSR04 ultrasound distance sensor"></label>
-      <label text="Library: https://github.com/rsc1975/micropython-hcsr04"></label>
-        <button text="Install HCSR04 library" callbackKey="installPyLib"></button>
+    <label text="HCSR04 ultrasound distance sensor"></label>
+    <label text="Library: https://github.com/rsc1975/micropython-hcsr04"></label>
+    <button text="Install HCSR04 library" callbackKey="installPyLib"></button>
 
-
-      <block type="hcsr_init">
-        <value name="echo">
-          <shadow type="pinout">
-            <field name="PIN"></field>
-          </shadow>
-        </value>
- <value name="trigger">
-          <shadow type="pinout">
-            <field name="PIN"></field>
-          </shadow>
-        </value>
-  <value name="timeout">
-          <shadow type="math_number">
-            <field name="NUM">10000</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="hcsr_read">
-      </block>
-
+    <block type="hcsr_init">
+      <value name="echo">
+        <shadow type="pinout">
+          <field name="PIN"></field>
+        </shadow>
+      </value>
+      <value name="trigger">
+        <shadow type="pinout">
+          <field name="PIN"></field>
+        </shadow>
+      </value>
+      <value name="timeout">
+        <shadow type="math_number">
+          <field name="NUM">10000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hcsr_read">
+    </block>
   </category>
 
   <category name="GY33 I2C">
@@ -1370,10 +1368,25 @@
 
   <category name="Oximeter">
       <label text="MAX30100 pulse oximeter sensor"></label>
-   <label text="Library: https://github.com/"></label>
-        <button text="Install MAX30100 library" callbackKey="installPyLib"></button>
+      <label text="Library: https://github.com/"></label>
+      <button text="Install MAX30100 library" callbackKey="installPyLib"></button>
 
-	<block type="max30100_init">
+    <block type="max30100_init">
+        <value name="i2c">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="scl">
+          <shadow type="pinout">
+            <field name="PIN">18</field>
+          </shadow>
+        </value>
+        <value name="sda">
+          <shadow type="pinout">
+            <field name="PIN">19</field>
+          </shadow>
+        </value>
       </block>
 	<block type="max30100_read">
       </block>
@@ -1465,14 +1478,19 @@
 	<button text="Documentation and how to connect: mpu6050" callbackKey="loadDoc"></button>
 
 	<block type="init_mpu6050">
-		<value name="scl">
-		<shadow type="math_number">
-		<field name="NUM">5</field>
-		</shadow>
-		</value>
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
 		<value name="sda">
 		<shadow type="math_number">
-		<field name="NUM">4</field>
+		<field name="NUM">18</field>
+		</shadow>
+		</value>
+		<value name="scl">
+		<shadow type="math_number">
+		<field name="NUM">19</field>
 		</shadow>
 		</value>
 	</block>
@@ -1893,25 +1911,52 @@ _
 
   </category>
 
-  <category name="%{BKY_CAT_COMM}">
-      <label text="%{BKY_CAT_COMM}"></label>
-      <category name="UART">
-      <label text="UART Serial Port"></label>
-<block type="uart_init">
-</block>
+<category name="%{BKY_CAT_COMM}">
+  <label text="%{BKY_CAT_COMM}"></label>
 
-<block type="uart_write">
-</block>
-<block type="uart_read">
-</block>
-<block type="uart_read_into">
-</block>
-<block type="uart_readline">
-</block>
-<block type="uart_read_all">
-</block>
+  <category name="UART">
+    <label text="UART Serial Port"></label>
+    <block type="uart_init">
+      <value name="port">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="baud">
+        <shadow type="math_number">
+          <field name="NUM">9600</field>
+        </shadow>
+      </value>
+      <value name="tx">
+        <shadow type="pinout">
+          <field name="PIN"></field>
+        </shadow>
+      </value>
+      <value name="rx">
+        <shadow type="pinout">
+          <field name="PIN"></field>
+        </shadow>
+      </value>
+    </block>
+
+    <block type="uart_write">
+      <value name="buf">
+        <shadow type="text">
+          <field name="TEXT">Hello</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="uart_read">
+    </block>
+    <block type="uart_readline">
+    </block>
+    <block type="uart_read_all">
+    </block>
+    <block type="uart_any">
+    </block>
+  </category>
+
 <!-- These blocks need development 
-      </category>
       <category name="SPI">
       <label text="SPI"></label>
 <block type="machine.SPI_SPI.init">
@@ -1926,8 +1971,8 @@ _
 </block>
 <block type="machine.SPI_SPI.write_readinto">
 </block>
--->
       </category>
+-->
 
       <category name="GSM Modem">
 

@@ -251,8 +251,8 @@ Blockly.Blocks['ticks_diff'] = {
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("start");
-    //this.setPreviousStatement(true, null);
-    //this.setNextStatement(true, null);
+    this.setPreviousStatement(false, null);
+    this.setNextStatement(false, null);
     this.setColour(230);
  this.setTooltip("Compute time difference");
  this.setHelpUrl("bipes.net.br");
@@ -13632,11 +13632,11 @@ Blockly.Blocks['pluvio_init']={
                      70,
                      70,
                      "*"))
-        .appendField("Iniciar Pluiômetro");
-        this.appendValueInput("Função")
+        .appendField("Init Rain Gauge");
+        this.appendValueInput("Function")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Função");
+        .appendField("Function");
     this.appendValueInput("pin")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -13650,11 +13650,11 @@ Blockly.Blocks['pluvio_init']={
 Blockly.Blocks['pluvio_stop'] = {
   init: function(){
     this.appendDummyInput()
-        .appendField(new Blockly.FieldLabelSerializable("Parar Plviômetro"), "STOP_PLUVIO");
-    this.appendValueInput("Função")
+        .appendField(new Blockly.FieldLabelSerializable("Stop Rain Gague"), "STOP_PLUVIO");
+    this.appendValueInput("Function")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Função");
+        .appendField("Function");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(100);
@@ -13670,12 +13670,12 @@ Blockly.Blocks['anemo_init'] = {
                      55,
                      55,
                      "*"))
-        .appendField("Iniciar Anenômetro");
+        .appendField("Init Anemometer");
 
-    this.appendValueInput("Função")
+    this.appendValueInput("Function")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Função");
+        .appendField("Function");
     this.appendValueInput("pin")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -13690,11 +13690,11 @@ Blockly.Blocks['anemo_init'] = {
 Blockly.Blocks['anemo_stop'] = {
   init: function(){
     this.appendDummyInput()
-        .appendField(new Blockly.FieldLabelSerializable("Parar Anenômetro"), "STOP_ANENO");
-    this.appendValueInput("Função")
+        .appendField(new Blockly.FieldLabelSerializable("Stop Anemeter"), "STOP_ANENO");
+    this.appendValueInput("Function")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Função");
+        .appendField("Function");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(255,0,0);
