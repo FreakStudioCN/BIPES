@@ -1099,12 +1099,11 @@
       <block type="dht_read_temp"></block>
       <block type="dht_read_humidity"></block>
     </category>
-<!--Adicionando os blocos do Anenmômetro-->
-    <category name="Anemômetro">
-    <label text="Anenômetro"></label>
-<!--Iniciar Anemômetro-->
+  <category name="Anemometer">
+    <label text="Anemometer"></label>
+
     <block type="anemo_init">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
@@ -1115,21 +1114,21 @@
           </shadow>
         </value>
       </block>
-<!--Parar Anemômetro-->
+
       <block type="anemo_stop">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
         </value>
       </block>
   </category>
-<!--Adicionando os blocos do Pluviômetro--> 
-  <category name="Pluviômetro">
-    <label text= "Pluviômetro"></label>
-<!--Iniciar Pluviômetro-->
+
+  <category name="Rain Gauge">
+    <label text= "Rain Gauge"></label>
+
     <block type="pluvio_init">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
@@ -1140,9 +1139,9 @@
           </shadow>
         </value>
       </block>
-<!--Parar Pluviômetro-->
+
       <block type="pluvio_stop">
-        <value name="Função">
+        <value name="Function">
           <shadow type="text">
             <field name="TEXT"></field>
           </shadow>
