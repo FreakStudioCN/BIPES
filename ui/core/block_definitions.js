@@ -13632,11 +13632,11 @@ Blockly.Blocks['pluvio_init']={
                      70,
                      70,
                      "*"))
-        .appendField("Init Rain Gauge");
-        this.appendValueInput("Function")
+        .appendField("Iniciar Pluiômetro");
+        this.appendValueInput("Função")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Function");
+        .appendField("Função");
     this.appendValueInput("pin")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -13650,11 +13650,11 @@ Blockly.Blocks['pluvio_init']={
 Blockly.Blocks['pluvio_stop'] = {
   init: function(){
     this.appendDummyInput()
-        .appendField(new Blockly.FieldLabelSerializable("Stop Rain Gague"), "STOP_PLUVIO");
-    this.appendValueInput("Function")
+        .appendField(new Blockly.FieldLabelSerializable("Stop Rain Gauge"), "STOP_PLUVIO");
+    this.appendValueInput("Função")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Function");
+        .appendField("Função");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(100);
@@ -13670,12 +13670,12 @@ Blockly.Blocks['anemo_init'] = {
                      55,
                      55,
                      "*"))
-        .appendField("Init Anemometer");
+        .appendField("Iniciar Anenômetro");
 
-    this.appendValueInput("Function")
+    this.appendValueInput("Função")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Function");
+        .appendField("Função");
     this.appendValueInput("pin")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -13691,10 +13691,10 @@ Blockly.Blocks['anemo_stop'] = {
   init: function(){
     this.appendDummyInput()
         .appendField(new Blockly.FieldLabelSerializable("Stop Anemeter"), "STOP_ANENO");
-    this.appendValueInput("Function")
+    this.appendValueInput("Função")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Function");
+        .appendField("Função");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(255,0,0);
