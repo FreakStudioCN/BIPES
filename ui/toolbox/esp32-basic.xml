@@ -1593,22 +1593,22 @@
     <block type="stepper_init">
       <value name="p0">
         <shadow type="pinout">
-          <field name="Pin0"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="p1">
         <shadow type="pinout">
-          <field name="Pin1"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="p2">
         <shadow type="pinout">
-          <field name="Pin2"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="p3">
         <shadow type="pinout">
-          <field name="Pin3"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
     </block>
@@ -1675,7 +1675,7 @@ _
     <block type="tone"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
      <value name="frequency">
@@ -1693,7 +1693,7 @@ _
     <block type="note"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="note">
@@ -1713,7 +1713,7 @@ _
     <block type="rtttl_play"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="song">

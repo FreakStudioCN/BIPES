@@ -339,7 +339,6 @@
     </block>
   </category>
 
-
   <category name="%{BKY_CAT_TIMING}">
 	  <label text="%{BKY_CAT_TIMING}"></label>
     <block type="delay">
@@ -355,12 +354,19 @@
         <shadow type="utime.vars"></shadow>
       </value>
       <value name="TIME2">
-      <shadow type="math_number">
-        <field name="NUM">100</field>
-      </shadow>
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
       </value>
     </block>
-    <block type="utime.ticks_diff"></block>
+    <block type="utime.ticks_diff">
+       <value name="TIME1">
+        <shadow type="utime.vars"></shadow>
+      </value>
+      <value name="TIME2">
+        <shadow type="utime.vars"></shadow>
+      </value>
+    </block>
     <block type="esp32_set_rtc"></block>
     <block type="esp32_get_rtc"></block>
     <block type="timer"></block>
@@ -388,9 +394,9 @@
   </category>
 
   <category name="%{BKY_CAT_MACHINE}">
-      <label text="%{BKY_CAT_MACHINE}"></label>
-      <category name="CPU">
-      <label text="ESP32 CPU"></label>
+    <label text="%{BKY_CAT_MACHINE}"></label>
+    <category name="CPU">
+    <label text="ESP32 CPU"></label>
 
     <block type="get_freq"></block>
     <block type="set_freq">
@@ -408,10 +414,10 @@
     <block type="reset_cause_hard"></block>
     <block type="reset_cause_wdt"></block>
     <block type="reset_cause_deep"></block>
-      </category>
+  </category>
     
-      <category name="In/Out Pins">
-      <label text="In/Out Pins"></label>
+  <category name="In/Out Pins">
+    <label text="In/Out Pins"></label>
     <block type="pinout"></block>
     <block type="gpio_set">
       <value name="pin">
@@ -425,7 +431,6 @@
         </shadow>
       </value>
     </block>
-
     <block type="gpio_get">
       <value name="pin">
         <shadow type="pinout">
@@ -439,15 +444,13 @@
       </value>
     </block>
     <block type="pinout"></block>
-
     <block type="esp32_adc">
-     <value name="pin">
+      <value name="pin">
         <shadow type="pinout">
           <field name="PIN"></field>
         </shadow>
       </value>
     </block>
-
     <block type="pwm">
       <value name="pin">
         <shadow type="pinout">
@@ -465,7 +468,6 @@
         </shadow>
       </value>
     </block>
-
     <block type="pwm.freq">
       <value name="frequency">
         <shadow type="math_number">
@@ -473,7 +475,6 @@
         </shadow>
       </value>
     </block>
-
     <block type="pwm.duty">
       <value name="duty">
         <shadow type="math_number">
@@ -481,7 +482,6 @@
         </shadow>
       </value>
     </block>
-
     <block type="pwm.init">
       <value name="pin">
         <shadow type="pinout">
@@ -489,9 +489,7 @@
         </shadow>
       </value>
     </block>
-
     <block type="pwm.deinit"></block>
-
     <block type="gpio_interrupt">
       <value name="pin">
         <shadow type="pinout">
@@ -499,111 +497,98 @@
         </shadow>
       </value>
     </block>
-
   </category>
 </category>
-
 
 <category name="%{BKY_CAT_DISPLAYS}" colour="olive">
 
 <category name="NeoPixel LED Strip">
-      <label text="NeoPixel RGB LED Strip"></label>
+  <label text="NeoPixel RGB LED Strip"></label>
+  <button text="Documentation and how to connect: neopixel" callbackKey="loadDoc"></button>
+  <block type="neopixel_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN"></field>
+      </shadow>
+    </value>
+    <value name="number">
+      <shadow type="math_number">
+        <field name="NUM">8</field>
+      </shadow>
+    </value>
+  </block>
 
-        <button text="Documentation and how to connect: neopixel" callbackKey="loadDoc"></button>
-
-      <block type="neopixel_init">
-       <value name="pin">
-          <shadow type="pinout">
-            <field name="PIN"></field>
-          </shadow>
-       </value>
-
-       <value name="number">
-        <shadow type="math_number">
-          <field name="NUM">8</field>
-        </shadow>
-       </value>
-      </block>
-
-      <block type="neopixel_color_numbers">
-       <value name="red">
-        <shadow type="math_number">
-          <field name="NUM">50</field>
-        </shadow>
-       </value>
-       <value name="green">
-        <shadow type="math_number">
-          <field name="NUM">152</field>
-        </shadow>
-       </value>
-       <value name="blue">
-        <shadow type="math_number">
-          <field name="NUM">220</field>
-        </shadow>
-       </value>
-      </block>
-
-      <block type="neopixel_color_colors"></block>
-
-      <block type="HSL_to_RGB">
-        <value name="hue">
-        <shadow type="math_number">
-          <field name="NUM">204</field>
-        </shadow>
-        </value>
-        <value name="saturation">
-        <shadow type="math_number">
-          <field name="NUM">70.8</field>
-        </shadow>
-        </value>
-        <value name="lightness">
-        <shadow type="math_number">
-          <field name="NUM">52.9</field>
-        </shadow>
-        </value>
-      </block>
-
-      <block type="neopixel_control">
-       <value name="address">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-       </value>
-
-       <value name="color">
-        <shadow type="neopixel_color_colors">
-          <field name="PIN"></field>
-        </shadow>
-       </value>
-      </block>
-
-      <block type="neopixel_control">
-       <value name="address">
+  <block type="neopixel_color_numbers">
+    <value name="red">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+    <value name="green">
+      <shadow type="math_number">
+        <field name="NUM">152</field>
+      </shadow>
+    </value>
+    <value name="blue">
+      <shadow type="math_number">
+        <field name="NUM">220</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="neopixel_color_colors"></block>
+  <block type="HSL_to_RGB">
+    <value name="hue">
+      <shadow type="math_number">
+        <field name="NUM">204</field>
+      </shadow>
+    </value>
+    <value name="saturation">
+      <shadow type="math_number">
+        <field name="NUM">70.8</field>
+      </shadow>
+    </value>
+    <value name="lightness">
+      <shadow type="math_number">
+        <field name="NUM">52.9</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="neopixel_control">
+    <value name="address">
+    <shadow type="math_number">
+      <field name="NUM">0</field>
+    </shadow>
+    </value>
+    <value name="color">
+    <shadow type="neopixel_color_colors">
+    </shadow>
+    </value>
+  </block>
+  <block type="neopixel_control">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="color">
+    <block type="neopixel_color_numbers">
+      <value name="red">
         <shadow type="math_number">
           <field name="NUM">0</field>
         </shadow>
-       </value>
-
-       <value name="color">
-        <block type="neopixel_color_numbers">
-         <value name="red">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-         </value>
-         <value name="green">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-         </value>
-         <value name="blue">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-         </value>
-        </block>
-       </value>
-      </block>
+      </value>
+      <value name="green">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="blue">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </block>
 
       <block type="neopixel_write"></block>
       
@@ -1703,22 +1688,22 @@
     <block type="stepper_init">
       <value name="p0">
         <shadow type="pinout">
-          <field name="Pin0"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="p1">
         <shadow type="pinout">
-          <field name="Pin1"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="p2">
         <shadow type="pinout">
-          <field name="Pin2"></field>
+          <field name="Pin"></field>
         </shadow>
       </value>
       <value name="p3">
         <shadow type="pinout">
-          <field name="Pin3"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
     </block>
@@ -1785,7 +1770,7 @@ _
     <block type="tone"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
      <value name="frequency">
@@ -1803,7 +1788,7 @@ _
     <block type="note"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="note">
@@ -1823,7 +1808,7 @@ _
     <block type="rtttl_play"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="song">

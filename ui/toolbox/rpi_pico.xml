@@ -388,7 +388,7 @@
     <block type="tone"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
      <value name="frequency">
@@ -406,7 +406,7 @@
     <block type="note"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="note">
@@ -426,7 +426,7 @@
     <block type="rtttl_play"> 
       <value name="pin">
         <shadow type="pinout">
-          <field name="pin"></field>
+          <field name="PIN"></field>
         </shadow>
       </value>
       <value name="song">
