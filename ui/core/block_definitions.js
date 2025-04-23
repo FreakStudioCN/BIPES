@@ -13650,7 +13650,7 @@ Blockly.Blocks['pluvio_init']={
 Blockly.Blocks['pluvio_stop'] = {
   init: function(){
     this.appendDummyInput()
-        .appendField(new Blockly.FieldLabelSerializable("Stop Rain Gauge"), "STOP_PLUVIO");
+        .appendField(new Blockly.FieldLabelSerializable("Parar Plviômetro"), "STOP_PLUVIO");
     this.appendValueInput("Função")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -13690,7 +13690,7 @@ Blockly.Blocks['anemo_init'] = {
 Blockly.Blocks['anemo_stop'] = {
   init: function(){
     this.appendDummyInput()
-        .appendField(new Blockly.FieldLabelSerializable("Stop Anemeter"), "STOP_ANENO");
+        .appendField(new Blockly.FieldLabelSerializable("Parar Anenômetro"), "STOP_ANENO");
     this.appendValueInput("Função")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)

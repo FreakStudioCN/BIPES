@@ -520,7 +520,7 @@
       <block type="neopixel_init">
        <value name="pin">
           <shadow type="pinout">
-            <field name="Pin"></field>
+            <field name="PIN"></field>
           </shadow>
        </value>
 
@@ -1045,10 +1045,6 @@
 
 
   </category>
-
-
-
-
   </category>
 
   <category name="%{BKY_CAT_SENSORS}">
@@ -1087,7 +1083,6 @@
     <block type="sht20_temperature"> </block>
     <block type="sht20_humidity"> </block>
   </category>
-
 
 <!--Adicionando os blocos do Anenmômetro-->
     <category name="Anemômetro">
