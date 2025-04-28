@@ -1875,13 +1875,13 @@
 
     <value name="tx">
       <shadow type="pinout">
-        <field name="TX"></field>
+        <field name="PIN">0</field>
       </shadow>
     </value>
 
     <value name="rx">
       <shadow type="pinout">
-        <field name="RX"></field>
+        <field name="PIN">1</field>
       </shadow>
     </value>
 
@@ -1923,13 +1923,13 @@
 
       <value name="scl">
         <shadow type="pinout">
-          <field name="SCL"></field>
+          <field name="PIN">1</field>
         </shadow>
       </value>
 
       <value name="sda">
         <shadow type="pinout">
-          <field name="SDA"></field>
+          <field name="PIN">0</field>
         </shadow>
       </value>
     </block>
@@ -1950,7 +1950,7 @@
     <block type="onewire_ds18x20_init">
       <value name="pin">
         <shadow type="pinout">
-          <field name="PIN"></field>
+          <field name="PIN">0</field>
         </shadow>
       </value>
     </block>
@@ -1982,31 +1982,31 @@
 
         <value name="cs">
           <shadow type="pinout">
-            <field name="CS"></field>
+            <field name="PIN">19</field>
           </shadow>
         </value>
 
         <value name="sck">
           <shadow type="pinout">
-            <field name="SCK"></field>
+            <field name="PIN">1</field>
           </shadow>
         </value>
 
         <value name="mosi">
           <shadow type="pinout">
-            <field name="MOSI"></field>
+            <field name="PIN">4</field>
           </shadow>
         </value>
 
          <value name="miso">
           <shadow type="pinout">
-            <field name="MISO"></field>
+            <field name="PIN">6</field>
           </shadow>
         </value>
 
         <value name="rst">
           <shadow type="pinout">
-            <field name="RST"></field>
+            <field name="PIN">7</field>
           </shadow>
         </value>
 
@@ -2030,7 +2030,7 @@
     <block type="relay_switch">
       <value name="pin">
         <shadow type="pinout">
-          <field name="PIN"></field>
+          <field name="PIN">0</field>
         </shadow>
       </value>
     </block>
@@ -2041,7 +2041,7 @@
     <block type="init_servo">
         <value name="pin">
           <shadow type="pinout">
-            <field name="PIN"></field>
+            <field name="PIN">1</field>
           </shadow>
         </value>
     </block>
@@ -2122,12 +2122,12 @@
       </value>
       <value name="tx">
         <shadow type="pinout">
-          <field name="PIN"></field>
+          <field name="PIN">0</field>
         </shadow>
       </value>
       <value name="rx">
         <shadow type="pinout">
-          <field name="PIN"></field>
+          <field name="PIN">1</field>
         </shadow>
       </value>
 </block>
