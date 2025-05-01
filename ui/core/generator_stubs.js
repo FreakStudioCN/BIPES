@@ -399,7 +399,8 @@ Blockly.Python['set_time_ds3231'] = function(block) {
   };
 
   Blockly.Python['read_temp_ds3231'] = function(block) {
-	var code = 'ds3231.temperature()';
+	var degree_f = block.getFieldValue('degree_f');
+	var code = 'ds3231.temperature(' + degree_f + ')';
 	return [code, Blockly.Python.ORDER_NONE];
   };
 

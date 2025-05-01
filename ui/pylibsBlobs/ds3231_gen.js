@@ -116,14 +116,17 @@ var ds3231_genBlob = new Blob([
 "            offs += 1\n" +
 "            self.ds3231.writeto_mem(_ADDR, offs, gbyte(YY - 2000))\n" +
 "\n" +
-"    def temperature(self):\n" +
+"    def temperature(self, degreesF):\n" +
 "        def twos_complement(input_value: int, num_bits: int) -> int:\n" +
 "            mask = 2 ** (num_bits - 1)\n" +
 "            return -(input_value & mask) + (input_value & ~mask)\n" +
 "\n" +
 "        t = self.ds3231.readfrom_mem(_ADDR, 17, 2)\n" +
 "        i = t[0] << 8 | t[1]\n" +
-"        return twos_complement(i >> 6, 10) * 0.25\n" +
+"        temp = twos_complement(i >> 6, 10) * 0.25\n" +
+"        if degreesF:\n" +
+"            temp = temp * 9 / 5 + 32\n"+
+"        return temp\n" +
 "\n" +
 "    def __str__(self, buf=bytearray(0x13)):  # Debug dump of device registers\n" +
 "        self.ds3231.readfrom_mem_into(_ADDR, 0, buf)\n" +

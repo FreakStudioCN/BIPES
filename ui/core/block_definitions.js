@@ -1036,8 +1036,14 @@ Blockly.Blocks['read_time_ds3231'] = {
 Blockly.Blocks['read_temp_ds3231'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Get the Temperature (Degrees C)");
-
+        .appendField("Get the Temperature");
+        this.appendDummyInput()
+        .appendField("Degrees ")
+        .appendField(new Blockly.FieldDropdown([
+                     ['C', 'False'],
+                     ['F', 'True']
+        ]), 'degree_f');
+  
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Get the temperature");
