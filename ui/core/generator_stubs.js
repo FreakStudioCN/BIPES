@@ -360,6 +360,49 @@ Blockly.Python['onewire_ds18x20_read_temp'] = function(block) {
   return [code, Blockly.Python.ORDER_NONE];
 };
 
+// ds3231
+Blockly.Python['init_ds3231'] = function(block) {
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+
+  Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import I2C, Pin';
+  Blockly.Python.definitions_['import_ds3231'] = 'from ds3231_gen import DS3231';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+  Blockly.Python.definitions_['dt_tuple'] =  ``
+  + 'def dt_tuple(dt):\n'
+  + '	return time.localtime(time.mktime(dt))\n';
+
+  var code = 'i2cDS3231=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+  code += "ds3231 = DS3231(i2cDS3231)\n";
+
+  return code;
+};
+
+Blockly.Python['set_time_ds3231'] = function(block) {
+	var year = Blockly.Python.valueToCode(block, 'year', Blockly.Python.ORDER_ATOMIC);
+	var month = Blockly.Python.valueToCode(block, 'month', Blockly.Python.ORDER_ATOMIC);
+	var day = Blockly.Python.valueToCode(block, 'day', Blockly.Python.ORDER_ATOMIC);
+	var hour = Blockly.Python.valueToCode(block, 'hour', Blockly.Python.ORDER_ATOMIC);
+	var min = Blockly.Python.valueToCode(block, 'min', Blockly.Python.ORDER_ATOMIC);
+	var sec = Blockly.Python.valueToCode(block, 'sec', Blockly.Python.ORDER_ATOMIC);
+  	
+	var code = 'dt = dt_tuple((' + year + ', ' + month + ', ' + day + ', ' + hour + ', ' + min + ', ' + sec + ', 0, 0))\n'
+	code += "ds3231.set_time(dt)\n";
+  
+	return code;
+  };
+  
+  Blockly.Python['read_time_ds3231'] = function(block) {
+	var code = 'ds3231.get_time()';
+	return [code, Blockly.Python.ORDER_NONE];
+  };
+
+  Blockly.Python['read_temp_ds3231'] = function(block) {
+	var code = 'ds3231.temperature()';
+	return [code, Blockly.Python.ORDER_NONE];
+  };
+
 // vl53l0x
 Blockly.Python['init_vl53l0x'] = function(block) {
 	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);

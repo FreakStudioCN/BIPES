@@ -944,6 +944,107 @@ Blockly.Blocks['onewire_ds18x20_read_temp'] = {
   }
 };
 
+//DS3231
+Blockly.Blocks['init_ds3231'] = {
+  init: function() {
+    this.setColour(135);
+    this.appendDummyInput()
+        .appendField("Init DS3231 RTC");
+
+        this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+          "media/ds3231.jpg",
+          55,
+          55,
+          "*"));
+          //.setAlign(Blockly.ALIGN_CENTRE);
+  
+      this.appendValueInput("i2c")
+          .setCheck("Number")
+          .setAlign(Blockly.ALIGN_RIGHT)
+          .appendField("I2C");
+  
+      this.appendValueInput("scl")
+          .setCheck("Number")
+          .setAlign(Blockly.ALIGN_RIGHT)
+          .appendField("SCL");
+  
+      this.appendValueInput("sda")
+          .setCheck("Number")
+          .setAlign(Blockly.ALIGN_RIGHT)
+          .appendField("SDA");
+  
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['set_time_ds3231'] = {
+  init: function() {
+    this.setColour(135);
+    this.appendDummyInput()
+        .appendField("Set the Date and Time (24 Hr Clock)");
+  
+        this.appendValueInput("year")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Year");
+
+    this.appendValueInput("month")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Month (1 - 12)");
+
+    this.appendValueInput("day")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Day");
+  
+        this.appendValueInput("hour")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Hour (0 - 23)");
+
+    this.appendValueInput("min")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Minutes (0 - 59)");
+
+    this.appendValueInput("sec")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Seconds (0 - 59)");
+  
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('Set Time and Date');
+  }
+};
+
+Blockly.Blocks['read_time_ds3231'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get the Date and Time (24 Hr Clock)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get the date and time");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+Blockly.Blocks['read_temp_ds3231'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get the Temperature (Degrees C)");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get the temperature");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
 
 //VL53L0X
 Blockly.Blocks['init_vl53l0x'] = {

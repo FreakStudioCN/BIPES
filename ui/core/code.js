@@ -713,6 +713,8 @@ Code.init = function() {
           reader.readAsText(ahtx0Blob);
         } else if (lib == "bh1750") {
           reader.readAsText(bh1750Blob);
+        } else if (lib == "ds3231_gen") {
+          reader.readAsText(ds3231_genBlob);
         } else {
           console.log("Blob file not available for: " + lib + " library.");
         }

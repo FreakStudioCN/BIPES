@@ -1565,7 +1565,6 @@
     <category name="DHT11/22 Sensor">
       <label text="DHT11/11 Temperature and Humidity Sensor"></label>
       <block type="dht_init">
-        <field name="BLOCK_DHT_INIT">Start DHT11/22 sensor</field>
         <value name="pin">
           <shadow type="pinout">
             <field name="PIN"></field>
@@ -1637,10 +1636,68 @@
       </block>
     </category>
 
-  <category name="%{BKY_CAT_ULTRASOUND}">
+    <category name="DS3231 RTC">
+      <label text="DS3231 Real Time Clock"></label>
+      <label text="Library: https://github.com/peterhinch/micropython-samples/blob/master/DS3231/ds3231_gen.py"></label>
+      <button text="Install ds3231_gen library" callbackKey="installPyLib"></button>      
+
+      <block type="init_ds3231">
+        <value name="i2c">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="scl">
+          <shadow type="pinout">
+            <field name="PIN">1</field>
+          </shadow>
+        </value>
+        <value name="sda">
+          <shadow type="pinout">
+            <field name="PIN">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="set_time_ds3231">
+        <value name="year">
+          <shadow type="math_number">
+            <field name="NUM">2025</field>
+          </shadow>
+        </value>
+        <value name="month">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+        <value name="day">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="hour">
+          <shadow type="math_number">
+            <field name="NUM">12</field>
+          </shadow>
+        </value>
+        <value name="min">
+          <shadow type="math_number">
+            <field name="NUM">8</field>
+          </shadow>
+        </value>
+        <value name="sec">
+          <shadow type="math_number">
+            <field name="NUM">35</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="read_time_ds3231"></block>
+      <block type="read_temp_ds3231"></block>
+    </category>
+
+    <category name="%{BKY_CAT_ULTRASOUND}">
       <label text="HCSR04 ultrasound distance sensor"></label>
       <label text="Library: https://github.com/rsc1975/micropython-hcsr04"></label>
-        <button text="Install HCSR04 library" callbackKey="installPyLib"></button>
+      <button text="Install HCSR04 library" callbackKey="installPyLib"></button>
 
 
       <block type="hcsr_init">
@@ -1681,13 +1738,13 @@
 
       <value name="scl">
         <shadow type="pinout">
-          <field name="SCL"></field>
+          <field name="PIN">1</field>
         </shadow>
       </value>
 
       <value name="sda">
         <shadow type="pinout">
-          <field name="SDA"></field>
+          <field name="PIN">0</field>
         </shadow>
       </value>
 
