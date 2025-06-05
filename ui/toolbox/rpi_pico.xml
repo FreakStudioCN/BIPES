@@ -1703,12 +1703,12 @@
       <block type="hcsr_init">
         <value name="echo">
           <shadow type="pinout">
-            <field name="PIN">0</field>
+            <field name="PIN">1</field>
           </shadow>
         </value>
         <value name="trigger">
           <shadow type="pinout">
-            <field name="PIN">1</field>
+            <field name="PIN">2</field>
           </shadow>
         </value>
         <value name="timeout">
