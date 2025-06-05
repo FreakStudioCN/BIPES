@@ -2656,13 +2656,13 @@ Blockly.Blocks['hcsr_init'] = {
     this.appendValueInput("echo")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldLabelSerializable(MSG["echo_pin"]), "DHT_PIN_MSG");
+        .appendField("echo pin");
 
 
     this.appendValueInput("trigger")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldLabelSerializable(MSG["trigger_pin"]), "DHT_PIN_MSG");
+        .appendField("trigger pin");
 
 
     this.appendValueInput("timeout")
