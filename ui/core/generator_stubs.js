@@ -7351,9 +7351,9 @@ Blockly.Python['bmp180_init'] = function(block) {
 	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
 
 	Blockly.Python.definitions_['import_bmp180'] = 'from bmp180 import BMP180';
-	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import I2C, Pin';
+	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import SoftI2C, Pin';
 
-	var code = 'bus=I2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '), freq=100000)\n';
+	var code = 'bus=SoftI2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '), freq=100000)\n';
 	code += 'bmp180 = BMP180(bus)\n';
 	code += 'bmp180.oversample_sett = 2\n';
 	code += 'bmp180.baseline = 101325\n\n';
@@ -7382,10 +7382,10 @@ Blockly.Python['bmp280_init'] = function(block) {
 	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
 	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
 
-	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import I2C, Pin';
+	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import SoftI2C, Pin';
 	Blockly.Python.definitions_['import_bmp280'] = 'from bmp280 import *';
 
-	var code = 'bus=I2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+	var code = 'SoftI2C=I2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
 	code += 'bmp280 = BMP280(bus)\n';
 	code += 'bmp280.use_case(BMP280_CASE_WEATHER)\n';
 	code += 'bmp280.oversample(BMP280_OS_HIGH)\n';
@@ -7455,10 +7455,10 @@ Blockly.Python['ccs811_init'] = function(block) {
 	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
 	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
 
-	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import I2C, Pin';
+	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import SoftI2C, Pin';
 	Blockly.Python.definitions_['import_ccs811'] = 'import CCS811';
 
-	var code = 'bus=I2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+	var code = 'bus=SoftI2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
 	code += 'sCCS811 = CCS811.CCS811(i2c=bus, addr=90)\n';
 
 	return code;
@@ -7484,12 +7484,12 @@ Blockly.Python['sht20_init'] = function(block) {
 	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
 	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
 
-	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import I2C, Pin';
+	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import SoftI2C, Pin';
 	Blockly.Python.definitions_['import_time_'] = 'import time';
 	Blockly.Python.definitions_['def_sht20_temperature'] = 'def sht20_temperature():\n\ti2c.writeto(0x40,b\'\\xf3\')\n\ttime.sleep_ms(70)\n\tt=i2c.readfrom(0x40, 2)\n\treturn -46.86+175.72*(t[0]*256+t[1])/65535\n';
 	Blockly.Python.definitions_['def_sht20_humidity'] = 'def sht20_humidity():\n\ti2c.writeto(0x40,b\'\\xf5\')\n\ttime.sleep_ms(70)\n\tt=i2c.readfrom(0x40, 2)\n\treturn -6+125*(t[0]*256+t[1])/65535';
 
-	var code = 'i2c=I2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+	var code = 'i2c=SoftI2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
 
 	return code;
 };
@@ -7509,10 +7509,10 @@ Blockly.Python['mpu9250_init'] = function(block) {
 	var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
 	var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
 
-	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import I2C, Pin';
+	Blockly.Python.definitions_['import_I2C_Pin'] = 'from machine import SoftI2C, Pin';
 	Blockly.Python.definitions_['import_mpu9250'] = 'from mpu9250 import MPU9250';
 
-	var code =  'i2cMPU9250=I2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+	var code =  'i2cMPU9250=SoftI2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
 	    code += 'mpu9250s = MPU9250(i2cMPU9250)\n';
 
 	return code;
