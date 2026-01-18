@@ -716,7 +716,33 @@ Code.init = function() {
         } else if (lib == "ds3231_gen") {
           reader.readAsText(ds3231_genBlob);
         } else {
+          if (lib == "ccs811") {
+            lib = "CCS811"
+          }
           console.log("Blob file not available for: " + lib + " library.");
+
+          //Download file
+          const xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              const installFileContent = this.responseText;
+              console.log(installFileContent);
+              Files.editor.getDoc().setValue(installFileContent);
+                    UI ['workspace'].file.value = lib + '.py';
+
+              Files.file_save_as.className = 'py';
+              Files.files_save_as();
+              Files.listFiles();
+              Files.listFiles();
+
+
+            }
+          };
+          console.log("Trying to get /beta2/ui/pylibs/" + lib + '.py' + ' from server');
+          xmlhttp.open('GET', '/beta2/ui/pylibs/' + lib + '.py');
+          xmlhttp.send();
+
+
         }
 
 	} else {
