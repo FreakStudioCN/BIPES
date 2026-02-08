@@ -14258,3 +14258,56 @@ Blockly.Blocks['mpu9250_temp'] = {
   }
 };
 
+// BA111TDS 初始化块
+Blockly.Blocks['ba111tds_init'] = {
+  init: function() {
+    this.setColour(200);
+    this.appendDummyInput().appendField("Start BA111TDS Sensor");
+    this.appendValueInput("uart_port").setCheck("Number").appendField("UART Port");
+    this.appendValueInput("tx_pin").setCheck("Number").appendField("TX Pin");
+    this.appendValueInput("rx_pin").setCheck("Number").appendField("RX Pin");
+    this.appendValueInput("baudrate").setCheck("Number").appendField("Baudrate")
+        .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+// BA111TDS 读取块
+Blockly.Blocks['ba111tds_read'] = {
+  init: function() {
+    this.setColour(200);
+    this.appendDummyInput().appendField("Read BA111TDS TDS & Temp");
+    this.setOutput(true, "Array");
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+// BA111TDS 校准块
+Blockly.Blocks['ba111tds_calibrate'] = {
+  init: function() {
+    this.setColour(200);
+    this.appendDummyInput().appendField("Calibrate BA111TDS");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+// BA111TDS 设置NTC参数块
+Blockly.Blocks['ba111tds_set_ntc'] = {
+  init: function() {
+    this.setColour(200);
+    this.appendDummyInput().appendField("Set BA111TDS NTC")
+        .appendField(new Blockly.FieldDropdown([["Resistance", "R"], ["B Value", "B"]]), "NTC_TYPE");
+    this.appendValueInput("value").setCheck("Number").appendField("Value");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
