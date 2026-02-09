@@ -7539,7 +7539,7 @@ Blockly.Python['mpu9250_temp'] = function(block) {
 };
 
 
-// 1. BA111TDS 初始化块代码生成
+// BA111TDS 初始化块（对齐CCS811/MPU9250的字符串拼接写法）
 Blockly.Python['ba111tds_init'] = function(block) {
 	Blockly.Python.definitions_['import_machine'] = 'import machine';
 	Blockly.Python.definitions_['import_ba111tds'] = 'from ba111_tds import BA111TDS';
@@ -7548,41 +7548,46 @@ Blockly.Python['ba111tds_init'] = function(block) {
 	var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
 	var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
 	var baudrate = block.getFieldValue('BAUDRATE');
-	
-	// 模板字符串里的两行都无缩进（顶级代码）
-	var code = `uart_tds = machine.UART(${uart_port}, baudrate=${baudrate}, tx=machine.Pin(${tx_pin}), rx=machine.Pin(${rx_pin}), timeout=2000)
-  tds_sensor = BA111TDS(uart_tds)
-  `;
+  
+	// 用字符串拼接（和CCS811一致），无任何多余缩进
+	var code = 'uart_tds = machine.UART(' + uart_port + ', baudrate=' + baudrate + ', tx=machine.Pin(' + tx_pin + '), rx=machine.Pin(' + rx_pin + '), timeout=2000)\n';
+	code += 'tds_sensor = BA111TDS(uart_tds)\n';
+  
 	return code;
   };
   
-  // 2. BA111TDS 校准块代码生成（if后用4个空格缩进）
+  // BA111TDS 读取块（对齐CCS811_data_ready写法）
+  Blockly.Python['ba111tds_read'] = function(block) {
+	var code = 'tds_sensor.detect()';
+	return [code, Blockly.Python.ORDER_NONE]; // 注意：现有代码都用ORDER_NONE，而非ORDER_FUNCTION_CALL
+  };
+  
+  // BA111TDS 校准块（对齐SHT20的函数定义缩进风格，用\t）
   Blockly.Python['ba111tds_calibrate'] = function(block) {
-	// 顶级代码无缩进，if内部用4个空格
-	var code = `cal_result = tds_sensor.calibrate()
-  if cal_result:
-	  print("Calibration OK")
-  else:
-	  print("Calibration FAIL")
-  `;
+	// 字符串拼接，if内用\t缩进（和SHT20的def里的缩进一致）
+	var code = 'cal_result = tds_sensor.calibrate()\n';
+	code += 'if cal_result:\n';
+	code += '\tprint("Calibration OK")\n'; // \t对应4个空格，符合MicroPython规范
+	code += 'else:\n';
+	code += '\tprint("Calibration FAIL")\n';
+  
 	return code;
   };
   
-  // 3. BA111TDS 设置NTC参数块代码生成（去掉多余缩进）
+  // BA111TDS 设置NTC参数块（继续对齐现有风格）
   Blockly.Python['ba111tds_set_ntc'] = function(block) {
 	var ntc_type = block.getFieldValue('NTC_TYPE');
 	var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 	var code = '';
-	
+  
 	if (ntc_type === 'R') {
-	  // 两行都无缩进（顶级代码）
-	  code = `set_result = tds_sensor.set_ntc_resistance(${value})
-  print("Set NTC R OK" if set_result else "Set NTC R FAIL")
-  `;
+	  // 字符串拼接，无多余缩进
+	  code = 'set_result = tds_sensor.set_ntc_resistance(' + value + ')\n';
+	  code += 'print("Set NTC R OK" if set_result else "Set NTC R FAIL")\n';
 	} else {
-	  code = `set_result = tds_sensor.set_ntc_b_value(${value})
-  print("Set NTC B OK" if set_result else "Set NTC B FAIL")
-  `;
+	  code = 'set_result = tds_sensor.set_ntc_b_value(' + value + ')\n';
+	  code += 'print("Set NTC B OK" if set_result else "Set NTC B FAIL")\n';
 	}
+  
 	return code;
   };
