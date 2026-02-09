@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Fix git ssh → https
+        run: |
+          git config --global url."https://github.com/".insteadOf git@github.com:
+
       - name: Clone source
         run: |
           git clone --depth 1 -b offline --recurse-submodules --shallow-submodules https://github.com/FreakStudioCN/BIPES.git
