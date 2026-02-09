@@ -1584,7 +1584,7 @@
 
     <category name="BA111TDS TDS Sensor">
       <label text="BA111TDS Sensor"></label>
-      <button text="Install BA111TDS library" callbackKey="installPyLib"></button>
+      <button text="Install ba111_tds library" callbackKey="installPyLib"></button>
       
       <block type="ba111tds_init">
         <value name="uart_port">

@@ -1571,6 +1571,8 @@
       </block>
     </category>
 
+    
+
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>
