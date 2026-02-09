@@ -1583,8 +1583,8 @@
     </category>
 
     <category name="BA111TDS TDS Sensor">
-      <label text="BA111TDS Sensor"></label>
-      <button text="Install ba111_tds library" callbackKey="installPyLib"></button>
+      <label text="Library: ba111tds.py (custom driver)"></label>
+      <button text="Install ba111tds library" callbackKey="installPyLib"></button>
       
       <block type="ba111tds_init">
         <value name="uart_port">
