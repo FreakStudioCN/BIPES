@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone source
+        run: |
+          git clone --depth 1 -b offline --recurse-submodules --shallow-submodules https://github.com/FreakStudioCN/BIPES.git
+
+      - name: Clone pages repo
+        run: |
+          git clone https://${{ secrets.CM_PAT }}@github.com/FreakStudioCN/pages.git
+
+      - name: Build and deploy
+        run: |
+          cd pages
+
+          rm -rf $(ls -A | egrep -v '^(\.git|LICENSE)$')
+          mv ../BIPES/* .
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .
+          git commit -m "auto deploy offline build" || true
+          git push
