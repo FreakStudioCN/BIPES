@@ -14788,3 +14788,68 @@ Blockly.Blocks['guva_s12sd_read_uvi'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+/// Start HallSensorOH34N Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
+Blockly.Blocks['hall_sensor_oh34n_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/hall_sensor_oh34n.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init Hall Sensor OH34N");
+
+    // 第二步：右对齐参数框（仅保留核心的数字引脚，对齐BA111TDS的setAlign逻辑）
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Digital Pin");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init OH34N Hall Sensor (digital pin)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取霍尔传感器状态）
+Blockly.Blocks['hall_sensor_oh34n_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Hall Sensor OH34N State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read OH34N hall sensor state (True=magnet detected, False=none)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10/BA111TDS的calibrate写法（启用中断）
+Blockly.Blocks['hall_sensor_oh34n_enable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Enable Hall Sensor OH34N Interrupt");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable OH34N hall sensor interrupt (rising/falling edge)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10/BA111TDS的calibrate写法（禁用中断）
+Blockly.Blocks['hall_sensor_oh34n_disable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Disable Hall Sensor OH34N Interrupt");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable OH34N hall sensor interrupt");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};

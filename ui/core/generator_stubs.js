@@ -7806,3 +7806,38 @@ Blockly.Python['guva_s12sd_read_uvi'] = function(block) {
   var code = 'guva_s12sd_sensor.uvi';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+/// HallSensorOH34N Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['hall_sensor_oh34n_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
+  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+
+  // 第二步：导入语句（适配OH34N的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin'; // AHT10用Pin/I2C，这里仅需Pin
+  Blockly.Python.definitions_['import_hall_sensor_oh34n'] = 'import hall_sensor_oh34n'; // 驱动文件名：hall_sensor_oh34n.py
+  Blockly.Python.definitions_['import_micropython'] = 'import micropython'; // 驱动依赖micropython，提前导入
+
+  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
+  var code = 'hall_sensor_oh34n_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ')\n';
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取状态，返回ORDER_NONE）
+Blockly.Python['hall_sensor_oh34n_read'] = function(block) {
+  var code = 'hall_sensor_oh34n_device.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐BA111TDS的calibrate写法（启用中断）
+Blockly.Python['hall_sensor_oh34n_enable'] = function(block) {
+  var code = 'hall_sensor_oh34n_device.enable()\n';
+  code += 'print("Hall sensor interrupt enabled")\n';
+  return code;
+};
+
+// 对齐BA111TDS的calibrate写法（禁用中断）
+Blockly.Python['hall_sensor_oh34n_disable'] = function(block) {
+  var code = 'hall_sensor_oh34n_device.disable()\n';
+  code += 'print("Hall sensor interrupt disabled")\n';
+  return code;
+};
