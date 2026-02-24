@@ -7841,3 +7841,124 @@ Blockly.Python['hall_sensor_oh34n_disable'] = function(block) {
   code += 'print("Hall sensor interrupt disabled")\n';
   return code;
 };
+
+/// MAX9814 Mic Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['max9814_mic_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致，处理可选参数）
+  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+  var gain_pin = Blockly.Python.valueToCode(block, 'gain_pin', Blockly.Python.ORDER_ATOMIC) || 'None';
+  var shdn_pin = Blockly.Python.valueToCode(block, 'shdn_pin', Blockly.Python.ORDER_ATOMIC) || 'None';
+
+  // 第二步：导入语句（适配MAX9814的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // 替换AHT10的Pin/I2C为Pin/ADC
+  Blockly.Python.definitions_['import_max9814_mic'] = 'import max9814_mic'; // 驱动文件名匹配：max9814_mic.py
+
+  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
+  var code = 'max9814_adc=ADC(' + adc_pin + ')\n';
+  code += 'gain_pin_obj=Pin(' + gain_pin + ', Pin.OUT) if ' + gain_pin + ' is not None else None\n';
+  code += 'shdn_pin_obj=Pin(' + shdn_pin + ', Pin.OUT) if ' + shdn_pin + ' is not None else None\n';
+  code += 'max9814_mic_device=max9814_mic.MAX9814Mic(adc=max9814_adc, gain_pin=gain_pin_obj, shdn_pin=shdn_pin_obj)\n';
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取原始值，返回ORDER_NONE）
+Blockly.Python['max9814_mic_read'] = function(block) {
+  var code = 'max9814_mic_device.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取归一化值）
+Blockly.Python['max9814_mic_read_normalized'] = function(block) {
+  var code = 'max9814_mic_device.read_normalized()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取电压）
+Blockly.Python['max9814_mic_read_voltage'] = function(block) {
+  var code = 'max9814_mic_device.read_voltage()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐BA111TDS的calibrate写法（启用麦克风，带打印反馈）
+Blockly.Python['max9814_mic_enable'] = function(block) {
+  var code = 'max9814_mic_device.enable()\n';
+  code += 'print("MAX9814 enabled")\n';
+  return code;
+};
+
+// 对齐BA111TDS的calibrate写法（禁用麦克风，带打印反馈）
+Blockly.Python['max9814_mic_disable'] = function(block) {
+  var code = 'max9814_mic_device.disable()\n';
+  code += 'print("MAX9814 disabled")\n';
+  return code;
+};
+
+// 对齐BA111TDS的set_ntc写法（设置增益，带异常处理+打印反馈）
+Blockly.Python['max9814_mic_set_gain'] = function(block) {
+  var gain_type = block.getFieldValue('GAIN_TYPE');
+  var code = '';
+
+  if (gain_type === 'HIGH') {
+    code = 'try:\n';
+    code += '\tmax9814_mic_device.set_gain(True)\n';
+    code += '\tprint("MAX9814 set to High Gain")\n';
+    code += 'except RuntimeError:\n';
+    code += '\tprint("MAX9814 gain pin not configured")\n';
+  } else {
+    code = 'try:\n';
+    code += '\tmax9814_mic_device.set_gain(False)\n';
+    code += '\tprint("MAX9814 set to Low Gain")\n';
+    code += 'except RuntimeError:\n';
+    code += '\tprint("MAX9814 gain pin not configured")\n';
+  }
+  return code;
+};
+
+/// MGX Gas Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['mgx_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致，处理可选参数）
+  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+  var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC) || 'None';
+  var rl_ohm = block.getFieldValue('RL_OHM');
+  var vref = block.getFieldValue('VREF');
+
+  // 第二步：导入语句（适配MGX的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // 基础硬件导入
+  Blockly.Python.definitions_['import_mgx'] = 'import mgx'; // 驱动文件名匹配：mgx.py
+  Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms'; // MGX依赖的time模块
+
+  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑，剔除复杂回调）
+  var code = 'mgx_adc=ADC(' + adc_pin + ')\n';
+  code += 'mgx_comp_pin=Pin(' + comp_pin + ', Pin.IN) if ' + comp_pin + ' is not None else None\n';
+  code += 'mgx_sensor=mgx.MGX(adc=mgx_adc, comp_pin=mgx_comp_pin, user_cb=None, rl_ohm=' + rl_ohm + ', vref=' + vref + ')\n';
+
+  return code;
+};
+
+// 对齐BA111TDS的set_ntc写法（选择内置传感器型号，带打印反馈）
+Blockly.Python['mgx_select_builtin'] = function(block) {
+  var sensor_type = block.getFieldValue('SENSOR_TYPE');
+  var code = '';
+
+  code = 'try:\n';
+  code += '\tmgx_sensor.select_builtin("' + sensor_type + '")\n';
+  code += '\tprint("MGX selected ' + sensor_type + ' successfully")\n';
+  code += 'except ValueError:\n';
+  code += '\tprint("MGX ' + sensor_type + ' is not supported")\n';
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取电压，返回ORDER_NONE）
+Blockly.Python['mgx_read_voltage'] = function(block) {
+  var code = 'mgx_sensor.read_voltage()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取PPM值，处理samples参数）
+Blockly.Python['mgx_read_ppm'] = function(block) {
+  var samples = block.getFieldValue('SAMPLES');
+  var code = 'mgx_sensor.read_ppm(samples=' + samples + ', delay_ms=0)';
+  return [code, Blockly.Python.ORDER_NONE];
+};

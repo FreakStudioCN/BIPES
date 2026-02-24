@@ -14853,3 +14853,211 @@ Blockly.Blocks['hall_sensor_oh34n_disable'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+/// Start MAX9814 Mic Sensor（完全对齐AHT10/BA111TDS写法）
+Blockly.Blocks['max9814_mic_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/max9814_mic.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init MAX9814 Microphone");
+
+    // 第二步：右对齐参数框（核心必选+可选参数，对齐BA111TDS的setAlign逻辑）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin");
+
+    this.appendValueInput("gain_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Gain Pin (Optional)");
+
+    this.appendValueInput("shdn_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Shutdown Pin (Optional)");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MAX9814 microphone (ADC + optional gain/shutdown pin)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取原始ADC值）
+Blockly.Blocks['max9814_mic_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MAX9814 Raw Value (0-65535)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MAX9814 raw ADC value");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取归一化值）
+Blockly.Blocks['max9814_mic_read_normalized'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MAX9814 Normalized Value (0-1)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MAX9814 normalized value (0.0-1.0)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取电压）
+Blockly.Blocks['max9814_mic_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MAX9814 Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MAX9814 voltage (0-3.3V)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐BA111TDS的calibrate写法（启用麦克风）
+Blockly.Blocks['max9814_mic_enable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Enable MAX9814 Microphone");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable MAX9814 microphone (via shutdown pin)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐BA111TDS的calibrate写法（禁用麦克风）
+Blockly.Blocks['max9814_mic_disable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Disable MAX9814 Microphone");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable MAX9814 microphone (via shutdown pin)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐BA111TDS的set_ntc写法（设置增益）
+Blockly.Blocks['max9814_mic_set_gain'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MAX9814 Gain")
+        .appendField(new Blockly.FieldDropdown([
+          ['Low Gain', "LOW"],
+          ['High Gain', "HIGH"]
+        ]), "GAIN_TYPE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set MAX9814 microphone gain (Low/High)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/// Start MGX Gas Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
+Blockly.Blocks['mgx_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/mgx_gas.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init MGX Gas Sensor (MG811/MG812)");
+
+    // 第二步：右对齐参数框（核心必选+可选参数，对齐BA111TDS的setAlign逻辑）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin");
+
+    this.appendValueInput("comp_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Comp Pin (Optional)");
+
+    this.appendValueInput("rl_ohm")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RL Resistance (Ω)")
+      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Vref (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MGX gas sensor (MG811/MG812) with ADC/comp pin");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐BA111TDS的set_ntc写法（选择内置传感器型号）
+Blockly.Blocks['mgx_select_builtin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Select MGX Sensor Model")
+        .appendField(new Blockly.FieldDropdown([
+          ['MG811', "MG811"],
+          ['MG812', "MG812"]
+        ]), "SENSOR_TYPE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select built-in MG811/MG812 sensor polynomial");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取电压）
+Blockly.Blocks['mgx_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MGX Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MGX gas sensor voltage");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取PPM值）
+Blockly.Blocks['mgx_read_ppm'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MGX PPM Value");
+    this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Samples")
+      .appendField(new Blockly.FieldNumber(1), "SAMPLES");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MGX gas sensor PPM value (average of samples)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};

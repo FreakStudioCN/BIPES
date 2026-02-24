@@ -1800,6 +1800,85 @@
       <block type="hall_sensor_oh34n_disable"></block>
     </category>
 
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MAX9814 Microphone">
+      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+      <button text="Install max9814_mic library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+      <label text="MAX9814 Microphone Sensor"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+      <block type="max9814_mic_init">
+        <value name="adc_pin">
+          <shadow type="pinout">
+            <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+          </shadow>
+        </value>
+        <value name="gain_pin">
+          <shadow type="pinout">
+            <field name="PIN">18</field> <!-- 可选增益引脚默认值 -->
+          </shadow>
+        </value>
+        <value name="shdn_pin">
+          <shadow type="pinout">
+            <field name="PIN">19</field> <!-- 可选关断引脚默认值 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="max9814_mic_read"></block>
+      <block type="max9814_mic_read_normalized"></block>
+      <block type="max9814_mic_read_voltage"></block>
+      <block type="max9814_mic_enable"></block>
+      <block type="max9814_mic_disable"></block>
+      <block type="max9814_mic_set_gain"></block>
+    </category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MGX Gas Sensor (MG811/MG812)">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mgx library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MGX Gas Sensor (MG811/MG812)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mgx_init">
+    <value name="adc_pin">
+      <shadow type="pinout">
+        <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+      </shadow>
+    </value>
+    <value name="comp_pin">
+      <shadow type="pinout">
+        <field name="PIN">18</field> <!-- 可选Comp引脚默认值 -->
+      </shadow>
+    </value>
+    <value name="rl_ohm">
+      <shadow type="math_number">
+        <field name="NUM">10000</field> <!-- RL电阻默认值 -->
+      </shadow>
+    </value>
+    <value name="vref">
+      <shadow type="math_number">
+        <field name="NUM">3.3</field> <!-- 参考电压默认值 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mgx_select_builtin"></block>
+  <block type="mgx_read_voltage"></block>
+  <block type="mgx_read_ppm">
+    <value name="samples">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 采样数默认值 -->
+      </shadow>
+    </value>
+  </block>
+</category>
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>
