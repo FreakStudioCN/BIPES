@@ -7695,3 +7695,52 @@ Blockly.Python['air530z_read'] = function(block) {
     var code = 'air530z_sensor.read()';
     return [code, Blockly.Python.ORDER_NONE];
 };
+
+// 完全对齐AHT10/BA111TDS的aht_init/ba111tds_init写法
+Blockly.Python['bmp280_init'] = function(block) {
+  // 第一步：取值（和BA111TDS的取值逻辑完全一致）
+  var i2c_addr = block.getFieldValue('I2C_ADDR');
+  var i2c_port = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda_pin = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl_pin = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var sampling_mode = block.getFieldValue('SAMPLING_MODE');
+
+  // 第二步：导入语句（适配BMP280的依赖，对齐BA111TDS的导入格式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C'; // BA111TDS用Pin/UART，这里改Pin/I2C
+  Blockly.Python.definitions_['import_bmp280'] = 'import bmp280'; // 对应BA111TDS的import ba111_tds
+
+  // 第三步：代码拼接（对齐BA111TDS的实例化逻辑）
+  var code = 'i2c_bmp280=I2C(' + i2c_port + ', scl=Pin(' + scl_pin + '), sda=Pin(' + sda_pin + '), freq=400000)\n';
+  code += 'bmp280_sensor=bmp280.BMP280(mode=' + sampling_mode + ', address=' + i2c_addr + ', i2c=i2c_bmp280)\n'; // 实例名对齐ba111tds_sensor
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp/BA111TDS的ba111tds_read写法
+Blockly.Python['bmp280_read_temp'] = function(block) {
+  var code = 'bmp280_sensor.read_compensated_data()[0]';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格使用ORDER_NONE（BA111TDS/AHT10的标准写法）
+};
+
+// 对齐BA111TDS的ba111tds_read写法
+Blockly.Python['bmp280_read_pressure'] = function(block) {
+  var code = 'bmp280_sensor.read_compensated_data()[1]/100'; // 转换为hPa
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐BA111TDS的ba111tds_read写法
+Blockly.Python['bmp280_read_altitude'] = function(block) {
+  var code = 'bmp280_sensor.altitude';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐BA111TDS的ba111tds_set_ntc写法
+Blockly.Python['bmp280_set_sealevel'] = function(block) {
+  var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+  var code = '';
+
+  code = 'bmp280_sensor.sealevel = ' + value + '\n';
+  code += 'print("Set sealevel OK, value: " + str(' + value + '))\n'; // 对齐BA111TDS的打印反馈逻辑
+
+  return code;
+};

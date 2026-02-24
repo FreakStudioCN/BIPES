@@ -14564,3 +14564,108 @@ Blockly.Blocks['air530z_read'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 完全对齐AHT10/BA111TDS的块定义写法，只改BMP280业务逻辑
+Blockly.Blocks['bmp280_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（标题+图标FieldImage，和BA111TDS风格一致，图片尺寸300x300）
+    this.appendDummyInput()
+        .appendField("Init BMP280 Sensor") // 替换MSG，直接写文本
+        .appendField(new Blockly.FieldImage(
+          "media/bmp280.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput/下拉框（全部右对齐，和BA111TDS的UART/TX/RX结构一致）
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldDropdown([
+          ['0x76', '0x76'],
+          ['0x77', '0x77']
+        ]), "I2C_ADDR");
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Port"); // 对应BA111TDS的UART Port
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA Pin"); // 对应BA111TDS的TX Pin
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL Pin"); // 对应BA111TDS的RX Pin
+
+    this.appendValueInput("sampling_mode")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Sampling Mode") // 对应BA111TDS的Baudrate
+      .appendField(new Blockly.FieldNumber(4), "SAMPLING_MODE"); // 默认8x采样（值为4）
+
+    // 固定配置（和BA111TDS/AHT10完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init BMP280 temperature/pressure sensor via I2C"); // 替换MSG
+    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs"); // 匹配案例的helpurl风格
+  }
+};
+
+// 对齐AHT10的aht_read_temp/BA111TDS的ba111tds_read写法
+Blockly.Blocks['bmp280_read_temp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read BMP280 Temperature (°C)"); // 替换MSG
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read temperature from BMP280"); // 替换MSG
+    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_read写法
+Blockly.Blocks['bmp280_read_pressure'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read BMP280 Pressure (hPa)"); // 替换MSG
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read pressure from BMP280"); // 替换MSG
+    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_read写法
+Blockly.Blocks['bmp280_read_altitude'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read BMP280 Altitude (m)"); // 替换MSG
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read altitude from BMP280"); // 替换MSG
+    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_set_ntc写法
+Blockly.Blocks['bmp280_set_sealevel'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set BMP280 Sealevel Pressure"); // 替换MSG
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (Pa)"); // 替换MSG
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set sealevel pressure for BMP280 altitude calculation"); // 替换MSG
+    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+  }
+};
