@@ -8264,3 +8264,41 @@ Blockly.Python['soil_moisture_read_level'] = function(block) {
   var code = 'soil_moisture_sensor.level';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+// 初始化振动传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['vibration_sensor_init'] = function(block) {
+  // 1. 取值（和AHT10取值逻辑一致）
+  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+  var debounce_ms = block.getFieldValue('DEBOUNCE_MS');
+
+  // 2. 导入语句（适配振动传感器依赖）
+  Blockly.Python.definitions_['import_machine_vibration'] = 'from machine import Pin';
+  Blockly.Python.definitions_['import_time_vibration'] = 'import time';
+  Blockly.Python.definitions_['import_micropython_vibration'] = 'import micropython';
+  Blockly.Python.definitions_['import_vibration_sensor'] = 'import vibration_sensor'; // 驱动文件名为vibration_sensor.py
+
+  // 3. 代码拼接（实例化传感器，最简化，暂不支持回调）
+  var code = 'vibration_pin=Pin(' + pin + ', Pin.IN)\n';
+  code += 'vibration_sensor=vibration_sensor.VibrationSensor(vibration_pin, debounce_ms=' + debounce_ms + ')\n';
+  code += 'vibration_sensor.init()\n'; // 执行初始化
+  return code;
+};
+
+// 读取振动传感器状态（对齐aht_read_temp写法）
+Blockly.Python['vibration_sensor_read'] = function(block) {
+  var code = 'vibration_sensor.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+};
+
+// 获取振动传感器状态信息（对齐aht_read_humidity写法）
+Blockly.Python['vibration_sensor_get_status'] = function(block) {
+  var code = 'vibration_sensor.get_status()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 反初始化振动传感器（对齐ba111tds_calibrate写法）
+Blockly.Python['vibration_sensor_deinit'] = function(block) {
+  var code = 'vibration_sensor.deinit()\n';
+  code += 'print("Vibration sensor deinitialized")\n';
+  return code;
+};

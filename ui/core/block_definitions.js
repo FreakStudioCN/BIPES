@@ -15650,3 +15650,72 @@ Blockly.Blocks['soil_moisture_read_level'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+// 初始化振动传感器（对齐aht_init/ba111tds_init风格）
+Blockly.Blocks['vibration_sensor_init'] = {
+  init: function() {
+    // 基础信息+图标（占位路径）
+    this.appendDummyInput()
+        .appendField("Init Vibration Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/vibration_sensor.png",
+          55, 55,
+          "*"
+        ));
+
+    // 引脚配置（对齐AHT10的I2C/SDA/SCL参数）
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin");
+
+    // 防抖时间（默认50ms，对齐BA111TDS的波特率默认值）
+    this.appendValueInput("debounce_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Debounce (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_MS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Vibration Sensor with pin and debounce time");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取振动传感器状态（对齐aht_read_temp风格）
+Blockly.Blocks['vibration_sensor_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Vibration Sensor State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current state of vibration sensor (True/False)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 获取振动传感器状态信息（对齐aht_read_humidity风格）
+Blockly.Blocks['vibration_sensor_get_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Vibration Sensor Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get status info (last state, debounce, callback)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 反初始化振动传感器（对齐ba111tds_calibrate风格）
+Blockly.Blocks['vibration_sensor_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit Vibration Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable vibration sensor interrupt");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
