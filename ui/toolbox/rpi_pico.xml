@@ -1955,6 +1955,47 @@
   </block>
 </category>
 
+    <category name="RCWL9623 Distance Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-rcwl9623 "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install rcwl9623 library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="RCWL9623 Ultrasonic Distance Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="rcwl9623_init">
+    <field name="RCWL_MODE">GPIO</field> <!-- 默认GPIO模式 -->
+    <value name="trig_pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field> <!-- 默认Trig引脚2 -->
+      </shadow>
+    </value>
+    <value name="echo_pin">
+      <shadow type="pinout">
+        <field name="PIN">3</field> <!-- 默认Echo引脚3 -->
+      </shadow>
+    </value>
+    <value name="onewire_pin">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="bus_num">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="i2c_addr">
+      <shadow type="math_number">
+        <field name="NUM">87</field> <!-- 0x57=87 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="rcwl9623_read_distance"></block>
+</category>
+
     <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MQX (MQ2/MQ4/MQ7) Gas Sensor">
   <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
@@ -2040,6 +2081,40 @@
   </block>
   <block type="pir_toggle_callback">
     <field name="TOGGLE_ACTION">ENABLE</field>
+  </block>
+</category>
+
+    <category name="Serial IMU Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-imu "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install imu library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="IMU Acc/Gyro/Angle/Temp Sensor (UART)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="imu_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认UART0 -->
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">16</field> <!-- 默认TX16 -->
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">17</field> <!-- 默认RX17 -->
+      </shadow>
+    </value>
+    <field name="BAUDRATE">115200</field> <!-- 默认波特率115200 -->
+  </block>
+  <block type="imu_read_all"></block>
+  <block type="imu_send_cmd">
+    <field name="CMD_TYPE">ZAXISCLEAR</field> <!-- 默认清零Z轴 -->
   </block>
 </category>
 

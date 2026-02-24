@@ -8172,3 +8172,55 @@ Blockly.Python['rcwl9623_read_distance'] = function(block) {
   var code = 'rcwl9623_sensor.read_distance()';
   return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
 };
+
+// 初始化IMU传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['imu_init'] = function(block) {
+  // 1. 取值（和AHT10/BA111TDS取值逻辑一致）
+  var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+  var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+  var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+  var baudrate = block.getFieldValue('BAUDRATE');
+
+  // 2. 导入语句（适配IMU驱动依赖）
+  Blockly.Python.definitions_['import_machine_imu'] = 'from machine import Pin, UART';
+  Blockly.Python.definitions_['import_time_imu'] = 'import time';
+  Blockly.Python.definitions_['import_binascii_imu'] = 'import binascii';
+  Blockly.Python.definitions_['import_imu'] = 'import serial_imu'; // 假设驱动文件名为imu.py
+
+  // 3. 代码拼接（实例化UART+IMU，最简化）
+  var code = 'uart_imu=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+  code += 'imu_sensor=imu.IMU(uart_imu)\n'; // 实例化IMU，自动执行清零Z轴+校准加速度
+
+  return code;
+};
+
+// 读取IMU全量数据（对齐aht_read_temp写法）
+Blockly.Python['imu_read_all'] = function(block) {
+  var code = 'imu_sensor.RecvData()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+};
+
+// 发送IMU常用指令（对齐ba111tds_set_ntc写法）
+Blockly.Python['imu_send_cmd'] = function(block) {
+  var cmd_type = block.getFieldValue('CMD_TYPE');
+  var code = '';
+
+  // 指令映射（简化，直接调用驱动内置常量）
+  var cmd_map = {
+    'ZAXISCLEAR': 'imu.IMU.ZAXISCLEARCMD',
+    'ACCCALB': 'imu.IMU.ACCCALBCMD',
+    'CONVSLEEP': 'imu.IMU.CONVSLEEPCMD',
+    'BAUD115200': 'imu.IMU.BAUD115200CMD',
+    'BAUD9600': 'imu.IMU.BAUD9600CMD'
+  };
+
+  // 生成发送指令代码
+  code = 'imu_sensor.SendCMD(' + cmd_map[cmd_type] + ')\n';
+  // 波特率切换后更新UART配置
+  if (cmd_type === 'BAUD115200' || cmd_type === 'BAUD9600') {
+    var new_baud = cmd_type === 'BAUD115200' ? 115200 : 9600;
+    code += 'uart_imu.init(baudrate=' + new_baud + ')\n';
+  }
+
+  return code;
+};

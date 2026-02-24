@@ -15495,3 +15495,83 @@ Blockly.Blocks['rcwl9623_read_distance'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+// 初始化IMU传感器（对齐aht_init/ba111tds_init风格）
+Blockly.Blocks['imu_init'] = {
+  init: function() {
+    // 基础信息+图标（占位路径）
+    this.appendDummyInput()
+        .appendField("Init IMU Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/imu.png",
+          300, 300,
+          "*"
+        ));
+
+    // UART端口（对齐AHT10的I2C参数）
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    // TX引脚（对齐BA111TDS的tx_pin）
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    // RX引脚（对齐BA111TDS的rx_pin）
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    // 波特率（下拉选择，对齐AHT10的AHT_TYPE）
+    this.appendDummyInput()
+        .appendField("Baudrate")
+        .appendField(new Blockly.FieldDropdown([
+          ['115200', '115200'],
+          ['9600', '9600']
+        ]), 'BAUDRATE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init IMU sensor via UART (support 9600/115200 baudrate)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取IMU全量数据（对齐aht_read_temp/ba111tds_read风格）
+Blockly.Blocks['imu_read_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read IMU All Data (acc/temp/gyro/angle)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read IMU data: acc(x/y/z), temp, gyro(x/y/z), angle(x/y/z)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 发送IMU常用指令（对齐ba111tds_set_ntc风格）
+Blockly.Blocks['imu_send_cmd'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Send IMU Command")
+        .appendField(new Blockly.FieldDropdown([
+          ['Clear Z Axis', 'ZAXISCLEAR'],
+          ['Calibrate Acc', 'ACCCALB'],
+          ['Switch to Sleep', 'CONVSLEEP'],
+          ['Set Baud 115200', 'BAUD115200'],
+          ['Set Baud 9600', 'BAUD9600']
+        ]), 'CMD_TYPE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send common commands to IMU sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
