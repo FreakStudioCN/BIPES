@@ -8368,3 +8368,34 @@ Blockly.Python['tcs34725_read_raw'] = function(block) {
   var code = 'tcs34725_sensor.read(raw=True)';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+/// VL53L0X Distance Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['vl53l0x_init'] = function(block) {
+  // 第一步：取值（和AHT10的取值逻辑完全一致）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+
+  // 第二步：导入语句（适配VL53L0X的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C'; // 和AHT10完全一致
+  Blockly.Python.definitions_['import_vl53l0x'] = 'import vl53l0x'; // 驱动文件名匹配：vl53l0x.py
+  Blockly.Python.definitions_['import_time'] = 'import time'; // VL53L0X依赖time模块
+
+  // 第三步：代码拼接（最简化，地址固定0x29，匹配驱动要求）
+  var code = 'i2cVL53L0X=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '), freq=400000)\n'; // I2C频率设为400KHz（VL53L0X推荐）
+  code += 'vl53l0x_sensor=vl53l0x.VL53L0X(i2cVL53L0X, address=0x29)\n'; // 地址固定0x29，匹配驱动限制
+
+  return code;
+};
+
+// 对齐AHT10的代码生成逻辑（启动测量，最简化无周期）
+Blockly.Python['vl53l0x_start'] = function(block) {
+  var code = 'vl53l0x_sensor.start()\n'; // 调用驱动的start方法，默认无周期
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取距离，返回ORDER_NONE）
+Blockly.Python['vl53l0x_read_distance'] = function(block) {
+  var code = 'vl53l0x_sensor.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};

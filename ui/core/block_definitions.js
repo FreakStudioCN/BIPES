@@ -15856,3 +15856,64 @@ Blockly.Blocks['tcs34725_read_raw'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+/// Start VL53L0X Distance Sensor（完全对齐AHT10/BA111TDS写法）
+Blockly.Blocks['vl53l0x_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸和结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/vl53l0x.png",
+                     55,
+                     55,
+                     "*"))
+        .appendField("Init VL53L0X Distance Sensor");
+
+    // 第二步：核心参数（右对齐，和AHT10的I2C/SDA/SCL结构完全一致）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init VL53L0X laser distance sensor via I2C");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的基础块写法（启动测量）
+Blockly.Blocks['vl53l0x_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Start VL53L0X Measurement");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start VL53L0X continuous measurement");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取距离，输出数值）
+Blockly.Blocks['vl53l0x_read_distance'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read VL53L0X Distance (mm)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read distance from VL53L0X sensor (mm)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
