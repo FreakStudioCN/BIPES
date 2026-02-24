@@ -8302,3 +8302,32 @@ Blockly.Python['vibration_sensor_deinit'] = function(block) {
   code += 'print("Vibration sensor deinitialized")\n';
   return code;
 };
+
+// 初始化TCR5000传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['tcr5000_init'] = function(block) {
+  // 1. 取值（和AHT10取值逻辑一致）
+  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+  var trigger_type = block.getFieldValue('TRIGGER_TYPE');
+
+  // 2. 导入语句（适配TCR5000依赖）
+  Blockly.Python.definitions_['import_machine_tcr5000'] = 'from machine import Pin';
+  Blockly.Python.definitions_['import_micropython_tcr5000'] = 'import micropython';
+  Blockly.Python.definitions_['import_tcr5000'] = 'import tcr5000'; // 驱动文件名为tcr5000.py
+
+  // 3. 代码拼接（实例化传感器，最简化，暂不支持自定义回调）
+  var code = 'tcr5000_sensor=tcr5000.TCR5000(' + pin + ', trigger=Pin.' + trigger_type + ')\n';
+  return code;
+};
+
+// 读取TCR5000传感器状态（对齐aht_read_temp写法）
+Blockly.Python['tcr5000_read'] = function(block) {
+  var code = 'tcr5000_sensor.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+};
+
+// 反初始化TCR5000传感器（对齐ba111tds_calibrate写法）
+Blockly.Python['tcr5000_deinit'] = function(block) {
+  var code = 'tcr5000_sensor.deinit()\n';
+  code += 'print("TCR5000 sensor deinitialized")\n';
+  return code;
+};

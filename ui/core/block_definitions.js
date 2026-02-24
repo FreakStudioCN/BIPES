@@ -15583,7 +15583,7 @@ Blockly.Blocks['soil_moisture_init'] = {
         .appendField("Init Soil Moisture Sensor")
         .appendField(new Blockly.FieldImage(
           "media/soil_moisture.png",
-          55, 55,
+          300, 300,
           "*"
         ));
 
@@ -15658,7 +15658,7 @@ Blockly.Blocks['vibration_sensor_init'] = {
         .appendField("Init Vibration Sensor")
         .appendField(new Blockly.FieldImage(
           "media/vibration_sensor.png",
-          55, 55,
+          300, 300,
           "*"
         ));
 
@@ -15716,6 +15716,66 @@ Blockly.Blocks['vibration_sensor_deinit'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Disable vibration sensor interrupt");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 初始化TCR5000传感器（对齐aht_init/ba111tds_init风格）
+Blockly.Blocks['tcr5000_init'] = {
+  init: function() {
+    // 基础信息+图标（占位路径）
+    this.appendDummyInput()
+        .appendField("Init TCR5000 Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/tcr5000.png",
+          300, 300,
+          "*"
+        ));
+
+    // 引脚配置（对齐AHT10的I2C/SDA/SCL参数）
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin");
+
+    // 触发类型（下拉框，对齐AHT10的AHT_TYPE）
+    this.appendDummyInput()
+        .appendField("Trigger Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['Rising Edge', 'IRQ_RISING'],
+          ['Falling Edge', 'IRQ_FALLING'],
+          ['Both Edges', 'IRQ_FALLING | IRQ_RISING']
+        ]), 'TRIGGER_TYPE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init TCR5000 sensor with pin and trigger type");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取TCR5000传感器状态（对齐aht_read_temp风格）
+Blockly.Blocks['tcr5000_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read TCR5000 State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current state of TCR5000 sensor (0/1)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 反初始化TCR5000传感器（对齐ba111tds_calibrate风格）
+Blockly.Blocks['tcr5000_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit TCR5000 Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable TCR5000 sensor interrupt");
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
