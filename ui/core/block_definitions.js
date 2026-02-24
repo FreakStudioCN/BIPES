@@ -15328,7 +15328,7 @@ Blockly.Blocks['pir_init'] = {
         .appendField("Init PIR Motion Sensor")
         .appendField(new Blockly.FieldImage(
           "media/pir_sensor.png",
-          55, 55,
+          300, 300,
           "*"
         ));
 
