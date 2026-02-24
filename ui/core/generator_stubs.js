@@ -7962,3 +7962,44 @@ Blockly.Python['mgx_read_ppm'] = function(block) {
   var code = 'mgx_sensor.read_ppm(samples=' + samples + ', delay_ms=0)';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+/// MLX90614/MLX90615 Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['mlx9061x_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
+  var sensor_type = block.getFieldValue('SENSOR_TYPE');
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var address = block.getFieldValue('ADDRESS');
+
+  // 第二步：导入语句（适配MLX9061x的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C'; // 同AHT10的导入
+  Blockly.Python.definitions_['import_mlx9061x'] = 'import mlx9061x'; // 驱动文件名匹配：mlx9061x.py
+
+  // 第三步：代码拼接（最简化，对齐AHT10/BA111TDS的实例化逻辑）
+  var code = 'i2cMLX=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+  code += 'mlx_sensor=mlx9061x.' + sensor_type + '(i2cMLX, address=' + address + ')\n';
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取环境温度，返回ORDER_NONE）
+Blockly.Python['mlx9061x_read_ambient'] = function(block) {
+  var code = 'mlx_sensor.ambient';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取物体温度）
+Blockly.Python['mlx9061x_read_object'] = function(block) {
+  var code = 'mlx_sensor.object';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 可选扩展：读取物体2温度（加异常处理，对齐BA111TDS的异常逻辑）
+Blockly.Python['mlx9061x_read_object2'] = function(block) {
+  var code = 'try:\n';
+  code += '\tmlx_sensor.object2\n';
+  code += 'except RuntimeError:\n';
+  code += '\tNone\n';
+  return [code, Blockly.Python.ORDER_NONE];
+};

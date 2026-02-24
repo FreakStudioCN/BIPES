@@ -1837,6 +1837,44 @@
     </category>
 
     <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MLX90614 IR Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mlx9061x library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MLX90614/MLX90615 Infrared Temperature Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mlx9061x_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C 0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field> <!-- 默认SDA 0 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field> <!-- 默认SCL 1 -->
+      </shadow>
+    </value>
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">90</field> <!-- 0x5A的十进制值，适配Bipes数字输入 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mlx9061x_read_ambient"></block>
+  <block type="mlx9061x_read_object"></block>
+  <block type="mlx9061x_read_object2"></block>
+</category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MGX Gas Sensor (MG811/MG812)">
   <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>

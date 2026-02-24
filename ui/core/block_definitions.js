@@ -15061,3 +15061,91 @@ Blockly.Blocks['mgx_read_ppm'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+/// Start MLX90614/MLX90615 Sensor（完全对齐AHT10/BA111TDS写法）
+Blockly.Blocks['mlx9061x_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/mlx9061x.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init MLX90614/MLX90615 Sensor");
+
+    // 第二步：下拉选择传感器型号（对齐AHT10的AHT_TYPE下拉）
+    this.appendDummyInput()
+        .appendField("Sensor Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['MLX90614', 'MLX90614'],
+          ['MLX90615', 'MLX90615']
+        ]), 'SENSOR_TYPE');
+
+    // 第三步：右对齐参数框（核心I2C参数，对齐AHT10的I2C/SDA/SCL）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // 第四步：I2C地址参数（默认0x5A，对齐BA111TDS的BAUDRATE字段）
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (0x5A-0x5D)")
+      .appendField(new Blockly.FieldNumber(0x5A), "ADDRESS");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MLX90614/MLX90615 infrared temperature sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取环境温度）
+Blockly.Blocks['mlx9061x_read_ambient'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MLX Ambient Temp (°C)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MLX90614/MLX90615 ambient temperature");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取物体温度）
+Blockly.Blocks['mlx9061x_read_object'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MLX Object Temp (°C)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MLX90614/MLX90615 object temperature");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 可选扩展：读取物体2温度（仅MLX90614双区可用，简化处理）
+Blockly.Blocks['mlx9061x_read_object2'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MLX Object2 Temp (°C)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MLX90614 dual-zone object2 temperature (only for MLX90614)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
