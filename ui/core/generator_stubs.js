@@ -7744,3 +7744,37 @@ Blockly.Python['bmp280_set_sealevel'] = function(block) {
 
   return code;
 };
+
+/// Flame Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['flame_sensor_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
+  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
+  var digital_pin = Blockly.Python.valueToCode(block, 'digital_pin', Blockly.Python.ORDER_ATOMIC);
+
+  // 第二步：导入语句（适配火焰传感器的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // AHT10用Pin/I2C，这里改Pin/ADC
+  Blockly.Python.definitions_['import_flame_sensor'] = 'import flame_sensor'; // 驱动文件名：flame_sensor.py
+  Blockly.Python.definitions_['import_time'] = 'import time'; // 驱动依赖time，提前导入
+
+  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
+  var code = 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ')\n';
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（检测火焰，返回ORDER_NONE）
+Blockly.Python['flame_sensor_is_detected'] = function(block) {
+  var code = 'flame_sensor_device.is_flame_detected()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐AHT10的aht_read_temp写法（读取模拟值）
+Blockly.Python['flame_sensor_read_analog'] = function(block) {
+  var code = 'flame_sensor_device.get_analog_value()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取电压）
+Blockly.Python['flame_sensor_read_voltage'] = function(block) {
+  var code = 'flame_sensor_device.get_voltage()';
+  return [code, Blockly.Python.ORDER_NONE];
+};

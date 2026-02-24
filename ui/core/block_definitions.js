@@ -14669,3 +14669,71 @@ Blockly.Blocks['bmp280_set_sealevel'] = {
     this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
   }
 };
+
+/// Start Flame Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
+Blockly.Blocks['flame_sensor_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/flame_sensor.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init Flame Sensor");
+
+    // 第二步：右对齐参数框（仅保留核心的模拟/数字引脚，对齐BA111TDS的setAlign逻辑）
+    this.appendValueInput("analog_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Analog Pin");
+
+    this.appendValueInput("digital_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Digital Pin");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Flame Sensor (analog + digital pin)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（检测火焰是否存在）
+Blockly.Blocks['flame_sensor_is_detected'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Flame Detected?");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if flame is detected (True/False)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取模拟值）
+Blockly.Blocks['flame_sensor_read_analog'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Flame Sensor Analog Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read flame sensor analog value (0-65535)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取电压）
+Blockly.Blocks['flame_sensor_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Flame Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read flame sensor voltage (0-3.3V)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};

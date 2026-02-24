@@ -1727,6 +1727,33 @@
         </value>
       </block>
     </category>
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="Flame Sensor">
+      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+      <button text="Install flame_sensor library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+      <label text="Flame Sensor (Analog + Digital)"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+      <block type="flame_sensor_init">
+        <value name="analog_pin">
+          <shadow type="pinout">
+            <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+          </shadow>
+        </value>
+        <value name="digital_pin">
+          <shadow type="pinout">
+            <field name="PIN">27</field> <!-- 适配Pico的数字引脚 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="flame_sensor_is_detected"></block>
+      <block type="flame_sensor_read_analog"></block>
+      <block type="flame_sensor_read_voltage"></block>
+    </category>
 
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
