@@ -15418,3 +15418,80 @@ Blockly.Blocks['pir_toggle_callback'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+// 初始化RCWL9623传感器（对齐aht_init/ba111tds_init风格）
+Blockly.Blocks['rcwl9623_init'] = {
+  init: function() {
+    // 基础信息+图标（占位路径）
+    this.appendDummyInput()
+        .appendField("Init RCWL9623 Distance Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/rcwl9623.png",
+          300, 300,
+          "*"
+        ));
+
+    // 模式选择（核心下拉框，对齐AHT10的AHT_TYPE）
+    this.appendDummyInput()
+        .appendField("Mode")
+        .appendField(new Blockly.FieldDropdown([
+          ['GPIO (Trig/Echo)', 'GPIO'],
+          ['OneWire', 'ONEWIRE'],
+          ['UART', 'UART'],
+          ['I2C', 'I2C']
+        ]), 'RCWL_MODE');
+
+    // GPIO模式：Trig引脚
+    this.appendValueInput("trig_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Trig Pin")
+      .appendField(new Blockly.FieldNumber(2), "TRIG_PIN");
+
+    // GPIO模式：Echo引脚
+    this.appendValueInput("echo_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Echo Pin")
+      .appendField(new Blockly.FieldNumber(3), "ECHO_PIN");
+
+    // OneWire模式：单引脚（复用Trig Pin输入框，简化）
+    this.appendValueInput("onewire_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("OneWire Pin")
+      .appendField(new Blockly.FieldNumber(2), "ONEWIRE_PIN");
+
+    // UART/I2C模式：总线编号（简化）
+    this.appendValueInput("bus_num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Bus Num (UART/I2C)")
+      .appendField(new Blockly.FieldNumber(0), "BUS_NUM");
+
+    // I2C地址（默认0x57）
+    this.appendValueInput("i2c_addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Addr")
+      .appendField(new Blockly.FieldNumber(87), "I2C_ADDR"); // 0x57=87
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init RCWL9623 distance sensor (GPIO/OneWire/UART/I2C)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取RCWL9623距离值（对齐aht_read_temp/ba111tds_read风格）
+Blockly.Blocks['rcwl9623_read_distance'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read RCWL9623 Distance (cm)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read distance from RCWL9623 sensor (cm)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};

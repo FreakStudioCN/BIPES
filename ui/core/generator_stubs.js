@@ -8128,3 +8128,47 @@ Blockly.Python['pir_toggle_callback'] = function(block) {
   }
   return code;
 };
+
+// 初始化RCWL9623传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['rcwl9623_init'] = function(block) {
+  // 1. 取值（和AHT10取值逻辑一致）
+  var rcwl_mode = block.getFieldValue('RCWL_MODE');
+  var trig_pin = block.getFieldValue('TRIG_PIN');
+  var echo_pin = block.getFieldValue('ECHO_PIN');
+  var onewire_pin = block.getFieldValue('ONEWIRE_PIN');
+  var bus_num = block.getFieldValue('BUS_NUM');
+  var i2c_addr = block.getFieldValue('I2C_ADDR');
+
+  // 2. 导入语句（适配RCWL9623驱动依赖）
+  Blockly.Python.definitions_['import_machine_rcwl'] = 'from machine import Pin, UART, I2C, time_pulse_us';
+  Blockly.Python.definitions_['import_time_rcwl'] = 'import time';
+  Blockly.Python.definitions_['import_micropython_rcwl'] = 'from micropython import const';
+  Blockly.Python.definitions_['import_rcwl9623'] = 'import rcwl9623'; // 假设驱动文件名为rcwl9623.py
+
+  // 3. 代码拼接（按模式实例化，最简化处理）
+  var code = '';
+  if (rcwl_mode === 'GPIO') {
+    // GPIO模式（最常用，优先简化）
+    code += 'gpio_pins=(' + trig_pin + ', ' + echo_pin + ')\n';
+    code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.GPIO_MODE, gpio_pins=gpio_pins)\n';
+  } else if (rcwl_mode === 'ONEWIRE') {
+    // OneWire模式
+    code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.ONEWIRE_MODE, onewire_pin=' + onewire_pin + ')\n';
+  } else if (rcwl_mode === 'UART') {
+    // UART模式（简化初始化UART）
+    code += 'uart_rcwl=UART(' + bus_num + ', baudrate=9600, tx=Pin(16), rx=Pin(17))\n';
+    code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.UART_MODE, uart=uart_rcwl)\n';
+  } else if (rcwl_mode === 'I2C') {
+    // I2C模式（简化初始化I2C）
+    code += 'i2c_rcwl=I2C(' + bus_num + ', scl=Pin(1), sda=Pin(0))\n';
+    code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.I2C_MODE, i2c=i2c_rcwl, addr=' + i2c_addr + ')\n';
+  }
+
+  return code;
+};
+
+// 读取RCWL9623距离值（对齐aht_read_temp写法）
+Blockly.Python['rcwl9623_read_distance'] = function(block) {
+  var code = 'rcwl9623_sensor.read_distance()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+};
