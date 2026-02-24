@@ -8331,3 +8331,40 @@ Blockly.Python['tcr5000_deinit'] = function(block) {
   code += 'print("TCR5000 sensor deinitialized")\n';
   return code;
 };
+
+// 初始化TCS34725传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['tcs34725_init'] = function(block) {
+  // 1. 取值（和AHT10取值逻辑一致）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var addr = block.getFieldValue('ADDR');
+  var led_pin = Blockly.Python.valueToCode(block, 'led_pin', Blockly.Python.ORDER_ATOMIC) || block.getFieldValue('LED_PIN_DEFAULT');
+
+  // 2. 导入语句（适配TCS34725依赖）
+  Blockly.Python.definitions_['import_machine_tcs34725'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_time_tcs34725'] = 'import time';
+  Blockly.Python.definitions_['import_tcs34725'] = 'import tcs34725'; // 驱动文件名为tcs34725.py
+
+  // 3. 代码拼接（最简化，自动激活传感器）
+  var code = 'i2cTCS34725=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+  // 处理LED引脚（-1表示无LED）
+  code += 'led_pin_tcs=None\n';
+  code += 'if ' + led_pin + ' != -1:\n';
+  code += '\tled_pin_tcs=Pin(' + led_pin + ', Pin.OUT)\n';
+  code += 'tcs34725_sensor=tcs34725.TCS34725(i2cTCS34725, address=' + addr + ', led_pin=led_pin_tcs)\n';
+  code += 'tcs34725_sensor.active(True)\n'; // 自动激活传感器
+  return code;
+};
+
+// 读取TCS34725色温&亮度（对齐aht_read_temp写法）
+Blockly.Python['tcs34725_read_cct_lux'] = function(block) {
+  var code = 'tcs34725_sensor.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+};
+
+// 读取TCS34725原始RGB+C数据（对齐aht_read_humidity写法）
+Blockly.Python['tcs34725_read_raw'] = function(block) {
+  var code = 'tcs34725_sensor.read(raw=True)';
+  return [code, Blockly.Python.ORDER_NONE];
+};

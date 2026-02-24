@@ -15779,3 +15779,80 @@ Blockly.Blocks['tcr5000_deinit'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+// 初始化TCS34725传感器（对齐aht_init/ba111tds_init风格）
+Blockly.Blocks['tcs34725_init'] = {
+  init: function() {
+    // 基础信息+图标（占位路径）
+    this.appendDummyInput()
+        .appendField("Init TCS34725 Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/tcs34725.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C相关参数（对齐AHT10的I2C/SDA/SCL参数）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // 传感器地址（默认0x29，下拉框可选）
+    this.appendDummyInput()
+        .appendField("Address")
+        .appendField(new Blockly.FieldDropdown([
+          ['0x29 (Default)', '0x29'],
+          ['0x2A', '0x2A'],
+          ['0x2B', '0x2B'],
+          ['0x2C', '0x2C']
+        ]), 'ADDR');
+
+    // LED引脚（可选）
+    this.appendValueInput("led_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "LED_PIN_DEFAULT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init TCS34725 color/cct sensor via I2C");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取TCS34725色温&亮度（对齐aht_read_temp风格）
+Blockly.Blocks['tcs34725_read_cct_lux'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read TCS34725 CCT & Lux");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read CCT (K) and Lux from TCS34725");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取TCS34725原始RGB+C数据（对齐aht_read_humidity风格）
+Blockly.Blocks['tcs34725_read_raw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read TCS34725 Raw RGB+C");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read raw R/G/B/C data from TCS34725");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
