@@ -2258,7 +2258,48 @@
   <block type="vl53l0x_start"></block>
   <block type="vl53l0x_read_distance"></block>
 </category>
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="JEDMGasMeas Gas Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install jedmgasmeas library" callbackKey="installPyLib"></button>
 
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="JEDMGasMeas Gas Concentration Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="jedmgasmeas_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- Pico默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field> <!-- 默认SDA0 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field> <!-- 默认SCL1 -->
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">42</field> <!-- 0x2A的十进制值，新手更易理解 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="jedmgasmeas_read_concentration"></block>
+  <block type="jedmgasmeas_calibrate_zero">
+    <value name="calib_value">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认校准值0 -->
+      </shadow>
+    </value>
+  </block>
+</category>
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>

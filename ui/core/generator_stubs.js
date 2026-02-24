@@ -8399,3 +8399,43 @@ Blockly.Python['vl53l0x_read_distance'] = function(block) {
   var code = 'vl53l0x_sensor.read()';
   return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
 };
+
+/// JEDMGasMeas Gas Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['jedmgasmeas_init'] = function(block) {
+  // 第一步：取值（和AHT10的取值逻辑完全一致）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var addr = block.getFieldValue('I2C_ADDR');
+
+  // 第二步：导入语句（适配JEDMGasMeas的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import SoftI2C, Pin'; // 适配SoftI2C
+  Blockly.Python.definitions_['import_jedmgasmeas'] = 'import jedmgasmeas'; // 驱动文件名匹配：jedmgasmeas.py
+  Blockly.Python.definitions_['import_time'] = 'import time'; // 基础依赖
+
+  // 第三步：代码拼接（最简化，I2C频率设为传感器最大100KHz）
+  var code = 'i2cJEDM=SoftI2C(scl=Pin(' + scl + '), sda=Pin(' + sda + '), freq=100000)\n';
+  code += 'jedmgas_sensor=jedmgasmeas.JEDMGasMeas(i2cJEDM, addr=' + addr + ')\n';
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取浓度，返回ORDER_NONE）
+Blockly.Python['jedmgasmeas_read_concentration'] = function(block) {
+  var code = 'jedmgas_sensor.read_concentration()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐BA111TDS的calibrate写法（零点校准，简化结果输出）
+Blockly.Python['jedmgasmeas_calibrate_zero'] = function(block) {
+  var calib_value = Blockly.Python.valueToCode(block, 'calib_value', Blockly.Python.ORDER_ATOMIC) || 'None';
+
+  // 拼接校准代码，对齐BA111TDS的结果打印风格
+  var code = 'cal_result=jedmgas_sensor.calibrate_zero(calib_value=' + calib_value + ')\n';
+  code += 'if cal_result:\n';
+  code += '\tprint("JEDMGasMeas Zero Calibration OK")\n';
+  code += 'else:\n';
+  code += '\tprint("JEDMGasMeas Zero Calibration FAIL")\n';
+
+  return code;
+};

@@ -13973,7 +13973,7 @@ Blockly.Blocks['bmp280_pressure'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Pressure from the BMP280 sensor");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -13984,7 +13984,7 @@ Blockly.Blocks['bmp280_altitude'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Altitude from the BMP280 sensor");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14089,7 +14089,7 @@ Blockly.Blocks['mcp23017_input'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("MCP23017 Read digital pin");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14123,7 +14123,7 @@ Blockly.Blocks['ccs811_data_ready'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Air Quality Sensor CCS811 Data Ready");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14134,7 +14134,7 @@ Blockly.Blocks['ccs811_eCO2'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Air Quality Sensor CCS811 CO2 reading");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14145,7 +14145,7 @@ Blockly.Blocks['ccs811_tVOC'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Air Quality Sensor CCS811 VOC reading");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14179,7 +14179,7 @@ Blockly.Blocks['sht20_temperature'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Temperature from the SHT20 sensor");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14190,7 +14190,7 @@ Blockly.Blocks['sht20_humidity'] = {
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("Humidity from the SHT20 sensor");
- this.setHelpUrl("http://www.bipes.net.br");
+ this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14812,7 +14812,7 @@ Blockly.Blocks['hall_sensor_oh34n_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init OH34N Hall Sensor (digital pin)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14824,7 +14824,7 @@ Blockly.Blocks['hall_sensor_oh34n_read'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read OH34N hall sensor state (True=magnet detected, False=none)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14837,7 +14837,7 @@ Blockly.Blocks['hall_sensor_oh34n_enable'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable OH34N hall sensor interrupt (rising/falling edge)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14850,7 +14850,7 @@ Blockly.Blocks['hall_sensor_oh34n_disable'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Disable OH34N hall sensor interrupt");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14887,7 +14887,7 @@ Blockly.Blocks['max9814_mic_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init MAX9814 microphone (ADC + optional gain/shutdown pin)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14899,7 +14899,7 @@ Blockly.Blocks['max9814_mic_read'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MAX9814 raw ADC value");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14911,7 +14911,7 @@ Blockly.Blocks['max9814_mic_read_normalized'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MAX9814 normalized value (0.0-1.0)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14923,7 +14923,7 @@ Blockly.Blocks['max9814_mic_read_voltage'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MAX9814 voltage (0-3.3V)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14936,7 +14936,7 @@ Blockly.Blocks['max9814_mic_enable'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable MAX9814 microphone (via shutdown pin)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14949,7 +14949,7 @@ Blockly.Blocks['max9814_mic_disable'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Disable MAX9814 microphone (via shutdown pin)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14967,7 +14967,7 @@ Blockly.Blocks['max9814_mic_set_gain'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set MAX9814 microphone gain (Low/High)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15011,7 +15011,7 @@ Blockly.Blocks['mgx_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init MGX gas sensor (MG811/MG812) with ADC/comp pin");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15029,7 +15029,7 @@ Blockly.Blocks['mgx_select_builtin'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Select built-in MG811/MG812 sensor polynomial");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15041,7 +15041,7 @@ Blockly.Blocks['mgx_read_voltage'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MGX gas sensor voltage");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15058,7 +15058,7 @@ Blockly.Blocks['mgx_read_ppm'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MGX gas sensor PPM value (average of samples)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15110,7 +15110,7 @@ Blockly.Blocks['mlx9061x_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init MLX90614/MLX90615 infrared temperature sensor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15122,7 +15122,7 @@ Blockly.Blocks['mlx9061x_read_ambient'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MLX90614/MLX90615 ambient temperature");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15134,7 +15134,7 @@ Blockly.Blocks['mlx9061x_read_object'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MLX90614/MLX90615 object temperature");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15146,7 +15146,7 @@ Blockly.Blocks['mlx9061x_read_object2'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MLX90614 dual-zone object2 temperature (only for MLX90614)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15190,7 +15190,7 @@ Blockly.Blocks['mlx90640_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init MLX90640 infrared thermal camera sensor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15214,7 +15214,7 @@ Blockly.Blocks['mlx90640_set_refresh_rate'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set MLX90640 refresh rate (0.5~64Hz)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15226,7 +15226,7 @@ Blockly.Blocks['mlx90640_get_frame'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MLX90640 thermal frame data (768 temperature values)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15271,7 +15271,7 @@ Blockly.Blocks['mqx_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init MQX (MQ2/MQ4/MQ7) gas sensor via ADC");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15290,7 +15290,7 @@ Blockly.Blocks['mqx_select_sensor'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Select built-in MQX sensor type (MQ2/MQ4/MQ7)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15302,7 +15302,7 @@ Blockly.Blocks['mqx_read_voltage'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MQX gas sensor voltage output");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15317,7 +15317,7 @@ Blockly.Blocks['mqx_read_ppm'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MQX gas concentration (PPM)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15350,7 +15350,7 @@ Blockly.Blocks['pir_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init PIR motion sensor (with/without callback)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15362,7 +15362,7 @@ Blockly.Blocks['pir_is_motion_detected'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Check if PIR sensor detects motion");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15379,7 +15379,7 @@ Blockly.Blocks['pir_wait_for_motion'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Wait until PIR detects motion (or timeout)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15397,7 +15397,7 @@ Blockly.Blocks['pir_set_callback'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set callback code to run when PIR detects motion");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15415,7 +15415,7 @@ Blockly.Blocks['pir_toggle_callback'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable PIR motion callback");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15480,7 +15480,7 @@ Blockly.Blocks['rcwl9623_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init RCWL9623 distance sensor (GPIO/OneWire/UART/I2C)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15492,7 +15492,7 @@ Blockly.Blocks['rcwl9623_read_distance'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read distance from RCWL9623 sensor (cm)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15538,7 +15538,7 @@ Blockly.Blocks['imu_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init IMU sensor via UART (support 9600/115200 baudrate)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15550,7 +15550,7 @@ Blockly.Blocks['imu_read_all'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read IMU data: acc(x/y/z), temp, gyro(x/y/z), angle(x/y/z)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15571,7 +15571,7 @@ Blockly.Blocks['imu_send_cmd'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Send common commands to IMU sensor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15597,7 +15597,7 @@ Blockly.Blocks['soil_moisture_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init Soil Moisture Sensor via ADC pin");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15610,7 +15610,7 @@ Blockly.Blocks['soil_moisture_calibrate_dry'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Calibrate dry state for soil moisture sensor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15623,7 +15623,7 @@ Blockly.Blocks['soil_moisture_calibrate_wet'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Calibrate wet state for soil moisture sensor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15635,7 +15635,7 @@ Blockly.Blocks['soil_moisture_read_percent'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read soil moisture percentage (0-100%)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15647,7 +15647,7 @@ Blockly.Blocks['soil_moisture_read_level'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read soil moisture level (dry/moist/wet)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 // 初始化振动传感器（对齐aht_init/ba111tds_init风格）
@@ -15679,7 +15679,7 @@ Blockly.Blocks['vibration_sensor_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init Vibration Sensor with pin and debounce time");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15691,7 +15691,7 @@ Blockly.Blocks['vibration_sensor_read'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read current state of vibration sensor (True/False)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15703,7 +15703,7 @@ Blockly.Blocks['vibration_sensor_get_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Get status info (last state, debounce, callback)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15716,7 +15716,7 @@ Blockly.Blocks['vibration_sensor_deinit'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Disable vibration sensor interrupt");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15751,7 +15751,7 @@ Blockly.Blocks['tcr5000_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init TCR5000 sensor with pin and trigger type");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15763,7 +15763,7 @@ Blockly.Blocks['tcr5000_read'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read current state of TCR5000 sensor (0/1)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15776,7 +15776,7 @@ Blockly.Blocks['tcr5000_deinit'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Disable TCR5000 sensor interrupt");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15829,7 +15829,7 @@ Blockly.Blocks['tcs34725_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init TCS34725 color/cct sensor via I2C");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15841,7 +15841,7 @@ Blockly.Blocks['tcs34725_read_cct_lux'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read CCT (K) and Lux from TCS34725");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15853,7 +15853,7 @@ Blockly.Blocks['tcs34725_read_raw'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read raw R/G/B/C data from TCS34725");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 /// Start VL53L0X Distance Sensor（完全对齐AHT10/BA111TDS写法）
@@ -15863,8 +15863,8 @@ Blockly.Blocks['vl53l0x_init'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
                      "media/vl53l0x.png",
-                     55,
-                     55,
+                     300,
+                     300,
                      "*"))
         .appendField("Init VL53L0X Distance Sensor");
 
@@ -15889,7 +15889,7 @@ Blockly.Blocks['vl53l0x_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init VL53L0X laser distance sensor via I2C");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15902,7 +15902,7 @@ Blockly.Blocks['vl53l0x_start'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Start VL53L0X continuous measurement");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -15914,6 +15914,82 @@ Blockly.Blocks['vl53l0x_read_distance'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read distance from VL53L0X sensor (mm)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/// Start JEDMGasMeas Gas Sensor（完全对齐AHT10/BA111TDS写法）
+Blockly.Blocks['jedmgasmeas_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸和结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/jedmgasmeas.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init JEDMGasMeas Gas Sensor");
+
+    // 第二步：核心参数（右对齐，基础I2C参数和AHT10完全一致，新增地址参数）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (Hex)")
+      .appendField(new Blockly.FieldNumber(0x2A), "I2C_ADDR"); // 默认地址0x2A
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init JEDMGasMeas gas concentration sensor via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取浓度，输出数值）
+Blockly.Blocks['jedmgasmeas_read_concentration'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read JEDMGasMeas Concentration");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read gas concentration from JEDMGasMeas sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐BA111TDS的calibrate写法（零点校准，执行语句）
+Blockly.Blocks['jedmgasmeas_calibrate_zero'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Calibrate JEDMGasMeas Zero Point");
+
+    // 可选校准值输入（右对齐，适配新手简化使用）
+    this.appendValueInput("calib_value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Calib Value (Optional)")
+      .appendField(new Blockly.FieldNumber(0), "DEFAULT_CALIB");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Calibrate JEDMGasMeas zero point (0-65535)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
