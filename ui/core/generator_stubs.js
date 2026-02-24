@@ -8003,3 +8003,44 @@ Blockly.Python['mlx9061x_read_object2'] = function(block) {
   code += '\tNone\n';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+/// MLX90640 IR Camera Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['mlx90640_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var address = block.getFieldValue('ADDRESS');
+
+  // 第二步：导入语句（适配MLX90640的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C'; // 同AHT10的导入
+  Blockly.Python.definitions_['import_mlx90640'] = 'import mlx90640'; // 驱动文件名匹配：mlx90640.py
+  Blockly.Python.definitions_['import_array'] = 'import array'; // MLX90640依赖array模块
+
+  // 第三步：代码拼接（最简化，对齐AHT10/BA111TDS的实例化逻辑）
+  var code = 'i2cMLX90640=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+  code += 'mlx90640_sensor=mlx90640.MLX90640(i2cMLX90640, address=' + address + ')\n';
+  code += 'mlx90640_framebuf=array.array(\'f\', [0.0]*768) # Init frame buffer for 768 pixels\n';
+
+  return code;
+};
+
+// 对齐BA111TDS的set_ntc写法（设置刷新率，带异常处理）
+Blockly.Python['mlx90640_set_refresh_rate'] = function(block) {
+  var refresh_rate = block.getFieldValue('REFRESH_RATE');
+  var code = '';
+
+  code = 'try:\n';
+  code += '\tmlx90640_sensor.refresh_rate = ' + refresh_rate + '\n';
+  code += '\tprint("MLX90640 refresh rate set successfully")\n';
+  code += 'except ValueError:\n';
+  code += '\tprint("Invalid MLX90640 refresh rate")\n';
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（获取帧数据，返回ORDER_NONE）
+Blockly.Python['mlx90640_get_frame'] = function(block) {
+  var code = 'mlx90640_sensor.get_frame(mlx90640_framebuf)\nmlx90640_framebuf';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};

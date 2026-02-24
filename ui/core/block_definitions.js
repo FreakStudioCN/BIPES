@@ -15149,3 +15149,83 @@ Blockly.Blocks['mlx9061x_read_object2'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+/// Start MLX90640 IR Camera Sensor（完全对齐AHT10/BA111TDS写法）
+Blockly.Blocks['mlx90640_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/mlx90640.png",
+                     55,
+                     55,
+                     "*"))
+        .appendField("Init MLX90640 IR Camera");
+
+    // 第二步：I2C参数（对齐AHT10的I2C/SDA/SCL结构）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // 第三步：I2C地址（默认0x33，对齐BA111TDS的数值字段风格）
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (0x31-0x35)")
+      .appendField(new Blockly.FieldNumber(51), "ADDRESS"); // 0x33的十进制值
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MLX90640 infrared thermal camera sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐BA111TDS的set_ntc写法（设置刷新率）
+Blockly.Blocks['mlx90640_set_refresh_rate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MLX90640 Refresh Rate")
+        .appendField(new Blockly.FieldDropdown([
+          ['0.5 Hz', "0b000"],
+          ['1 Hz', "0b001"],
+          ['2 Hz', "0b010"],
+          ['4 Hz', "0b011"],
+          ['8 Hz', "0b100"],
+          ['16 Hz', "0b101"],
+          ['32 Hz', "0b110"],
+          ['64 Hz', "0b111"]
+        ]), "REFRESH_RATE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set MLX90640 refresh rate (0.5~64Hz)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（获取帧数据）
+Blockly.Blocks['mlx90640_get_frame'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MLX90640 Frame Data (768 pixels)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MLX90640 thermal frame data (768 temperature values)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
