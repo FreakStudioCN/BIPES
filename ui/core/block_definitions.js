@@ -14611,7 +14611,7 @@ Blockly.Blocks['bmp280_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init BMP280 temperature/pressure sensor via I2C"); // 替换MSG
-    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs"); // 匹配案例的helpurl风格
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 匹配案例的helpurl风格
   }
 };
 
@@ -14623,7 +14623,7 @@ Blockly.Blocks['bmp280_read_temp'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read temperature from BMP280"); // 替换MSG
-    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14635,7 +14635,7 @@ Blockly.Blocks['bmp280_read_pressure'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read pressure from BMP280"); // 替换MSG
-    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14647,7 +14647,7 @@ Blockly.Blocks['bmp280_read_altitude'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read altitude from BMP280"); // 替换MSG
-    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14666,7 +14666,7 @@ Blockly.Blocks['bmp280_set_sealevel'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set sealevel pressure for BMP280 altitude calculation"); // 替换MSG
-    this.setHelpUrl("https://freakstudio.cn/node/xxx-bmp280-docs");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14698,7 +14698,7 @@ Blockly.Blocks['flame_sensor_init'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Init Flame Sensor (analog + digital pin)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14710,7 +14710,7 @@ Blockly.Blocks['flame_sensor_is_detected'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Check if flame is detected (True/False)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14722,7 +14722,7 @@ Blockly.Blocks['flame_sensor_read_analog'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read flame sensor analog value (0-65535)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14734,6 +14734,57 @@ Blockly.Blocks['flame_sensor_read_voltage'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read flame sensor voltage (0-3.3V)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/// Start GUVA_S12SD Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
+Blockly.Blocks['guva_s12sd_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/guva_s12sd.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init GUVA_S12SD Sensor");
+
+    // 第二步：右对齐参数框（仅保留核心的模拟引脚，对齐BA111TDS的setAlign逻辑）
+    this.appendValueInput("analog_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Analog Pin");
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init GUVA_S12SD UV sensor (ADC pin)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取电压）
+Blockly.Blocks['guva_s12sd_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read GUVA_S12SD Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read GUVA_S12SD voltage (0-3.3V)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取UVI指数）
+Blockly.Blocks['guva_s12sd_read_uvi'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read GUVA_S12SD UV Index");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read GUVA_S12SD UV Index (0-11)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };

@@ -7778,3 +7778,31 @@ Blockly.Python['flame_sensor_read_voltage'] = function(block) {
   var code = 'flame_sensor_device.get_voltage()';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+
+/// GUVA_S12SD Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
+Blockly.Python['guva_s12sd_init'] = function(block) {
+  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
+  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
+
+  // 第二步：导入语句（适配GUVA_S12SD的依赖，对齐AHT10的导入风格）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import ADC'; // AHT10用Pin/I2C，这里改ADC
+  Blockly.Python.definitions_['import_guva_s12sd'] = 'import guva_s12sd'; // 驱动文件名：guva_s12sd.py
+  Blockly.Python.definitions_['import_time'] = 'import time'; // 驱动依赖time，提前导入
+
+  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
+  var code = 'guva_s12sd_sensor=guva_s12sd.GUVA_S12SD(analog_pin=' + analog_pin + ')\n';
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（读取电压，返回ORDER_NONE）
+Blockly.Python['guva_s12sd_read_voltage'] = function(block) {
+  var code = 'guva_s12sd_sensor.voltage';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取UVI指数）
+Blockly.Python['guva_s12sd_read_uvi'] = function(block) {
+  var code = 'guva_s12sd_sensor.uvi';
+  return [code, Blockly.Python.ORDER_NONE];
+};
