@@ -1954,6 +1954,51 @@
     </value>
   </block>
 </category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MQX (MQ2/MQ4/MQ7) Gas Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mqx library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MQ2/MQ4/MQ7 Gas Concentration Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mqx_init">
+    <value name="adc_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field> <!-- Pico默认ADC0引脚 -->
+      </shadow>
+    </value>
+    <value name="comp_pin">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认禁用COMP引脚 -->
+      </shadow>
+    </value>
+    <value name="rl_ohm">
+      <shadow type="math_number">
+        <field name="NUM">10000</field> <!-- 默认10KΩ RL电阻 -->
+      </shadow>
+    </value>
+    <value name="vref">
+      <shadow type="math_number">
+        <field name="NUM">3.3</field> <!-- 默认3.3V参考电压 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mqx_select_sensor"></block>
+  <block type="mqx_read_voltage"></block>
+  <block type="mqx_read_ppm">
+    <value name="SAMPLES">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 默认1个样本 -->
+      </shadow>
+    </value>
+  </block>
+</category>
+
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>

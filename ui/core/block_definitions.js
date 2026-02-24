@@ -15229,3 +15229,94 @@ Blockly.Blocks['mlx90640_get_frame'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+/// Start MQX (MQ2/MQ4/MQ7) Gas Sensor（完全对齐AHT10/BA111TDS写法）
+Blockly.Blocks['mqx_init'] = {
+  init: function() {
+    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸）
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/mqx.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init MQX (MQ2/MQ4/MQ7) Gas Sensor");
+
+    // 第二步：核心参数（右对齐，对齐AHT10的I2C/SDA/SCL结构）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin");
+
+    this.appendValueInput("comp_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("COMP Pin (0=Disable)")
+      .appendField(new Blockly.FieldNumber(0), "COMP_PIN"); // 默认禁用COMP引脚
+
+    this.appendValueInput("rl_ohm")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RL Resistance (Ω)")
+      .appendField(new Blockly.FieldNumber(10000), "RL_OHM"); // 默认10KΩ
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VREF (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF"); // 默认3.3V
+
+    // 固定属性（和AHT10/BA111TDS完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MQX (MQ2/MQ4/MQ7) gas sensor via ADC");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的AHT_TYPE下拉写法（选择传感器型号）
+Blockly.Blocks['mqx_select_sensor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Select MQX Sensor Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['MQ2 (Smoke/CO)', "MQ2"],
+          ['MQ4 (Methane)', "MQ4"],
+          ['MQ7 (CO)', "MQ7"]
+        ]), "SENSOR_TYPE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select built-in MQX sensor type (MQ2/MQ4/MQ7)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取电压）
+Blockly.Blocks['mqx_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MQX Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MQX gas sensor voltage output");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取PPM值）
+Blockly.Blocks['mqx_read_ppm'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MQX PPM Value")
+        .appendField("Samples")
+        .appendField(new Blockly.FieldNumber(1), "SAMPLES"); // 默认1个样本
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read MQX gas concentration (PPM)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
