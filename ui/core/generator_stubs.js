@@ -8044,3 +8044,87 @@ Blockly.Python['mqx_read_ppm'] = function(block) {
   var code = 'mqx_sensor.read_ppm(samples=' + samples + ')';
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+// 初始化PIR传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['pir_init'] = function(block) {
+  // 1. 取值（和AHT10取值逻辑一致）
+  var pir_pin = Blockly.Python.valueToCode(block, 'pir_pin', Blockly.Python.ORDER_ATOMIC);
+
+  // 2. 导入语句（适配PIR驱动依赖）
+  Blockly.Python.definitions_['import_machine_pir'] = 'from machine import Pin';
+  Blockly.Python.definitions_['import_time_pir'] = 'import time';
+  Blockly.Python.definitions_['import_pir'] = 'import pir'; // 假设驱动文件名为pir.py
+
+  // 3. 代码拼接（实例化PIR，忽略回调/中断，最简化）
+  var code = 'pir_sensor=pir.PIRSensor(' + pir_pin + ')\n'; // 不传入回调，简化逻辑
+
+  return code;
+};
+// 初始化PIR传感器（新增回调逻辑）
+Blockly.Python['pir_init'] = function(block) {
+  // 1. 取值
+  var pir_pin = Blockly.Python.valueToCode(block, 'pir_pin', Blockly.Python.ORDER_ATOMIC);
+  var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+  // 2. 导入语句（补充micropython）
+  Blockly.Python.definitions_['import_machine_pir'] = 'from machine import Pin';
+  Blockly.Python.definitions_['import_time_pir'] = 'import time';
+  Blockly.Python.definitions_['import_micropython_pir'] = 'import micropython';
+  Blockly.Python.definitions_['import_pir'] = 'import pir';
+
+  // 3. 初始化代码（含回调开关）
+  var code = '';
+  // 定义全局回调函数模板（简化，用户可通过pir_set_callback覆盖）
+  code += 'def pir_motion_callback():\n\tprint("Motion detected!")\n\n';
+  // 实例化PIR（根据开关决定是否传入回调）
+  if (enable_callback === 'YES') {
+    code += 'pir_sensor=pir.PIRSensor(' + pir_pin + ', callback=pir_motion_callback)\n';
+  } else {
+    code += 'pir_sensor=pir.PIRSensor(' + pir_pin + ')\n';
+  }
+
+  return code;
+};
+
+// 检测PIR运动（保留原有）
+Blockly.Python['pir_is_motion_detected'] = function(block) {
+  var code = 'pir_sensor.is_motion_detected()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 等待PIR运动（保留原有）
+Blockly.Python['pir_wait_for_motion'] = function(block) {
+  var timeout = block.getFieldValue('TIMEOUT');
+  var timeout_code = timeout == 0 ? 'None' : timeout;
+  var code = 'pir_sensor.wait_for_motion(timeout=' + timeout_code + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置PIR回调函数（核心新增）
+Blockly.Python['pir_set_callback'] = function(block) {
+  // 获取用户在积木块中填写的回调代码
+  var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+  // 覆盖默认回调函数
+  var code = 'def pir_motion_callback():\n';
+  // 缩进用户代码（适配Python格式）
+  if (callback_code) {
+    code += callback_code.replace(/^/gm, '\t');
+  } else {
+    code += '\tprint("Motion detected!")\n'; // 兜底
+  }
+  // 更新传感器的回调函数
+  code += 'pir_sensor.set_callback(pir_motion_callback)\n';
+  return code;
+};
+
+// 启用/禁用PIR回调
+Blockly.Python['pir_toggle_callback'] = function(block) {
+  var action = block.getFieldValue('TOGGLE_ACTION');
+  var code = '';
+  if (action === 'ENABLE') {
+    code = 'pir_sensor.enable()\n';
+  } else {
+    code = 'pir_sensor.disable()\n';
+  }
+  return code;
+};

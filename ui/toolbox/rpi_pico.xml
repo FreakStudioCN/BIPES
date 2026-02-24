@@ -1999,6 +1999,50 @@
   </block>
 </category>
 
+    <category name="PIR Motion Sensor">
+  <label text="Library: https://github.com/your-repo/micropython-pir "></label>
+  <button text="Install pir library" callbackKey="installPyLib"></button>
+
+  <label text="PIR Human Infrared Motion Sensor"></label>
+
+  <!-- 初始化块（含回调开关） -->
+  <block type="pir_init">
+    <value name="pir_pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field>
+      </shadow>
+    </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
+  </block>
+
+  <!-- 核心检测块 -->
+  <block type="pir_is_motion_detected"></block>
+  <block type="pir_wait_for_motion">
+    <value name="timeout">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 回调相关块 -->
+  <block type="pir_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印提示 -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">Motion detected!</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="pir_toggle_callback">
+    <field name="TOGGLE_ACTION">ENABLE</field>
+  </block>
+</category>
+
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>

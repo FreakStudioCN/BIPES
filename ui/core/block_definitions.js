@@ -15320,3 +15320,101 @@ Blockly.Blocks['mqx_read_ppm'] = {
     this.setHelpUrl("http://www.bipes.net.br");
   }
 };
+
+// 初始化PIR传感器（新增回调开关，对齐aht_init风格）
+Blockly.Blocks['pir_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PIR Motion Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/pir_sensor.png",
+          55, 55,
+          "*"
+        ));
+
+    // PIR引脚
+    this.appendValueInput("pir_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PIR Pin");
+
+    // 回调开关（是否启用中断回调）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PIR motion sensor (with/without callback)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 检测PIR是否有运动（保留原有）
+Blockly.Blocks['pir_is_motion_detected'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PIR Detect Motion?");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if PIR sensor detects motion");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 等待PIR检测到运动（保留原有）
+Blockly.Blocks['pir_wait_for_motion'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PIR Wait for Motion");
+    this.appendValueInput("timeout")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Timeout (ms)")
+      .appendField(new Blockly.FieldNumber(0), "TIMEOUT");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Wait until PIR detects motion (or timeout)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 设置PIR回调函数（新增，对齐ba111tds_set_ntc风格）
+Blockly.Blocks['pir_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PIR Motion Callback");
+    // 回调函数内容（Bipes中简化为执行用户代码）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when motion detected");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run when PIR detects motion");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 启用/禁用PIR回调（新增，简化控制）
+Blockly.Blocks['pir_toggle_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PIR Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Enable', 'ENABLE'],
+          ['Disable', 'DISABLE']
+        ]), 'TOGGLE_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable PIR motion callback");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
