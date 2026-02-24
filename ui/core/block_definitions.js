@@ -15575,3 +15575,78 @@ Blockly.Blocks['imu_send_cmd'] = {
   }
 };
 
+// 初始化土壤湿度传感器（对齐aht_init/ba111tds_init风格）
+Blockly.Blocks['soil_moisture_init'] = {
+  init: function() {
+    // 基础信息+图标（占位路径）
+    this.appendDummyInput()
+        .appendField("Init Soil Moisture Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/soil_moisture.png",
+          55, 55,
+          "*"
+        ));
+
+    // ADC引脚（对齐AHT10的I2C/SDA/SCL参数）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Soil Moisture Sensor via ADC pin");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 校准土壤湿度传感器（干态）（对齐ba111tds_calibrate风格）
+Blockly.Blocks['soil_moisture_calibrate_dry'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Calibrate Soil Moisture (Dry)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Calibrate dry state for soil moisture sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 校准土壤湿度传感器（湿态）（对齐ba111tds_calibrate风格）
+Blockly.Blocks['soil_moisture_calibrate_wet'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Calibrate Soil Moisture (Wet)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Calibrate wet state for soil moisture sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取土壤湿度百分比（对齐aht_read_temp风格）
+Blockly.Blocks['soil_moisture_read_percent'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Soil Moisture (%)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read soil moisture percentage (0-100%)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 读取土壤湿度等级（对齐aht_read_humidity风格）
+Blockly.Blocks['soil_moisture_read_level'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Soil Moisture Level");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read soil moisture level (dry/moist/wet)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};

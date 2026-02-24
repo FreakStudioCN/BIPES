@@ -8224,3 +8224,43 @@ Blockly.Python['imu_send_cmd'] = function(block) {
 
   return code;
 };
+
+// 初始化土壤湿度传感器（对齐aht_init/ba111tds_init写法）
+Blockly.Python['soil_moisture_init'] = function(block) {
+  // 1. 取值（和AHT10取值逻辑一致）
+  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+
+  // 2. 导入语句（适配土壤湿度传感器依赖）
+  Blockly.Python.definitions_['import_machine_soil'] = 'from machine import ADC, Pin';
+  Blockly.Python.definitions_['import_soil_moisture'] = 'import soil_moisture'; // 假设驱动文件名为soil_moisture.py
+
+  // 3. 代码拼接（实例化传感器，最简化）
+  var code = 'soil_moisture_sensor=soil_moisture.SoilMoistureSensor(' + adc_pin + ')\n';
+  return code;
+};
+
+// 校准土壤湿度（干态）（对齐ba111tds_calibrate写法）
+Blockly.Python['soil_moisture_calibrate_dry'] = function(block) {
+  var code = 'dry_value=soil_moisture_sensor.calibrate_dry()\n';
+  code += 'print("Dry calibration done! Value:", dry_value)\n';
+  return code;
+};
+
+// 校准土壤湿度（湿态）（对齐ba111tds_calibrate写法）
+Blockly.Python['soil_moisture_calibrate_wet'] = function(block) {
+  var code = 'wet_value=soil_moisture_sensor.calibrate_wet()\n';
+  code += 'print("Wet calibration done! Value:", wet_value)\n';
+  return code;
+};
+
+// 读取土壤湿度百分比（对齐aht_read_temp写法）
+Blockly.Python['soil_moisture_read_percent'] = function(block) {
+  var code = 'soil_moisture_sensor.moisture';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+};
+
+// 读取土壤湿度等级（对齐aht_read_humidity写法）
+Blockly.Python['soil_moisture_read_level'] = function(block) {
+  var code = 'soil_moisture_sensor.level';
+  return [code, Blockly.Python.ORDER_NONE];
+};
