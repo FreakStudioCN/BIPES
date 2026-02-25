@@ -9507,3 +9507,30 @@ Blockly.Python['uvmatrix_get_state'] = function(block) {
         var code = 'uvmatrix_module.get_state() if uvmatrix_module is not None else False';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// DS1232 初始化代码生成（对齐AHT10的aht_init写法）
+Blockly.Python['ds1232_init'] = function(block) {
+    // 取值逻辑和AHT10保持一致
+    var wdi_pin = Blockly.Python.valueToCode(block, 'wdi_pin', Blockly.Python.ORDER_ATOMIC);
+    var feed_interval = block.getFieldValue('FEED_INTERVAL');
+
+    // 导入必要模块（适配DS1232驱动依赖）
+    Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, Timer';
+    Blockly.Python.definitions_['import_ds1232'] = 'import ds1232';
+
+    // 代码拼接（匹配DS1232类的实例化逻辑）
+    var code = 'ds1232_watchdog=ds1232.DS1232(wdi_pin=' + wdi_pin + ', feed_interval=' + feed_interval + ')\n';
+    return code;
+};
+
+// DS1232 手动喂狗代码生成（对齐AHT10的aht_read_temp写法）
+Blockly.Python['ds1232_kick'] = function(block) {
+    var code = 'ds1232_watchdog.kick()\n';
+    return code;
+};
+
+// DS1232 停止喂狗代码生成（对齐AHT10的代码风格）
+Blockly.Python['ds1232_stop'] = function(block) {
+    var code = 'ds1232_watchdog.stop()\n';
+    return code;
+};
