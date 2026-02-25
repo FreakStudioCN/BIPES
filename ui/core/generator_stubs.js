@@ -9534,3 +9534,97 @@ Blockly.Python['ds1232_stop'] = function(block) {
     var code = 'ds1232_watchdog.stop()\n';
     return code;
 };
+
+// DS1307初始化代码生成
+Blockly.Python['ds1307_init'] = function(block) {
+        var i2c_bus = Blockly.Python.valueToCode(block, 'i2c_bus', Blockly.Python.ORDER_ATOMIC);
+        var i2c_addr = block.getFieldValue('I2C_ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_micropython_const'] = 'from micropython import const';
+        Blockly.Python.definitions_['import_ds1307'] = 'import ds1307';
+
+        // 初始化DS1307（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize I2C bus for DS1307\n';
+        code += '\ti2c_ds1307 = I2C(' + i2c_bus + ', scl=Pin(1), sda=Pin(0), freq=400000)\n';
+        code += '\t# Create DS1307 instance\n';
+        code += '\tds1307_rtc = ds1307.DS1307(i2c_ds1307, addr=' + i2c_addr + ')\n';
+        code += '\t# Enable oscillator by default\n';
+        code += '\tds1307_rtc.disable_oscillator = False\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("DS1307 init error:", e)\n';
+        code += '\tds1307_rtc = None\n';
+        return code;
+};
+
+// DS1307设置完整时间代码生成
+Blockly.Python['ds1307_set_datetime'] = function(block) {
+        var year = block.getFieldValue('YEAR');
+        var month = block.getFieldValue('MONTH');
+        var day = block.getFieldValue('DAY');
+        var hour = block.getFieldValue('HOUR');
+        var minute = block.getFieldValue('MINUTE');
+        var second = block.getFieldValue('SECOND');
+        var weekday = block.getFieldValue('WEEKDAY');
+
+        var code = 'if ds1307_rtc is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Set full date and time tuple\n';
+        code += '\t\tdatetime_tuple = (' + year + ', ' + month + ', ' + day + ', ' + hour + ', ' + minute + ', ' + second + ', ' + weekday + ')\n';
+        code += '\t\tds1307_rtc.datetime = datetime_tuple\n';
+        code += '\t\tprint("DS1307 datetime set to:", datetime_tuple)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DS1307 set datetime error:", e)\n';
+        return code;
+};
+
+// DS1307读取完整时间代码生成
+Blockly.Python['ds1307_get_datetime'] = function(block) {
+        var code = 'ds1307_rtc.datetime if ds1307_rtc is not None else (2000,1,1,0,0,0,0,None)';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1307读取RTC格式时间代码生成
+Blockly.Python['ds1307_get_datetime_rtc'] = function(block) {
+        var code = 'ds1307_rtc.datetimeRTC if ds1307_rtc is not None else (2000,1,1,None,0,0,0,None)';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1307控制振荡器代码生成
+Blockly.Python['ds1307_set_oscillator'] = function(block) {
+        var osc_state = block.getFieldValue('OSC_STATE');
+
+        var code = 'if ds1307_rtc is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tds1307_rtc.disable_oscillator = ' + osc_state + '\n';
+        code += '\t\tstate_text = "Disabled" if ' + osc_state + ' else "Enabled"\n';
+        code += '\t\tprint("DS1307 oscillator " + state_text)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DS1307 set oscillator error:", e)\n';
+        return code;
+};
+
+// DS1307读取振荡器状态代码生成
+Blockly.Python['ds1307_get_oscillator'] = function(block) {
+        var code = 'ds1307_rtc.disable_oscillator if ds1307_rtc is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1307读取单个时间字段代码生成
+Blockly.Python['ds1307_read_field'] = function(block) {
+        var field = block.getFieldValue('TIME_FIELD');
+        var field_index = {
+            'year': 0,
+            'month': 1,
+            'day': 2,
+            'hour': 3,
+            'minute': 4,
+            'second': 5,
+            'weekday': 6
+        }[field];
+
+        var code = 'ds1307_rtc.datetime[' + field_index + '] if ds1307_rtc is not None else 0';
+        return [code, Blockly.Python.ORDER_NONE];
+};

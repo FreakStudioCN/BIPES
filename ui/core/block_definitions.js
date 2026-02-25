@@ -18207,3 +18207,163 @@ Blockly.Blocks['ds1232_stop'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// DS1307初始化块
+Blockly.Blocks['ds1307_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init DS1307 RTC (I2C)")
+        .appendField(new Blockly.FieldImage(
+                     "media/ds1307.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c_bus")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Bus");
+
+    this.appendValueInput("i2c_addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (Hex)")
+      .appendField(new Blockly.FieldNumber(0x68), "I2C_ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init DS1307 Real-Time Clock via I2C bus");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307设置完整时间块
+Blockly.Blocks['ds1307_set_datetime'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Set Date & Time");
+
+    this.appendValueInput("year")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Year (e.g. 2024)")
+      .appendField(new Blockly.FieldNumber(2024), "YEAR");
+
+    this.appendValueInput("month")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Month (1-12)")
+      .appendField(new Blockly.FieldNumber(9), "MONTH");
+
+    this.appendValueInput("day")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Day (1-31)")
+      .appendField(new Blockly.FieldNumber(8), "DAY");
+
+    this.appendValueInput("hour")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Hour (0-23)")
+      .appendField(new Blockly.FieldNumber(16), "HOUR");
+
+    this.appendValueInput("minute")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Minute (0-59)")
+      .appendField(new Blockly.FieldNumber(51), "MINUTE");
+
+    this.appendValueInput("second")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Second (0-59)")
+      .appendField(new Blockly.FieldNumber(0), "SECOND");
+
+    this.appendValueInput("weekday")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Weekday (0-6)")
+      .appendField(new Blockly.FieldNumber(1), "WEEKDAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set DS1307 full date & time [year,month,day,hour,minute,second,weekday]");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取完整时间块
+Blockly.Blocks['ds1307_get_datetime'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read Date & Time");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read DS1307 full date & time (year,month,day,hour,minute,second,weekday,None)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取RTC格式时间块
+Blockly.Blocks['ds1307_get_datetime_rtc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read RTC Format Time");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read DS1307 time in machine.RTC compatible format");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307控制振荡器块
+Blockly.Blocks['ds1307_set_oscillator'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Oscillator")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Enable', 'False'],
+                     ['Disable', 'True']
+        ]), 'OSC_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/Disable DS1307 oscillator (clock)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取振荡器状态块
+Blockly.Blocks['ds1307_get_oscillator'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read Oscillator State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if DS1307 oscillator is disabled (True=Disabled)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取单个时间字段块
+Blockly.Blocks['ds1307_read_field'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Year', 'year'],
+                     ['Month', 'month'],
+                     ['Day', 'day'],
+                     ['Hour', 'hour'],
+                     ['Minute', 'minute'],
+                     ['Second', 'second'],
+                     ['Weekday', 'weekday']
+        ]), 'TIME_FIELD');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read single time field from DS1307");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
