@@ -1645,6 +1645,7 @@
     <category name="PCF8574 Keys">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install pcf8574keys library" callbackKey="installPyLib"></button>
+  <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
 
   <label text="PCF8574 Based 5-Way Key Module"></label>
   <block type="pcf8574keys_init">
@@ -1677,6 +1678,7 @@
     <category name="PCF8574 IO8 Module">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install pcf8574io8 library" callbackKey="installPyLib"></button>
+  <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
 
   <label text="PCF8574 8-Channel IO Expansion Module"></label>
   <block type="pcf8574io8_init">
@@ -1768,7 +1770,7 @@
 </category>
     <category name="Limit Switch">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-  <button text="Install limitswitch library" callbackKey="installPyLib"></button>
+  <button text="Install limit_switch library" callbackKey="installPyLib"></button>
 
   <label text="Limit Switch with Debounce"></label>
   <block type="limitswitch_init">
@@ -1870,6 +1872,79 @@
     </value>
   </block>
 </category>
+  </category>
+  <category name="Lighting">
+    <category name="PowerLED">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install powerled library" callbackKey="installPyLib"></button>
+
+  <label text="PowerLED PWM Dimmable LED Module"></label>
+  <block type="powerled_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+    <value name="pwm_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="powerled_on"></block>
+  <block type="powerled_off"></block>
+  <block type="powerled_toggle"></block>
+  <block type="powerled_set_brightness">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">512</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="powerled_get_state"></block>
+</category>
+    <category name="LEDBar (PCF8574) Module">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install led_bar library" callbackKey="installPyLib"></button>
+  <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
+
+  <label text="8-bit LEDBar based on PCF8574 I2C IO Expander"></label>
+  <block type="ledbar_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">32</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_set_led">
+    <value name="index">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_set_all">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_display_level">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_clear"></block>
+</category>
+
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

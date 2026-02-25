@@ -9245,3 +9245,139 @@ Blockly.Python['touchkey_set_release_callback'] = function(block) {
         var code = 'touchkey_sensor.release_callback = ' + callback_func + '\n';
         return code;
 };
+
+// PowerLED初始化代码生成
+Blockly.Python['powerled_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var pwm_freq = block.getFieldValue('PWM_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_time'] = 'import time\nfrom machine import Pin, PWM';
+        Blockly.Python.definitions_['import_powerled'] = 'import powerled';
+
+        // 初始化PowerLED模块（包含异常处理）
+        var code = 'try:\n';
+        code += '\tpowerled_led=powerled.PowerLED(pin=' + pin + ', pwm_freq=' + pwm_freq + ')\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("PowerLED init error:", e)\n';
+        code += '\tpowerled_led = None\n';
+        return code;
+};
+
+// PowerLED打开代码生成
+Blockly.Python['powerled_on'] = function(block) {
+        var code = 'if powerled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpowerled_led.on()\n';
+        code += '\texcept RuntimeError as e:\n';
+        code += '\t\tprint("PowerLED on error:", e)\n';
+        return code;
+};
+
+// PowerLED关闭代码生成
+Blockly.Python['powerled_off'] = function(block) {
+        var code = 'if powerled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpowerled_led.off()\n';
+        code += '\texcept RuntimeError as e:\n';
+        code += '\t\tprint("PowerLED off error:", e)\n';
+        return code;
+};
+
+// PowerLED切换状态代码生成
+Blockly.Python['powerled_toggle'] = function(block) {
+        var code = 'if powerled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpowerled_led.toggle()\n';
+        code += '\texcept RuntimeError as e:\n';
+        code += '\t\tprint("PowerLED toggle error:", e)\n';
+        return code;
+};
+
+// PowerLED设置亮度代码生成
+Blockly.Python['powerled_set_brightness'] = function(block) {
+        var duty = block.getFieldValue('DUTY');
+
+        var code = 'if powerled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpowerled_led.set_brightness(' + duty + ')\n';
+        code += '\texcept (ValueError, RuntimeError) as e:\n';
+        code += '\t\tprint("PowerLED brightness error:", e)\n';
+        return code;
+};
+
+// PowerLED读取状态代码生成
+Blockly.Python['powerled_get_state'] = function(block) {
+        var code = 'powerled_led.get_state() if powerled_led is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// LEDBar初始化代码生成
+Blockly.Python['ledbar_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('PCF8574_ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_i2c'] = 'from machine import I2C, Pin';
+        Blockly.Python.definitions_['import_pcf8574'] = 'from pcf8574 import PCF8574';
+        Blockly.Python.definitions_['import_ledbar'] = 'import ledbar';
+
+        // 初始化PCF8574和LEDBar（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize PCF8574 I2C expander\n';
+        code += '\ti2c_pcf8574 = I2C(' + i2c + ', scl=Pin(1), sda=Pin(0))\n';
+        code += '\tpcf8574_device = PCF8574(i2c_pcf8574, 0x' + parseInt(addr).toString(16) + ')\n';
+        code += '\t# Initialize LEDBar\n';
+        code += '\tledbar_module = ledbar.LEDBar(pcf8574_device)\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("LEDBar init error:", e)\n';
+        code += '\tledbar_module = None\n';
+        return code;
+};
+
+// LEDBar设置单个LED代码生成
+Blockly.Python['ledbar_set_led'] = function(block) {
+        var index = block.getFieldValue('LED_INDEX');
+        var state = block.getFieldValue('LED_STATE');
+
+        var code = 'if ledbar_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tledbar_module.set_led(' + index + ', ' + (state === '1' ? 'True' : 'False') + ')\n';
+        code += '\texcept ValueError as e:\n';
+        code += '\t\tprint("LEDBar set LED error:", e)\n';
+        return code;
+};
+
+// LEDBar设置所有LED代码生成
+Blockly.Python['ledbar_set_all'] = function(block) {
+        var value = block.getFieldValue('LED_VALUE');
+
+        var code = 'if ledbar_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tledbar_module.set_all(' + value + ')\n';
+        code += '\texcept ValueError as e:\n';
+        code += '\t\tprint("LEDBar set all error:", e)\n';
+        return code;
+};
+
+// LEDBar显示等级代码生成
+Blockly.Python['ledbar_display_level'] = function(block) {
+        var level = block.getFieldValue('LED_LEVEL');
+
+        var code = 'if ledbar_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tledbar_module.display_level(' + level + ')\n';
+        code += '\texcept ValueError as e:\n';
+        code += '\t\tprint("LEDBar display level error:", e)\n';
+        return code;
+};
+
+// LEDBar清空代码生成
+Blockly.Python['ledbar_clear'] = function(block) {
+        var code = 'if ledbar_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tledbar_module.clear()\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LEDBar clear error:", e)\n';
+        return code;
+};

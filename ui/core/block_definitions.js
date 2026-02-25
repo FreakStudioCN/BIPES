@@ -17755,3 +17755,214 @@ Blockly.Blocks['touchkey_set_release_callback'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PowerLED初始化块
+Blockly.Blocks['powerled_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PowerLED (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/powerled.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Pin");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PowerLED with PWM control (1-1000 Hz frequency)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED打开块
+Blockly.Blocks['powerled_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Turn On (Full Brightness)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on PowerLED at maximum brightness");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED关闭块
+Blockly.Blocks['powerled_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Turn Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off PowerLED");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED切换状态块
+Blockly.Blocks['powerled_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle PowerLED on/off state");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED设置亮度块
+Blockly.Blocks['powerled_set_brightness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Set Brightness");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Brightness (0-1023)")
+      .appendField(new Blockly.FieldNumber(512), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set PowerLED brightness (0=off, 1023=full)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED读取状态块
+Blockly.Blocks['powerled_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Get State (On=True)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if PowerLED is on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar初始化块
+Blockly.Blocks['ledbar_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init LEDBar (PCF8574)")
+        .appendField(new Blockly.FieldImage(
+                     "media/ledbar.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Bus");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PCF8574 Address")
+      .appendField(new Blockly.FieldNumber(0x20), "PCF8574_ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init 8-bit LEDBar based on PCF8574 I2C IO expander");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar设置单个LED块
+Blockly.Blocks['ledbar_set_led'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Set Single LED");
+
+    this.appendValueInput("index")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Index (0-7)")
+      .appendField(new Blockly.FieldNumber(0), "LED_INDEX");
+
+    this.appendDummyInput()
+        .appendField("State")
+        .appendField(new Blockly.FieldDropdown([
+                     ['On (1)', '1'],
+                     ['Off (0)', '0']
+        ]), 'LED_STATE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set single LED state (0=off, 1=on) in LEDBar");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar设置所有LED块
+Blockly.Blocks['ledbar_set_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Set All LEDs");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-255)")
+      .appendField(new Blockly.FieldNumber(0), "LED_VALUE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set all LEDs with 8-bit value (0x00-0xFF)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar显示等级块
+Blockly.Blocks['ledbar_display_level'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Display Level");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-8)")
+      .appendField(new Blockly.FieldNumber(0), "LED_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Display level (0=off, 8=all on) on LEDBar");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar清空块
+Blockly.Blocks['ledbar_clear'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Clear (All Off)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off all LEDs in LEDBar");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
