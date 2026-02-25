@@ -8859,3 +8859,58 @@ Blockly.Python['joystick_get_values'] = function(block) {
         var code = 'joystick_sensor.get_values()';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+/************************* 电位器核心初始化 *************************/
+Blockly.Python['potentiometer_init'] = function(block) {
+        // 取值（对齐AHT10的取值逻辑）
+        var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+        var vref = block.getFieldValue('VREF');
+        var vref_input = Blockly.Python.valueToCode(block, 'vref', Blockly.Python.ORDER_ATOMIC);
+        vref = vref_input || vref;
+
+        // 导入依赖（对齐AHT10的导入风格）
+        Blockly.Python.definitions_['import_machine'] = 'from machine import ADC';
+        Blockly.Python.definitions_['import_potentiometer'] = 'import potentiometer';
+
+        // 拼接初始化代码（适配Potentiometer驱动的实例化逻辑）
+        var code = 'adc_pot = ADC(' + adc_pin + ')\n';
+        code += 'potentiometer_sensor = potentiometer.Potentiometer(adc=adc_pot, vref=' + vref + ')\n';
+        return code;
+  };
+
+/************************* 电位器状态查询 *************************/
+// 读取原始ADC值（对齐AHT10的aht_read_temp写法）
+Blockly.Python['potentiometer_read_raw'] = function(block) {
+        var code = 'potentiometer_sensor.read_raw()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取电压值
+Blockly.Python['potentiometer_read_voltage'] = function(block) {
+        var code = 'potentiometer_sensor.read_voltage()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取比例值
+Blockly.Python['potentiometer_read_ratio'] = function(block) {
+        var code = 'potentiometer_sensor.read_ratio()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 获取完整状态
+Blockly.Python['potentiometer_get_state'] = function(block) {
+        var code = 'potentiometer_sensor.get_state()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 获取ADC对象
+Blockly.Python['potentiometer_get_adc'] = function(block) {
+        var code = 'potentiometer_sensor.adc';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 获取参考电压
+Blockly.Python['potentiometer_get_vref'] = function(block) {
+        var code = 'potentiometer_sensor.vref';
+        return [code, Blockly.Python.ORDER_NONE];
+};

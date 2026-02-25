@@ -16844,3 +16844,106 @@ Blockly.Blocks['joystick_get_values'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+/************************* 电位器核心初始化 *************************/
+Blockly.Blocks['potentiometer_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Potentiometer Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/potentiometer.png",
+          300, 300,
+          "*"
+        ));
+
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VREF (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Potentiometer sensor with ADC pin and reference voltage");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* 电位器状态查询 *************************/
+// 读取原始ADC值
+Blockly.Blocks['potentiometer_read_raw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Raw Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read raw ADC value (0-65535) from potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取电压值
+Blockly.Blocks['potentiometer_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read voltage value from potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取比例值（0.0-1.0）
+Blockly.Blocks['potentiometer_read_ratio'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Ratio (0.0-1.0)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read normalized ratio (0.0-1.0) from potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取完整状态（raw/voltage/ratio）
+Blockly.Blocks['potentiometer_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Full State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get full state (raw, voltage, ratio) of potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取ADC对象
+Blockly.Blocks['potentiometer_get_adc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Potentiometer ADC Object");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get ADC object of potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取参考电压
+Blockly.Blocks['potentiometer_get_vref'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Potentiometer VREF (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get reference voltage of potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

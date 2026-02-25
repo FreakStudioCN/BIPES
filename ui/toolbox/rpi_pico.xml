@@ -1618,6 +1618,30 @@
   <block type="joystick_stop"></block>
   <block type="joystick_get_values"></block>
 </category>
+    <category name="Potentiometer Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install potentiometer library" callbackKey="installPyLib"></button>
+
+  <label text="Potentiometer (ADC-based Variable Resistor)"></label>
+  <block type="potentiometer_init">
+    <value name="adc_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field>
+      </shadow>
+    </value>
+    <value name="vref">
+      <shadow type="math_number">
+        <field name="NUM">3.3</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="potentiometer_read_raw"></block>
+  <block type="potentiometer_read_voltage"></block>
+  <block type="potentiometer_read_ratio"></block>
+  <block type="potentiometer_get_state"></block>
+  <block type="potentiometer_get_adc"></block>
+  <block type="potentiometer_get_vref"></block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
