@@ -2482,7 +2482,87 @@
 
   <block type="bus_dc_motor_scan_i2c"></block>
 </category>
+    <category name="Bus Step Motor (PCA9685)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install bus_step_motor library" callbackKey="installPyLib"></button>
+  <button text="Install pca9685 library" callbackKey="installPyLib"></button>
 
+  <label text="Bus Step Motor Control via PCA9685 (I2C)"></label>
+  <block type="bus_step_motor_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="motor_count">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="i2c_freq">
+      <shadow type="math_number">
+        <field name="NUM">400000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_continuous">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_stop_continuous">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_step_motion">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+    <value name="steps">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_stop_step">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

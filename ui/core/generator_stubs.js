@@ -10328,3 +10328,98 @@ def scan_pca9685_address():
 scan_pca9685_address()''';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// 总线步进电机初始化代码生成
+Blockly.Python['bus_step_motor_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var motor_count = block.getFieldValue('MOTOR_COUNT');
+        var i2c_freq = block.getFieldValue('I2C_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C, Timer';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_pca9685'] = 'import pca9685';
+        Blockly.Python.definitions_['import_bus_step_motor'] = 'from bus_step_motor import BusStepMotor';
+
+        // 初始化逻辑（包含I2C扫描、PCA9685初始化、步进电机实例化）
+        var code = '# Initialize I2C for PCA9685\n';
+        code += 'i2c_pca9685 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=' + i2c_freq + ')\n';
+        code += '# Scan I2C devices to find PCA9685\n';
+        code += 'pca9685_addr = 0x40\n';
+        code += 'devices = i2c_pca9685.scan()\n';
+        code += 'for dev in devices:\n';
+        code += '\tif 0x40 <= dev <= 0x4F:\n';
+        code += '\t\tpca9685_addr = dev\n';
+        code += '\t\tbreak\n';
+        code += '# Create PCA9685 and Step Motor instances\n';
+        code += 'pca9685 = pca9685.PCA9685(i2c_pca9685, pca9685_addr)\n';
+        code += 'step_motor = BusStepMotor(pca9685, ' + motor_count + ')\n';
+        code += 'print("Bus Step Motor initialized with PCA9685 at address:", hex(pca9685_addr))\n';
+        return code;
+};
+
+// 步进电机连续运动代码生成
+Blockly.Python['bus_step_motor_continuous'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+        var direction = block.getFieldValue('DIRECTION');
+        var driver_mode = block.getFieldValue('DRIVER_MODE');
+        var speed = block.getFieldValue('SPEED');
+
+        var code = '# Start continuous motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.start_continuous_motion(' + motor_id + ', ' + direction + ', ' + driver_mode + ', ' + speed + ')\n';
+        code += '\tdir_text = "Forward" if ' + direction + ' == 0 else "Backward"\n';
+        code += '\tmode_text = ["Single Phase", "Double Phase", "Half Step"][' + driver_mode + ']\n';
+        code += '\tprint(f"Motor {motor_id} continuous motion: {dir_text}, {mode_text}, Speed={speed} pulses/s")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Continuous motion error:", e)\n';
+        return code;
+};
+
+// 停止步进电机连续运动代码生成
+Blockly.Python['bus_step_motor_stop_continuous'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Stop continuous motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.stop_continuous_motion(' + motor_id + ')\n';
+        code += '\tprint(f"Motor {motor_id} continuous motion stopped")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Stop continuous motion error:", e)\n';
+        return code;
+};
+
+// 步进电机定步运动代码生成
+Blockly.Python['bus_step_motor_step_motion'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+        var direction = block.getFieldValue('DIRECTION');
+        var driver_mode = block.getFieldValue('DRIVER_MODE');
+        var speed = block.getFieldValue('SPEED');
+        var steps = block.getFieldValue('STEPS');
+
+        var code = '# Start step motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.start_step_motion(' + motor_id + ', ' + direction + ', ' + driver_mode + ', ' + speed + ', ' + steps + ')\n';
+        code += '\tdir_text = "Forward" if ' + direction + ' == 0 else "Backward"\n';
+        code += '\tmode_text = ["Single Phase", "Double Phase", "Half Step"][' + driver_mode + ']\n';
+        code += '\tprint(f"Motor {motor_id} step motion: {dir_text}, {mode_text}, Speed={speed} pulses/s, Steps={steps}")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Step motion error:", e)\n';
+        return code;
+};
+
+// 停止步进电机定步运动代码生成
+Blockly.Python['bus_step_motor_stop_step'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Stop step motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.stop_step_motion(' + motor_id + ')\n';
+        code += '\tprint(f"Motor {motor_id} step motion stopped")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Stop step motion error:", e)\n';
+        return code;
+};

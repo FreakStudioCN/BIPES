@@ -19284,3 +19284,308 @@ Blockly.Blocks['snr9816_tts_query_status'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PCA9685+总线直流电机初始化块
+Blockly.Blocks['bus_dc_motor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Bus DC Motor (PCA9685)")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_dc_motor.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("motor_count")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor Count")
+      .appendField(new Blockly.FieldNumber(4), "MOTOR_COUNT");
+
+    this.appendValueInput("i2c_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(400000), "I2C_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Bus DC Motor with PCA9685 via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置电机速度和方向块
+Blockly.Blocks['bus_dc_motor_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus DC Motor Set Speed & Direction");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (1900-4095)")
+      .appendField(new Blockly.FieldNumber(4000), "SPEED");
+
+    this.appendDummyInput()
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', '0'],
+                     ['Backward', '1']
+        ]), 'DIRECTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set speed (1900-4095) and direction (0=forward,1=backward) for specified motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止电机块
+Blockly.Blocks['bus_dc_motor_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus DC Motor Stop");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop specified motor smoothly (set PWM to 0)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 刹车电机块
+Blockly.Blocks['bus_dc_motor_break'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus DC Motor Brake");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Brake specified motor quickly (set PWM to max)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 扫描I2C设备块
+Blockly.Blocks['bus_dc_motor_scan_i2c'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Scan I2C Devices (PCA9685)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Scan I2C bus and return PCA9685 address (0x40-0x4F)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 总线步进电机初始化块
+Blockly.Blocks['bus_step_motor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Bus Step Motor (PCA9685)")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_step_motor.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("motor_count")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor Count (1-4)")
+      .appendField(new Blockly.FieldNumber(2), "MOTOR_COUNT");
+
+    this.appendValueInput("i2c_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(400000), "I2C_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Bus Step Motor with PCA9685 via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 步进电机连续运动控制块
+Blockly.Blocks['bus_step_motor_continuous'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Continuous Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.appendDummyInput()
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', '0'],
+                     ['Backward', '1']
+        ]), 'DIRECTION');
+
+    this.appendDummyInput()
+        .appendField("Driver Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Single Phase', '0'],
+                     ['Double Phase', '1'],
+                     ['Half Step', '2']
+        ]), 'DRIVER_MODE');
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (0-1000)")
+      .appendField(new Blockly.FieldNumber(100), "SPEED");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start continuous motion for step motor (speed=pulses per second)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止步进电机连续运动块
+Blockly.Blocks['bus_step_motor_stop_continuous'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Stop Continuous Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop continuous motion of specified step motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 步进电机定步运动控制块
+Blockly.Blocks['bus_step_motor_step_motion'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Step Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.appendDummyInput()
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', '0'],
+                     ['Backward', '1']
+        ]), 'DIRECTION');
+
+    this.appendDummyInput()
+        .appendField("Driver Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Single Phase', '0'],
+                     ['Double Phase', '1'],
+                     ['Half Step', '2']
+        ]), 'DRIVER_MODE');
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (0-1000)")
+      .appendField(new Blockly.FieldNumber(100), "SPEED");
+
+    this.appendValueInput("steps")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Steps (positive int)")
+      .appendField(new Blockly.FieldNumber(100), "STEPS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start step motion for step motor (specified steps)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止步进电机定步运动块
+Blockly.Blocks['bus_step_motor_stop_step'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Stop Step Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop step motion of specified step motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
