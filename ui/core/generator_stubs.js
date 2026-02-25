@@ -9205,3 +9205,43 @@ Blockly.Python['ch9328_send_crlf'] = function(block) {
         var code = 'ch9328_keyboard.crlf()\n';
         return code;
 };
+
+// TouchKey初始化代码生成
+Blockly.Python['touchkey_init'] = function(block) {
+        var pin_num = Blockly.Python.valueToCode(block, 'pin_num', Blockly.Python.ORDER_ATOMIC);
+        var idle_state = block.getFieldValue('IDLE_STATE');
+        var debounce_time = block.getFieldValue('DEBOUNCE_TIME');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, Timer';
+        Blockly.Python.definitions_['import_touchkey'] = 'import touchkey';
+
+        // 初始化TouchKey传感器（先定义空回调函数，后续可通过积木块设置）
+        var code = '# Initialize empty callback functions\n';
+        code += 'def touchkey_press_callback():\n';
+        code += '\tpass\n';
+        code += 'def touchkey_release_callback():\n';
+        code += '\tpass\n\n';
+        code += 'touchkey_sensor=touchkey.TouchKey(pin_num=' + pin_num + ', idle_state=' + idle_state + ', debounce_time=' + debounce_time + ', press_callback=touchkey_press_callback, release_callback=touchkey_release_callback)\n';
+        return code;
+};
+
+// 读取TouchKey状态代码生成
+Blockly.Python['touchkey_get_state'] = function(block) {
+        var code = 'touchkey_sensor.get_state()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置按下回调函数代码生成
+Blockly.Python['touchkey_set_press_callback'] = function(block) {
+        var callback_func = Blockly.Python.valueToCode(block, 'callback_func', Blockly.Python.ORDER_ATOMIC);
+        var code = 'touchkey_sensor.press_callback = ' + callback_func + '\n';
+        return code;
+};
+
+// 设置释放回调函数代码生成
+Blockly.Python['touchkey_set_release_callback'] = function(block) {
+        var callback_func = Blockly.Python.valueToCode(block, 'callback_func', Blockly.Python.ORDER_ATOMIC);
+        var code = 'touchkey_sensor.release_callback = ' + callback_func + '\n';
+        return code;
+};

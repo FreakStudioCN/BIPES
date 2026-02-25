@@ -17668,3 +17668,90 @@ Blockly.Blocks['ch9328_send_crlf'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// TouchKey初始化块
+Blockly.Blocks['touchkey_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init TouchKey Sensor")
+        .appendField(new Blockly.FieldImage(
+                     "media/touchkey.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin_num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin Number");
+
+    this.appendDummyInput()
+        .appendField("Idle State")
+        .appendField(new Blockly.FieldDropdown([
+                     ['High (1)', '1'],
+                     ['Low (0)', '0']
+        ]), 'IDLE_STATE');
+
+    this.appendValueInput("debounce_time")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Debounce Time (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_TIME");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init TouchKey sensor with debounce and callback support");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取TouchKey状态块
+Blockly.Blocks['touchkey_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read TouchKey State (Pressed = True)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if TouchKey is pressed (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 注册TouchKey按下回调块
+Blockly.Blocks['touchkey_set_press_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set TouchKey Press Callback");
+
+    this.appendValueInput("callback_func")
+      .setCheck("Function")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Callback Function");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for TouchKey press event");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 注册TouchKey释放回调块
+Blockly.Blocks['touchkey_set_release_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set TouchKey Release Callback");
+
+    this.appendValueInput("callback_func")
+      .setCheck("Function")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Callback Function");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for TouchKey release event");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
