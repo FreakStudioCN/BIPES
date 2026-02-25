@@ -2195,7 +2195,55 @@
 
   <block type="dysv19t_time_report"></block>
 </category>
+    <category name="LM386 Speaker (PWM)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install lm386_speaker library" callbackKey="installPyLib"></button>
 
+  <label text="LM386 Power Amplifier Speaker Module (PWM Interface)"></label>
+  <block type="lm386_speaker_init">
+    <value name="pwm_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field>
+      </shadow>
+    </value>
+    <value name="default_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_play_tone">
+    <value name="frequency">
+      <shadow type="math_number">
+        <field name="NUM">440</field>
+      </shadow>
+    </value>
+    <value name="duration">
+      <shadow type="math_number">
+        <field name="NUM">1.0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_play_sequence">
+    <value name="notes">
+      <shadow type="text">
+        <field name="TEXT">[(440,0.5),(494,0.5),(523,0.5),(587,0.5),(659,0.5),(698,0.5),(784,1.0)]</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_set_volume">
+    <value name="volume">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_stop"></block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

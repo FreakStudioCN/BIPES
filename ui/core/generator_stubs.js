@@ -9873,3 +9873,78 @@ Blockly.Python['dysv19t_time_report'] = function(block) {
         code += '\t\tprint("DY-SV19T time report error:", e)\n';
         return code;
 };
+
+// LM386扬声器初始化代码生成
+Blockly.Python['lm386_speaker_init'] = function(block) {
+        var pwm_pin = Blockly.Python.valueToCode(block, 'pwm_pin', Blockly.Python.ORDER_ATOMIC);
+        var default_freq = block.getFieldValue('DEFAULT_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_lm386_speaker'] = 'import lm386_speaker';
+
+        // 初始化LM386扬声器（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize LM386 speaker module\n';
+        code += '\tlm386_speaker = lm386_speaker.LMSpeaker(pin=' + pwm_pin + ', freq=' + default_freq + ')\n';
+        code += '\tprint("LM386 speaker initialized on PWM pin", ' + pwm_pin + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("LM386 speaker init error:", e)\n';
+        code += '\tlm386_speaker = None\n';
+        return code;
+};
+
+// LM386播放单音代码生成
+Blockly.Python['lm386_play_tone'] = function(block) {
+        var frequency = block.getFieldValue('FREQUENCY');
+        var duration = block.getFieldValue('DURATION');
+
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play tone: ' + frequency + 'Hz for ' + duration + ' seconds\n';
+        code += '\t\tlm386_speaker.play_tone(' + frequency + ', ' + duration + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 play tone error:", e)\n';
+        return code;
+};
+
+// LM386播放音符序列代码生成
+Blockly.Python['lm386_play_sequence'] = function(block) {
+        var notes = block.getFieldValue('NOTES');
+
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play melody sequence\n';
+        code += '\t\tmelody = ' + notes + '\n';
+        code += '\t\tlm386_speaker.play_sequence(melody)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 play sequence error:", e)\n';
+        return code;
+};
+
+// LM386设置音量代码生成
+Blockly.Python['lm386_set_volume'] = function(block) {
+        var volume = block.getFieldValue('VOLUME');
+
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Set volume to ' + volume + '%\n';
+        code += '\t\tlm386_speaker.set_volume(' + volume + ')\n';
+        code += '\t\tprint("LM386 volume set to", ' + volume + '%)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 set volume error:", e)\n';
+        return code;
+};
+
+// LM386停止播放代码生成
+Blockly.Python['lm386_stop'] = function(block) {
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Stop playback and mute speaker\n';
+        code += '\t\tlm386_speaker.stop()\n';
+        code += '\t\tprint("LM386 speaker muted")\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 stop error:", e)\n';
+        return code;
+};

@@ -18732,3 +18732,112 @@ Blockly.Blocks['dysv19t_time_report'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// LM386扬声器初始化块
+Blockly.Blocks['lm386_speaker_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init LM386 Speaker (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/lm386_speaker.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pwm_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Pin");
+
+    this.appendValueInput("default_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Default Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "DEFAULT_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init LM386 amplifier speaker module via PWM");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386播放单音块
+Blockly.Blocks['lm386_play_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Play Tone");
+
+    this.appendValueInput("frequency")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(440), "FREQUENCY");
+
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duration (sec)")
+      .appendField(new Blockly.FieldNumber(1.0), "DURATION");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play single tone with specified frequency and duration");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386播放音符序列块
+Blockly.Blocks['lm386_play_sequence'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Play Melody");
+
+    this.appendValueInput("notes")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Notes [(freq, dur), ...]")
+      .appendField(new Blockly.FieldTextInput("[(440,0.5),(494,0.5),(523,0.5),(587,0.5),(659,0.5),(698,0.5),(784,1.0)]"), "NOTES");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play sequence of notes (melody)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386设置音量块
+Blockly.Blocks['lm386_set_volume'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Set Volume");
+
+    this.appendValueInput("volume")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Volume (1-100%)")
+      .appendField(new Blockly.FieldNumber(50), "VOLUME");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set speaker volume (1-100%)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386停止播放块
+Blockly.Blocks['lm386_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Stop Playback (Mute)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop playback and mute speaker");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
