@@ -1766,6 +1766,34 @@
   </block>
   <block type="pcf8574io8_deinit"></block>
 </category>
+    <category name="Limit Switch">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install limitswitch library" callbackKey="installPyLib"></button>
+
+  <label text="Limit Switch with Debounce"></label>
+  <block type="limitswitch_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field>
+      </shadow>
+    </value>
+    <value name="debounce">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="limitswitch_read"></block>
+  <block type="limitswitch_set_callback">
+    <value name="callback">
+      <shadow type="variables_get">
+        <field name="VAR">callback_func</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="limitswitch_enable"></block>
+  <block type="limitswitch_disable"></block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

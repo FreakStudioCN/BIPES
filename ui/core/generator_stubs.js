@@ -9048,3 +9048,42 @@ Blockly.Python['pcf8574io8_deinit'] = function(block) {
         code += 'del pcf_dev\n';
         return code;
 };
+
+// 限位开关初始化代码生成
+Blockly.Python['limitswitch_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var debounce = block.getFieldValue('DEBOUNCE_MS');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'import micropython\nimport time\nfrom machine import Pin, Timer';
+        Blockly.Python.definitions_['import_limitswitch'] = 'import limitswitch';
+
+        // 初始化限位开关
+        var code = 'limit_switch=limitswitch.LimitSwitch(' + pin + ', debounce_ms=' + debounce + ')\n';
+        return code;
+};
+
+// 读取限位开关状态代码生成
+Blockly.Python['limitswitch_read'] = function(block) {
+        var code = 'limit_switch.read()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 启用限位开关回调代码生成
+Blockly.Python['limitswitch_enable'] = function(block) {
+        var code = 'limit_switch.enable()\n';
+        return code;
+};
+
+// 禁用限位开关回调代码生成
+Blockly.Python['limitswitch_disable'] = function(block) {
+        var code = 'limit_switch.disable()\n';
+        return code;
+};
+
+// 设置限位开关回调函数代码生成
+Blockly.Python['limitswitch_set_callback'] = function(block) {
+        var callback = Blockly.Python.valueToCode(block, 'callback', Blockly.Python.ORDER_ATOMIC);
+        var code = 'limit_switch.set_callback(' + callback + ')\n';
+        return code;
+};

@@ -17257,3 +17257,89 @@ Blockly.Blocks['pcf8574io8_deinit'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 限位开关初始化块
+Blockly.Blocks['limitswitch_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Limit Switch")
+        .appendField(new Blockly.FieldImage(
+                     "media/limitswitch.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin");
+
+    this.appendValueInput("debounce")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Debounce (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_MS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Limit Switch with debounce");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取限位开关状态块
+Blockly.Blocks['limitswitch_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Limit Switch State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read Limit Switch digital state (True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启用限位开关回调块
+Blockly.Blocks['limitswitch_enable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Enable Limit Switch Callback");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable Limit Switch debounce callback monitoring");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 禁用限位开关回调块
+Blockly.Blocks['limitswitch_disable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Disable Limit Switch Callback");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable Limit Switch debounce callback monitoring");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置限位开关回调函数块
+Blockly.Blocks['limitswitch_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Limit Switch Callback");
+    this.appendValueInput("callback")
+      .setCheck("Function")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Callback Function");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for Limit Switch state change");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
