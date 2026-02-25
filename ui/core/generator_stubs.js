@@ -10628,3 +10628,63 @@ Blockly.Python['bus_servo_detach'] = function(block) {
     var code = 'servo_controller.detach_servo(' + channel + ')\n';
     return code;
 };
+
+// 初始化光耦MOS驱动
+Blockly.Python['opto_mos_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var freq = block.getFieldValue('FREQ');
+        var pwm_max = block.getFieldValue('PWM_MAX');
+        var inverted = block.getFieldValue('INVERTED');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_opto_mos'] = 'import opto_mos_simple';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+
+        // 生成初始化代码
+        var code = 'pwm_opto_mos=PWM(Pin(' + pin + '))\n';
+        code += 'pwm_opto_mos.freq(' + freq + ')\n';
+        code += 'opto_mos_driver=opto_mos_simple.OptoMosSimple(pwm_opto_mos, pwm_max=' + pwm_max + ', inverted=' + inverted + ')\n';
+        code += 'opto_mos_driver.init()\n';
+        return code;
+};
+
+// 设置占空比（计数值）
+Blockly.Python['opto_mos_set_duty'] = function(block) {
+        var duty = block.getFieldValue('DUTY_VAL');
+
+        var code = 'opto_mos_driver.set_duty(' + duty + ')\n';
+        return code;
+};
+
+// 设置占空比（百分比）
+Blockly.Python['opto_mos_set_percent'] = function(block) {
+        var percent = block.getFieldValue('PERCENT_VAL');
+
+        var code = 'opto_mos_driver.set_percent(' + percent + ')\n';
+        return code;
+};
+
+// 全功率开启
+Blockly.Python['opto_mos_full_on'] = function(block) {
+        var code = 'opto_mos_driver.full_on()\n';
+        return code;
+};
+
+// 关闭输出
+Blockly.Python['opto_mos_off'] = function(block) {
+        var code = 'opto_mos_driver.off()\n';
+        return code;
+};
+
+// 获取状态
+Blockly.Python['opto_mos_get_status'] = function(block) {
+        var code = 'opto_mos_driver.get_status()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 释放资源
+Blockly.Python['opto_mos_deinit'] = function(block) {
+        var code = 'opto_mos_driver.deinit()\n';
+        return code;
+};

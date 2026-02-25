@@ -19754,17 +19754,16 @@ Blockly.Blocks['fm8118_atomization_is_on'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
-
-// 初始化舵机控制器
+// 初始化PCA9685舵机控制器
 Blockly.Blocks['bus_servo_init'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Init Bus PWM Servo Controller")
         .appendField(new Blockly.FieldImage(
                      "media/bus_servo.png",
                      300,
                      300,
-                     "*"));
+                     "*"))
+        .appendField("Init PCA9685 Servo Controller");
 
     this.appendValueInput("i2c")
       .setCheck("Number")
@@ -19790,21 +19789,16 @@ Blockly.Blocks['bus_servo_init'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Init PCA9685 based PWM servo controller");
+    this.setTooltip("Init PCA9685 16-channel PWM servo controller");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 挂载舵机
+// 注册舵机通道
 Blockly.Blocks['bus_servo_attach'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Attach Servo to Channel")
-        .appendField(new Blockly.FieldImage(
-                     "media/bus_servo_attach.png",
-                     300,
-                     300,
-                     "*"));
+        .appendField("Attach Servo to Channel");
 
     this.appendValueInput("channel")
       .setCheck("Number")
@@ -19814,8 +19808,8 @@ Blockly.Blocks['bus_servo_attach'] = {
     this.appendDummyInput()
         .appendField("Servo Type")
         .appendField(new Blockly.FieldDropdown([
-                     ['180° Servo', '180'],
-                     ['360° Servo', '360']
+                     ['180° Servo', '0'],
+                     ['360° Servo', '1']
         ]), 'SERVO_TYPE');
 
     this.appendValueInput("min_us")
@@ -19838,12 +19832,15 @@ Blockly.Blocks['bus_servo_attach'] = {
 
     this.appendDummyInput()
         .appendField("Reversed")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "REVERSED");
+        .appendField(new Blockly.FieldDropdown([
+                     ['No', 'False'],
+                     ['Yes', 'True']
+        ]), 'REVERSED');
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Attach servo to specified channel with calibration parameters");
+    this.setTooltip("Attach servo to PCA9685 channel with calibration parameters");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -19852,12 +19849,7 @@ Blockly.Blocks['bus_servo_attach'] = {
 Blockly.Blocks['bus_servo_set_angle'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Set 180° Servo Angle")
-        .appendField(new Blockly.FieldImage(
-                     "media/bus_servo_angle.png",
-                     300,
-                     300,
-                     "*"));
+        .appendField("Set 180° Servo Angle");
 
     this.appendValueInput("channel")
       .setCheck("Number")
@@ -19888,12 +19880,7 @@ Blockly.Blocks['bus_servo_set_angle'] = {
 Blockly.Blocks['bus_servo_set_speed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Set 360° Servo Speed")
-        .appendField(new Blockly.FieldImage(
-                     "media/bus_servo_speed.png",
-                     300,
-                     300,
-                     "*"));
+        .appendField("Set 360° Servo Speed");
 
     this.appendValueInput("channel")
       .setCheck("Number")
@@ -19904,7 +19891,7 @@ Blockly.Blocks['bus_servo_set_speed'] = {
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("Speed (-1.0~1.0)")
-      .appendField(new Blockly.FieldNumber(0), "SPEED");
+      .appendField(new Blockly.FieldNumber(0), "SPEED_VAL");
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -19918,12 +19905,7 @@ Blockly.Blocks['bus_servo_set_speed'] = {
 Blockly.Blocks['bus_servo_set_pulse'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Set Servo Pulse Width")
-        .appendField(new Blockly.FieldImage(
-                     "media/bus_servo_pulse.png",
-                     300,
-                     300,
-                     "*"));
+        .appendField("Set Servo Pulse Width");
 
     this.appendValueInput("channel")
       .setCheck("Number")
@@ -19939,7 +19921,7 @@ Blockly.Blocks['bus_servo_set_pulse'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Set pulse width directly for servo on specified channel");
+    this.setTooltip("Set direct pulse width for servo on specified channel");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -19948,12 +19930,7 @@ Blockly.Blocks['bus_servo_set_pulse'] = {
 Blockly.Blocks['bus_servo_stop'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Stop Servo")
-        .appendField(new Blockly.FieldImage(
-                     "media/bus_servo_stop.png",
-                     300,
-                     300,
-                     "*"));
+        .appendField("Stop Servo");
 
     this.appendValueInput("channel")
       .setCheck("Number")
@@ -19963,21 +19940,16 @@ Blockly.Blocks['bus_servo_stop'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Stop servo on specified channel (set to neutral or turn off)");
+    this.setTooltip("Stop servo output or set to neutral position");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 卸载舵机
+// 解绑舵机通道
 Blockly.Blocks['bus_servo_detach'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Detach Servo")
-        .appendField(new Blockly.FieldImage(
-                     "media/bus_servo_detach.png",
-                     300,
-                     300,
-                     "*"));
+        .appendField("Detach Servo");
 
     this.appendValueInput("channel")
       .setCheck("Number")
@@ -19987,7 +19959,145 @@ Blockly.Blocks['bus_servo_detach'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Detach servo from specified channel and stop output");
+    this.setTooltip("Detach servo from channel and stop output");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 初始化光耦MOS驱动
+Blockly.Blocks['opto_mos_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/opto_mos.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init Opto-MOS Driver");
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("GPIO Pin");
+
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "FREQ");
+
+    this.appendValueInput("pwm_max")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Max Value")
+      .appendField(new Blockly.FieldNumber(65535), "PWM_MAX");
+
+    this.appendDummyInput()
+        .appendField("Inverted Output")
+        .appendField(new Blockly.FieldDropdown([
+                     ['No', 'False'],
+                     ['Yes', 'True']
+        ]), 'INVERTED');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Opto-MOS driver with PWM on specified GPIO pin");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置占空比（计数值）
+Blockly.Blocks['opto_mos_set_duty'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Opto-MOS Duty Value");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty Value (0-PWM_MAX)")
+      .appendField(new Blockly.FieldNumber(0), "DUTY_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Opto-MOS duty cycle by raw value (0 to PWM_MAX)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置占空比（百分比）
+Blockly.Blocks['opto_mos_set_percent'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Opto-MOS Duty Percent");
+
+    this.appendValueInput("percent")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty Percent (0-100)")
+      .appendField(new Blockly.FieldNumber(0), "PERCENT_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Opto-MOS duty cycle by percentage (0.0-100.0)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 全功率开启
+Blockly.Blocks['opto_mos_full_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Opto-MOS Full On (100%)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Opto-MOS to full power (100% duty cycle)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 关闭输出
+Blockly.Blocks['opto_mos_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Opto-MOS Off (0%)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off Opto-MOS output (0% duty cycle)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取状态
+Blockly.Blocks['opto_mos_get_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Opto-MOS Status");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current status of Opto-MOS driver (duty, percent, etc.)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 释放资源
+Blockly.Blocks['opto_mos_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit Opto-MOS Driver");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release PWM resources for Opto-MOS driver");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };

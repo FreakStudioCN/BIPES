@@ -2416,6 +2416,7 @@
   <block type="snr9816_tts_control"></block>
   <block type="snr9816_tts_query_status"></block>
 </category>
+
   </category>
   <category name="Motor Drivers">
     <category name="Bus DC Motor (PCA9685)">
@@ -2613,6 +2614,7 @@
   <block type="fm8118_atomization_is_on"></block>
 </category>
     <category name="Bus PWM Servo (PCA9685)">
+
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install bus_servo library" callbackKey="installPyLib"></button>
   <button text="Install pca9685 library" callbackKey="installPyLib"></button>
@@ -2717,6 +2719,51 @@
       </shadow>
     </value>
   </block>
+</category>
+    <category name="Opto-MOS PWM Driver">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install opto_mos_simple library" callbackKey="installPyLib"></button>
+
+  <label text="Opto-MOS (Optocoupler + MOS) PWM Driver"></label>
+
+  <block type="opto_mos_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+    <value name="pwm_max">
+      <shadow type="math_number">
+        <field name="NUM">65535</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="opto_mos_set_duty">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="opto_mos_set_percent">
+    <value name="percent">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="opto_mos_full_on"></block>
+  <block type="opto_mos_off"></block>
+  <block type="opto_mos_get_status"></block>
+  <block type="opto_mos_deinit"></block>
 </category>
   </category>
   <category name="Sensors">
