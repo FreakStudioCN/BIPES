@@ -18048,3 +18048,104 @@ Blockly.Blocks['piranhaled_is_on'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// UVMatrix初始化块
+Blockly.Blocks['uvmatrix_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init UVMatrix (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/uvmatrix.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UVMatrix Pin");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init UVMatrix with PWM control (1000Hz default frequency)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix打开块
+Blockly.Blocks['uvmatrix_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Turn On (50% Brightness)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on UVMatrix at 50% brightness (32766 duty_u16)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix关闭块
+Blockly.Blocks['uvmatrix_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Turn Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off UVMatrix (0 duty_u16)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix切换状态块
+Blockly.Blocks['uvmatrix_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle UVMatrix on/off state");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix设置亮度块
+Blockly.Blocks['uvmatrix_set_brightness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Set Brightness");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Brightness (0-512)")
+      .appendField(new Blockly.FieldNumber(256), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set UVMatrix brightness (0=off, 512=max)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix读取状态块
+Blockly.Blocks['uvmatrix_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Get State (On=True)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if UVMatrix is on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

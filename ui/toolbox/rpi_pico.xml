@@ -1961,6 +1961,35 @@
   <block type="piranhaled_toggle"></block>
   <block type="piranhaled_is_on"></block>
 </category>
+    <category name="UVMatrix ">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install uvmatrix library" callbackKey="installPyLib"></button>
+
+  <label text="UVMatrix PWM Dimmable UV Light Module"></label>
+  <block type="uvmatrix_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+    <value name="pwm_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="uvmatrix_on"></block>
+  <block type="uvmatrix_off"></block>
+  <block type="uvmatrix_toggle"></block>
+  <block type="uvmatrix_set_brightness">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">256</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="uvmatrix_get_state"></block>
+</category>
 
   </category>
   <category name="Sensors">

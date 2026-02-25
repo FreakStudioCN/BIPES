@@ -9439,3 +9439,71 @@ Blockly.Python['piranhaled_is_on'] = function(block) {
         var code = 'piranhaled_led.is_on() if piranhaled_led is not None else False';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+
+// UVMatrix初始化代码生成
+Blockly.Python['uvmatrix_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var pwm_freq = block.getFieldValue('PWM_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_uvmatrix'] = 'import uvmatrix';
+
+        // 初始化UVMatrix（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize UVMatrix with PWM\n';
+        code += '\tuvmatrix_module = uvmatrix.UVMatrix(pin=' + pin + ', pwm_freq=' + pwm_freq + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("UVMatrix init error:", e)\n';
+        code += '\tuvmatrix_module = None\n';
+        return code;
+};
+
+// UVMatrix打开代码生成
+Blockly.Python['uvmatrix_on'] = function(block) {
+        var code = 'if uvmatrix_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tuvmatrix_module.on()\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("UVMatrix on error:", e)\n';
+        return code;
+};
+
+// UVMatrix关闭代码生成
+Blockly.Python['uvmatrix_off'] = function(block) {
+        var code = 'if uvmatrix_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tuvmatrix_module.off()\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("UVMatrix off error:", e)\n';
+        return code;
+};
+
+// UVMatrix切换状态代码生成
+Blockly.Python['uvmatrix_toggle'] = function(block) {
+        var code = 'if uvmatrix_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tuvmatrix_module.toggle()\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("UVMatrix toggle error:", e)\n';
+        return code;
+};
+
+// UVMatrix设置亮度代码生成
+Blockly.Python['uvmatrix_set_brightness'] = function(block) {
+        var duty = block.getFieldValue('DUTY');
+
+        var code = 'if uvmatrix_module is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tuvmatrix_module.set_brightness(' + duty + ')\n';
+        code += '\texcept ValueError as e:\n';
+        code += '\t\tprint("UVMatrix brightness error:", e)\n';
+        return code;
+};
+
+// UVMatrix读取状态代码生成
+Blockly.Python['uvmatrix_get_state'] = function(block) {
+        var code = 'uvmatrix_module.get_state() if uvmatrix_module is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};
