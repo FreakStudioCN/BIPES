@@ -1794,6 +1794,46 @@
   <block type="limitswitch_enable"></block>
   <block type="limitswitch_disable"></block>
 </category>
+    <category name="AD8232 ECG Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install ad8232 library" callbackKey="installPyLib"></button>
+
+  <label text="AD8232 ECG and Heart Rate Sensor"></label>
+  <block type="ad8232_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">8</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">9</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+    <value name="parse_interval">
+      <shadow type="math_number">
+        <field name="NUM">5</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ad8232_control_start_stop"></block>
+  <block type="ad8232_set_active_output"></block>
+  <block type="ad8232_read_raw_ecg"></block>
+  <block type="ad8232_read_filtered_ecg"></block>
+  <block type="ad8232_read_lead_status"></block>
+  <block type="ad8232_read_heart_rate"></block>
+  <block type="ad8232_read_module_status"></block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

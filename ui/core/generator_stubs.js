@@ -9087,3 +9087,67 @@ Blockly.Python['limitswitch_set_callback'] = function(block) {
         var code = 'limit_switch.set_callback(' + callback + ')\n';
         return code;
 };
+
+// AD8232初始化代码生成
+Blockly.Python['ad8232_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+        var parse_interval = block.getFieldValue('PARSE_INTERVAL');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'import micropython\nimport time\nfrom machine import Pin, UART, Timer';
+        Blockly.Python.definitions_['import_data_flow_processor'] = 'import ad8232_data_flow_processor';
+        Blockly.Python.definitions_['import_ad8232_uart'] = 'import ad8232_uart';
+
+        // 初始化AD8232传感器
+        var code = 'uart_ad8232=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += 'data_flow_processor=ad8232_data_flow_processor.DataFlowProcessor(uart_ad8232)\n';
+        code += 'ad8232_sensor=ad8232_uart.AD8232_DataFlowProcessor(data_flow_processor, parse_interval=' + parse_interval + ')\n';
+        return code;
+};
+
+// 启动/停止AD8232模块代码生成
+Blockly.Python['ad8232_control_start_stop'] = function(block) {
+        var state = block.getFieldValue('STATE');
+        var code = 'ad8232_sensor.control_ad8232_start_stop(' + state + ')\n';
+        return code;
+};
+
+// 设置主动上报模式代码生成
+Blockly.Python['ad8232_set_active_output'] = function(block) {
+        var state = block.getFieldValue('STATE');
+        var code = 'ad8232_sensor.set_active_output(' + state + ')\n';
+        return code;
+};
+
+// 读取原始ECG值代码生成
+Blockly.Python['ad8232_read_raw_ecg'] = function(block) {
+        var code = 'ad8232_sensor.query_raw_ecg_data()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取滤波后ECG值代码生成
+Blockly.Python['ad8232_read_filtered_ecg'] = function(block) {
+        var code = 'ad8232_sensor.query_filtered_ecg_data()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取导联状态代码生成
+Blockly.Python['ad8232_read_lead_status'] = function(block) {
+        var code = 'ad8232_sensor.query_off_detection_status()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取心率值代码生成
+Blockly.Python['ad8232_read_heart_rate'] = function(block) {
+        var code = 'ad8232_sensor.query_heart_rate()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取模块状态代码生成
+Blockly.Python['ad8232_read_module_status'] = function(block) {
+        var code = 'ad8232_sensor.query_module_status()';
+        return [code, Blockly.Python.ORDER_NONE];
+};

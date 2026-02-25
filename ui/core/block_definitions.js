@@ -17343,3 +17343,142 @@ Blockly.Blocks['limitswitch_set_callback'] = {
   }
 };
 
+// AD8232初始化块
+Blockly.Blocks['ad8232_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init AD8232 ECG Sensor")
+        .appendField(new Blockly.FieldImage(
+                     "media/ad8232.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(115200), "BAUDRATE");
+
+    this.appendValueInput("parse_interval")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Parse Interval (ms)")
+      .appendField(new Blockly.FieldNumber(5), "PARSE_INTERVAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init AD8232 ECG sensor via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启动/停止AD8232模块块
+Blockly.Blocks['ad8232_control_start_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Control AD8232")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Start', '1'],
+                     ['Stop', '0']
+        ]), 'STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start or stop AD8232 sensor operation");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置主动上报模式块
+Blockly.Blocks['ad8232_set_active_output'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set AD8232 Active Reporting")
+        .appendField(new Blockly.FieldDropdown([
+                     ['On', '1'],
+                     ['Off', '0']
+        ]), 'STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable AD8232 active data reporting");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取原始ECG值块
+Blockly.Blocks['ad8232_read_raw_ecg'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Raw ECG Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read raw ECG value from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取滤波后ECG值块
+Blockly.Blocks['ad8232_read_filtered_ecg'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Filtered ECG Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read filtered ECG value from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取导联状态块
+Blockly.Blocks['ad8232_read_lead_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Lead Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read lead detection status from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取心率值块
+Blockly.Blocks['ad8232_read_heart_rate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Heart Rate");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read heart rate value from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取模块状态块
+Blockly.Blocks['ad8232_read_module_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Module Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read operating status from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
