@@ -2328,6 +2328,94 @@
   <block type="pca9546adr_read_status"></block>
   <block type="pca9546adr_scan_i2c"></block>
 </category>
+    <category name="SNR9816 TTS Module">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install snr9816_tts library" callbackKey="installPyLib"></button>
+
+  <label text="SNR9816 TTS Speech Synthesis Module (UART)"></label>
+  <block type="snr9816_tts_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_synthesize_text">
+    <value name="text">
+      <shadow type="text">
+        <field name="TEXT">欢迎使用SNR9816 TTS模块</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_set_voice"></block>
+  <block type="snr9816_tts_set_volume">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_set_speed">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_set_tone">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_play_ringtone">
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_play_message_tone">
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_play_alert_tone">
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_control"></block>
+  <block type="snr9816_tts_query_status"></block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

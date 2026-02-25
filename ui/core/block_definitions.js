@@ -19056,3 +19056,231 @@ Blockly.Blocks['pca9546adr_scan_i2c'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// SNR9816 TTS初始化块
+Blockly.Blocks['snr9816_tts_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init SNR9816 TTS Module")
+        .appendField(new Blockly.FieldImage(
+                     "media/snr9816_tts.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(115200), "BAUDRATE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init SNR9816 TTS speech synthesis module via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS文本合成块
+Blockly.Blocks['snr9816_tts_synthesize_text'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Synthesize Text");
+
+    this.appendValueInput("text")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Text");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Synthesize text to speech (UTF-8 encoding)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置发音人块
+Blockly.Blocks['snr9816_tts_set_voice'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Voice")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Female Voice', '0'],
+                     ['Male Voice', '1']
+        ]), 'VOICE_TYPE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS voice type (0=female, 1=male)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置音量块
+Blockly.Blocks['snr9816_tts_set_volume'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Volume");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-9)")
+      .appendField(new Blockly.FieldNumber(5), "VOLUME_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS volume level (0=min, 9=max)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置语速块
+Blockly.Blocks['snr9816_tts_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Speed");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-9)")
+      .appendField(new Blockly.FieldNumber(5), "SPEED_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS speech speed (0=fastest, 9=slowest)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置语调块
+Blockly.Blocks['snr9816_tts_set_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Tone");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-9)")
+      .appendField(new Blockly.FieldNumber(5), "TONE_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS tone level (0=lowest, 9=highest)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS播放铃声块
+Blockly.Blocks['snr9816_tts_play_ringtone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Play Ringtone");
+
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Number (1-5)")
+      .appendField(new Blockly.FieldNumber(1), "RINGTONE_NUM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play system ringtone (1-5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS播放提示音块
+Blockly.Blocks['snr9816_tts_play_message_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Play Message Tone");
+
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Number (1-5)")
+      .appendField(new Blockly.FieldNumber(1), "MESSAGE_NUM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play message notification tone (1-5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS播放警示音块
+Blockly.Blocks['snr9816_tts_play_alert_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Play Alert Tone");
+
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Number (1-5)")
+      .appendField(new Blockly.FieldNumber(1), "ALERT_NUM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play alert tone (1-5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS控制块（暂停/恢复/停止）
+Blockly.Blocks['snr9816_tts_control'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Control")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Pause Synthesis', 'pause'],
+                     ['Resume Synthesis', 'resume'],
+                     ['Stop Synthesis', 'stop']
+        ]), 'CONTROL_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Control TTS synthesis (pause/resume/stop)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS查询状态块
+Blockly.Blocks['snr9816_tts_query_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Query Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query TTS chip status (IDLE/BUSY/UNKNOWN)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

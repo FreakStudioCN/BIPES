@@ -10086,3 +10086,159 @@ Blockly.Python['pca9546adr_scan_i2c'] = function(block) {
         var code = 'i2c_pca.scan() if "i2c_pca" in locals() and i2c_pca is not None else []';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// SNR9816 TTS初始化代码生成
+Blockly.Python['snr9816_tts_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_snr9816_tts'] = 'import snr9816_tts';
+
+        // 初始化TTS模块（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize SNR9816 TTS module\n';
+        code += '\tuart_tts = UART(' + uart_port + ', baudrate=' + baudrate + ', bits=8, parity=None, stop=1, tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '))\n';
+        code += '\ttts_device = snr9816_tts.SNR9816_TTS(uart_tts)\n';
+        code += '\tprint("SNR9816 TTS initialized on UART" + ' + uart_port + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("SNR9816 TTS init error:", e)\n';
+        code += '\ttts_device = None\n';
+        return code;
+};
+
+// SNR9816 TTS文本合成代码生成
+Blockly.Python['snr9816_tts_synthesize_text'] = function(block) {
+        var text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Synthesize text to speech\n';
+        code += '\twhile not tts_device.synthesize_text(' + text + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Text synthesis started:", ' + text + ')\n';
+        return code;
+};
+
+// SNR9816 TTS设置发音人代码生成
+Blockly.Python['snr9816_tts_set_voice'] = function(block) {
+        var voice_type = block.getFieldValue('VOICE_TYPE');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS voice type\n';
+        code += '\twhile not tts_device.set_voice(' + voice_type + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tvoice_name = "female" if ' + voice_type + ' == 0 else "male"\n';
+        code += '\tprint("TTS voice set to:", voice_name)\n';
+        return code;
+};
+
+// SNR9816 TTS设置音量代码生成
+Blockly.Python['snr9816_tts_set_volume'] = function(block) {
+        var level = block.getFieldValue('VOLUME_LEVEL');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS volume level\n';
+        code += '\twhile not tts_device.set_volume(' + level + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("TTS volume set to:", ' + level + ')\n';
+        return code;
+};
+
+// SNR9816 TTS设置语速代码生成
+Blockly.Python['snr9816_tts_set_speed'] = function(block) {
+        var level = block.getFieldValue('SPEED_LEVEL');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS speed level\n';
+        code += '\twhile not tts_device.set_speed(' + level + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("TTS speed set to:", ' + level + ')\n';
+        return code;
+};
+
+// SNR9816 TTS设置语调代码生成
+Blockly.Python['snr9816_tts_set_tone'] = function(block) {
+        var level = block.getFieldValue('TONE_LEVEL');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS tone level\n';
+        code += '\twhile not tts_device.set_tone(' + level + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("TTS tone set to:", ' + level + ')\n';
+        return code;
+};
+
+// SNR9816 TTS播放铃声代码生成
+Blockly.Python['snr9816_tts_play_ringtone'] = function(block) {
+        var num = block.getFieldValue('RINGTONE_NUM');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Play system ringtone\n';
+        code += '\twhile not tts_device.play_ringtone(' + num + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Playing ringtone:", ' + num + ')\n';
+        return code;
+};
+
+// SNR9816 TTS播放提示音代码生成
+Blockly.Python['snr9816_tts_play_message_tone'] = function(block) {
+        var num = block.getFieldValue('MESSAGE_NUM');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Play message tone\n';
+        code += '\twhile not tts_device.play_message_tone(' + num + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Playing message tone:", ' + num + ')\n';
+        return code;
+};
+
+// SNR9816 TTS播放警示音代码生成
+Blockly.Python['snr9816_tts_play_alert_tone'] = function(block) {
+        var num = block.getFieldValue('ALERT_NUM');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Play alert tone\n';
+        code += '\twhile not tts_device.play_alert_tone(' + num + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Playing alert tone:", ' + num + ')\n';
+        return code;
+};
+
+// SNR9816 TTS控制（暂停/恢复/停止）代码生成
+Blockly.Python['snr9816_tts_control'] = function(block) {
+        var action = block.getFieldValue('CONTROL_ACTION');
+        var code = 'if tts_device is not None:\n';
+
+        if (action === 'pause') {
+            code += '\t# Pause TTS synthesis\n';
+            code += '\tresult = tts_device.pause_synthesis()\n';
+            code += '\tprint("TTS synthesis paused:", result)\n';
+        } else if (action === 'resume') {
+            code += '\t# Resume TTS synthesis\n';
+            code += '\tresult = tts_device.resume_synthesis()\n';
+            code += '\tprint("TTS synthesis resumed:", result)\n';
+        } else if (action === 'stop') {
+            code += '\t# Stop TTS synthesis\n';
+            code += '\tresult = tts_device.stop_synthesis()\n';
+            code += '\tprint("TTS synthesis stopped:", result)\n';
+        }
+
+        return code;
+};
+
+// SNR9816 TTS查询状态代码生成
+Blockly.Python['snr9816_tts_query_status'] = function(block) {
+        var code = '''
+def get_tts_status_str():
+    if tts_device is None:
+        return "UNINITIALIZED"
+    status_code = tts_device.query_status()
+    status_map = {0: "BUSY", 1: "IDLE", 2: "UNKNOWN"}
+    return status_map.get(status_code, "UNKNOWN")
+get_tts_status_str()''';
+        return [code, Blockly.Python.ORDER_NONE];
+};
