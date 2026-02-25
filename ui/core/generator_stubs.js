@@ -8966,3 +8966,85 @@ Blockly.Python['pcf8574keys_deinit'] = function(block) {
         code += 'del pcf_dev\n';
         return code;
 };
+
+// PCF8574IO8初始化代码生成
+Blockly.Python['pcf8574io8_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_pcf8574'] = 'import pcf8574';
+        Blockly.Python.definitions_['import_pcf8574io8'] = 'import pcf8574io8';
+
+        // 初始化I2C和PCF8574IO8模块
+        var code = 'i2cPCF8574=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+        code += 'pcf_dev=pcf8574.PCF8574(i2cPCF8574, ' + addr + ')\n';
+        code += 'pcf_io8=pcf8574io8.PCF8574IO8(pcf_dev)\n';
+        return code;
+};
+
+// 配置端口状态代码生成
+Blockly.Python['pcf8574io8_configure_port'] = function(block) {
+        var port = block.getFieldValue('PORT_NUM');
+        var bit1 = block.getFieldValue('BIT1_VAL');
+        var bit0 = block.getFieldValue('BIT0_VAL');
+
+        var code = 'pcf_io8.configure_port(' + port + ', (' + bit1 + ', ' + bit0 + '))\n';
+        return code;
+};
+
+// 设置端口值代码生成
+Blockly.Python['pcf8574io8_set_port'] = function(block) {
+        var port = block.getFieldValue('PORT_NUM');
+        var value = block.getFieldValue('PORT_VAL');
+
+        var code = 'pcf_io8.set_port(' + port + ', ' + value + ')\n';
+        return code;
+};
+
+// 读取端口值代码生成
+Blockly.Python['pcf8574io8_get_port'] = function(block) {
+        var port = block.getFieldValue('PORT_NUM');
+        var code = 'pcf_io8.get_port(' + port + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置单个引脚代码生成
+Blockly.Python['pcf8574io8_set_pin'] = function(block) {
+        var pin = block.getFieldValue('PIN_NUM');
+        var value = block.getFieldValue('PIN_VAL');
+
+        var code = 'pcf_io8.set_pin(' + pin + ', ' + value + ')\n';
+        return code;
+};
+
+// 读取单个引脚代码生成
+Blockly.Python['pcf8574io8_get_pin'] = function(block) {
+        var pin = block.getFieldValue('PIN_NUM');
+        var code = 'pcf_io8.get_pin(' + pin + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取所有IO值代码生成
+Blockly.Python['pcf8574io8_read_all'] = function(block) {
+        var code = 'pcf_io8.read_all()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 写入所有IO值代码生成
+Blockly.Python['pcf8574io8_write_all'] = function(block) {
+        var byte_val = block.getFieldValue('BYTE_VAL');
+        var code = 'pcf_io8.write_all(' + byte_val + ')\n';
+        return code;
+};
+
+// 释放资源代码生成
+Blockly.Python['pcf8574io8_deinit'] = function(block) {
+        var code = 'pcf_io8.deinit()\n';
+        code += 'del pcf_io8\n';
+        code += 'del pcf_dev\n';
+        return code;
+};

@@ -17050,3 +17050,210 @@ Blockly.Blocks['pcf8574keys_deinit'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PCF8574IO8初始化块
+Blockly.Blocks['pcf8574io8_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PCF8574 IO8 Module")
+        .appendField(new Blockly.FieldImage(
+                     "media/pcf8574io8.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address")
+      .appendField(new Blockly.FieldNumber(0x20), "ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCF8574 8-channel IO expansion module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 配置端口状态块
+Blockly.Blocks['pcf8574io8_configure_port'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Configure PCF8574 IO8 Port");
+
+    this.appendValueInput("port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Port (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_NUM");
+
+    this.appendValueInput("bit1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Bit1 (0/1)")
+      .appendField(new Blockly.FieldNumber(1), "BIT1_VAL");
+
+    this.appendValueInput("bit0")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Bit0 (0/1)")
+      .appendField(new Blockly.FieldNumber(1), "BIT0_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Configure PCF8574 IO8 port state (two bits per port)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置端口值块
+Blockly.Blocks['pcf8574io8_set_port'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PCF8574 IO8 Port Value");
+
+    this.appendValueInput("port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Port (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_NUM");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set PCF8574 IO8 port value (0-3)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取端口值块
+Blockly.Blocks['pcf8574io8_get_port'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read PCF8574 IO8 Port Value");
+
+    this.appendValueInput("port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Port (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_NUM");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read PCF8574 IO8 port value (0-3)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置单个引脚块
+Blockly.Blocks['pcf8574io8_set_pin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PCF8574 IO8 Pin");
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin (0-7)")
+      .appendField(new Blockly.FieldNumber(0), "PIN_NUM");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0/1)")
+      .appendField(new Blockly.FieldNumber(1), "PIN_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set PCF8574 IO8 single pin value (0/1)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取单个引脚块
+Blockly.Blocks['pcf8574io8_get_pin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read PCF8574 IO8 Pin Value");
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin (0-7)")
+      .appendField(new Blockly.FieldNumber(0), "PIN_NUM");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read PCF8574 IO8 single pin value (0/1)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取所有IO值块
+Blockly.Blocks['pcf8574io8_read_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read All PCF8574 IO8 Pins");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read all PCF8574 IO8 pins value as byte (0-255)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 写入所有IO值块
+Blockly.Blocks['pcf8574io8_write_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Write All PCF8574 IO8 Pins");
+
+    this.appendValueInput("byte")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Byte Value (0-255)")
+      .appendField(new Blockly.FieldNumber(0xFF), "BYTE_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write byte value to all PCF8574 IO8 pins (0-255)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 释放资源块
+Blockly.Blocks['pcf8574io8_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit PCF8574 IO8 Module");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release PCF8574 IO8 module resources");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
