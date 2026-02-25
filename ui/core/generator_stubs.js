@@ -9628,3 +9628,248 @@ Blockly.Python['ds1307_read_field'] = function(block) {
         var code = 'ds1307_rtc.datetime[' + field_index + '] if ds1307_rtc is not None else 0';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// DY-SV19T初始化代码生成
+Blockly.Python['dysv19t_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+        var default_vol = block.getFieldValue('DEFAULT_VOL');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_uart'] = 'from machine import Pin, UART, Timer';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_dysv19t'] = 'import dy_sv19t';
+
+        // 初始化DY-SV19T（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize UART for DY-SV19T\n';
+        code += '\tuart_dysv19t = UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += '\t# Create DY-SV19T instance\n';
+        code += '\tdysv19t_player = dy_sv19t.DYSV19T(\n';
+        code += '\t    uart_dysv19t,\n';
+        code += '\t    default_volume=' + default_vol + ',\n';
+        code += '\t    default_disk=dy_sv19t.DYSV19T.DISK_SD,\n';
+        code += '\t    default_play_mode=dy_sv19t.DYSV19T.MODE_SINGLE_STOP,\n';
+        code += '\t    default_dac_channel=dy_sv19t.DYSV19T.CH_MP3,\n';
+        code += '\t    timeout_ms=600\n';
+        code += '\t)\n';
+        code += '\t# Set initial volume and EQ\n';
+        code += '\tdysv19t_player.set_volume(' + default_vol + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("DY-SV19T init error:", e)\n';
+        code += '\tdysv19t_player = None\n';
+        return code;
+};
+
+// DY-SV19T基础播放控制代码生成
+Blockly.Python['dysv19t_play_control'] = function(block) {
+        var cmd = block.getFieldValue('CONTROL_CMD');
+        var cmd_map = {
+            'play': 'play()',
+            'pause': 'pause()',
+            'stop': 'stop()',
+            'prev': 'prev_track()',
+            'next': 'next_track()'
+        };
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.' + cmd_map[cmd] + '\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T control error:", e)\n';
+        return code;
+};
+
+// DY-SV19T选择曲目播放代码生成
+Blockly.Python['dysv19t_select_track'] = function(block) {
+        var track_no = block.getFieldValue('TRACK_NO');
+        var play_now = block.getFieldValue('PLAY_NOW') === 'TRUE';
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.select_track(' + track_no + ', play=' + play_now + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T select track error:", e)\n';
+        return code;
+};
+
+// DY-SV19T按路径播放代码生成
+Blockly.Python['dysv19t_play_path'] = function(block) {
+        var disk = block.getFieldValue('DISK');
+        var path = block.getFieldValue('PATH');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdisk_map = {0: dy_sv19t.DYSV19T.DISK_USB, 1: dy_sv19t.DYSV19T.DISK_SD, 2: dy_sv19t.DYSV19T.DISK_FLASH}\n';
+        code += '\t\tdysv19t_player.play_disk_path(disk_map[' + disk + '], "' + path + '")\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T play path error:", e)\n';
+        return code;
+};
+
+// DY-SV19T音量控制代码生成
+Blockly.Python['dysv19t_volume'] = function(block) {
+        var vol_cmd = block.getFieldValue('VOL_CMD');
+        var vol_value = block.getFieldValue('VOL_VALUE');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (vol_cmd === 'set') {
+            code += '\t\tdysv19t_player.set_volume(' + vol_value + ')\n';
+        } else if (vol_cmd === 'up') {
+            code += '\t\tdysv19t_player.volume_up()\n';
+        } else {
+            code += '\t\tdysv19t_player.volume_down()\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T volume error:", e)\n';
+        return code;
+};
+
+// DY-SV19T设置EQ代码生成
+Blockly.Python['dysv19t_set_eq'] = function(block) {
+        var eq_mode = block.getFieldValue('EQ_MODE');
+        var eq_map = {
+            '0': 'EQ_NORMAL',
+            '1': 'EQ_POP',
+            '2': 'EQ_ROCK',
+            '3': 'EQ_JAZZ',
+            '4': 'EQ_CLASSIC'
+        };
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.set_eq(dy_sv19t.DYSV19T.' + eq_map[eq_mode] + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T set EQ error:", e)\n';
+        return code;
+};
+
+// DY-SV19T设置播放模式代码生成
+Blockly.Python['dysv19t_set_play_mode'] = function(block) {
+        var play_mode = block.getFieldValue('PLAY_MODE');
+        var mode_map = {
+            '0': 'MODE_FULL_LOOP',
+            '1': 'MODE_SINGLE_LOOP',
+            '2': 'MODE_SINGLE_STOP',
+            '3': 'MODE_FULL_RANDOM',
+            '4': 'MODE_DIR_LOOP',
+            '5': 'MODE_DIR_RANDOM',
+            '6': 'MODE_DIR_SEQUENCE',
+            '7': 'MODE_SEQUENCE'
+        };
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.set_play_mode(dy_sv19t.DYSV19T.' + mode_map[play_mode] + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T set play mode error:", e)\n';
+        return code;
+};
+
+// DY-SV19T插播曲目代码生成
+Blockly.Python['dysv19t_insert_track'] = function(block) {
+        var insert_disk = block.getFieldValue('INSERT_DISK');
+        var insert_track = block.getFieldValue('INSERT_TRACK');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdisk_map = {0: dy_sv19t.DYSV19T.DISK_USB, 1: dy_sv19t.DYSV19T.DISK_SD, 2: dy_sv19t.DYSV19T.DISK_FLASH}\n';
+        code += '\t\tdysv19t_player.insert_track(disk_map[' + insert_disk + '], ' + insert_track + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T insert track error:", e)\n';
+        return code;
+};
+
+// DY-SV19T区间复读代码生成
+Blockly.Python['dysv19t_repeat_area'] = function(block) {
+        var start_min = block.getFieldValue('START_MIN');
+        var start_sec = block.getFieldValue('START_SEC');
+        var end_min = block.getFieldValue('END_MIN');
+        var end_sec = block.getFieldValue('END_SEC');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.repeat_area(' + start_min + ', ' + start_sec + ', ' + end_min + ', ' + end_sec + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T repeat area error:", e)\n';
+        return code;
+};
+
+// DY-SV19T结束复读代码生成
+Blockly.Python['dysv19t_end_repeat'] = function(block) {
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.end_repeat()\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T end repeat error:", e)\n';
+        return code;
+};
+
+// DY-SV19T快进快退代码生成
+Blockly.Python['dysv19t_seek'] = function(block) {
+        var seek_dir = block.getFieldValue('SEEK_DIR');
+        var seconds = block.getFieldValue('SEEK_SECONDS');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (seek_dir === 'forward') {
+            code += '\t\tdysv19t_player.seek_forward(' + seconds + ')\n';
+        } else {
+            code += '\t\tdysv19t_player.seek_back(' + seconds + ')\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T seek error:", e)\n';
+        return code;
+};
+
+// DY-SV19T查询状态代码生成
+Blockly.Python['dysv19t_query'] = function(block) {
+        var query_type = block.getFieldValue('QUERY_TYPE');
+        var query_map = {
+            'status': 'query_status()',
+            'disk': 'query_current_disk()',
+            'track': 'query_current_track()',
+            'total_tracks': 'query_total_tracks()',
+            'time': 'query_current_track_time()',
+            'online_disks': 'query_online_disks()'
+        };
+
+        var code = 'dysv19t_player.' + query_map[query_type] + ' if dysv19t_player is not None else None';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DY-SV19T组合播放代码生成
+Blockly.Python['dysv19t_combination_playlist'] = function(block) {
+        var short_names = block.getFieldValue('SHORT_NAMES');
+        var playlist_action = block.getFieldValue('PLAYLIST_ACTION');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (playlist_action === 'start') {
+            code += '\t\tdysv19t_player.start_combination_playlist(' + short_names + ')\n';
+        } else {
+            code += '\t\tdysv19t_player.end_combination_playlist()\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T playlist error:", e)\n';
+        return code;
+};
+
+// DY-SV19T播放时间上报控制代码生成
+Blockly.Python['dysv19t_time_report'] = function(block) {
+        var report_action = block.getFieldValue('REPORT_ACTION');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (report_action === 'enable') {
+            code += '\t\tdysv19t_player.enable_play_time_send()\n';
+        } else {
+            code += '\t\tdysv19t_player.disable_play_time_send()\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T time report error:", e)\n';
+        return code;
+};

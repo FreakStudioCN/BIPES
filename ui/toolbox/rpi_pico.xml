@@ -2020,7 +2020,7 @@
       <!-- 停止喂狗块 -->
       <block type="ds1232_stop"></block>
     </category>
-    <category name="DS1307 RTC (I2C) Module">
+    <category name="DS1307 RTC (I2C)">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install ds1307 library" callbackKey="installPyLib"></button>
 
@@ -2079,6 +2079,121 @@
   <block type="ds1307_set_oscillator"></block>
   <block type="ds1307_get_oscillator"></block>
   <block type="ds1307_read_field"></block>
+</category>
+    <category name="DY-SV19T Audio (UART)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install dy_sv19t library" callbackKey="installPyLib"></button>
+
+  <label text="DY-SV19T Voice Playback Module (UART Interface)"></label>
+  <block type="dysv19t_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">16</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">17</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">9600</field>
+      </shadow>
+    </value>
+    <value name="default_volume">
+      <shadow type="math_number">
+        <field name="NUM">30</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_play_control"></block>
+
+  <block type="dysv19t_select_track">
+    <value name="track_no">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_play_path">
+    <value name="path">
+      <shadow type="text">
+        <field name="TEXT">/AA./01.MP3</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_volume">
+    <value name="vol_value">
+      <shadow type="math_number">
+        <field name="NUM">20</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_set_eq"></block>
+  <block type="dysv19t_set_play_mode"></block>
+
+  <block type="dysv19t_insert_track">
+    <value name="insert_track">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_repeat_area">
+    <value name="start_min">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="start_sec">
+      <shadow type="math_number">
+        <field name="NUM">20</field>
+      </shadow>
+    </value>
+    <value name="end_min">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="end_sec">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_end_repeat"></block>
+
+  <block type="dysv19t_seek">
+    <value name="seconds">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_query"></block>
+
+  <block type="dysv19t_combination_playlist">
+    <value name="short_names">
+      <shadow type="text">
+        <field name="TEXT">['Z1','Z2']</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_time_report"></block>
 </category>
 
   </category>

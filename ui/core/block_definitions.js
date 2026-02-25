@@ -18367,3 +18367,368 @@ Blockly.Blocks['ds1307_read_field'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// DY-SV19T初始化块
+Blockly.Blocks['dysv19t_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init DY-SV19T (UART)")
+        .appendField(new Blockly.FieldImage(
+                     "media/dy_sv19t.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+
+    this.appendValueInput("default_volume")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Default Volume (0-30)")
+      .appendField(new Blockly.FieldNumber(30), "DEFAULT_VOL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init DY-SV19T audio module via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T基础播放控制块
+Blockly.Blocks['dysv19t_play_control'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Play', 'play'],
+                     ['Pause', 'pause'],
+                     ['Stop', 'stop'],
+                     ['Previous Track', 'prev'],
+                     ['Next Track', 'next']
+        ]), 'CONTROL_CMD');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T basic playback control");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T选择曲目播放块
+Blockly.Blocks['dysv19t_select_track'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Select Track");
+
+    this.appendValueInput("track_no")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Track Number (1-65535)")
+      .appendField(new Blockly.FieldNumber(1), "TRACK_NO");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Play Immediately")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "PLAY_NOW");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T select track number to play");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T按路径播放块
+Blockly.Blocks['dysv19t_play_path'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Play Path");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Disk")
+        .appendField(new Blockly.FieldDropdown([
+                     ['USB', '0'],
+                     ['SD Card', '1'],
+                     ['Flash', '2']
+        ]), 'DISK');
+
+    this.appendValueInput("path")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Path (e.g. /MUSIC/01.MP3)")
+      .appendField(new Blockly.FieldTextInput("/AA./01.MP3"), "PATH");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T play audio by disk + path");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T音量控制块
+Blockly.Blocks['dysv19t_volume'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Volume");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Control")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Set', 'set'],
+                     ['Up', 'up'],
+                     ['Down', 'down']
+        ]), 'VOL_CMD');
+
+    this.appendValueInput("vol_value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-30)")
+      .appendField(new Blockly.FieldNumber(20), "VOL_VALUE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T volume control (0-30)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T设置EQ块
+Blockly.Blocks['dysv19t_set_eq'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Set EQ")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Normal', '0'],
+                     ['Pop', '1'],
+                     ['Rock', '2'],
+                     ['Jazz', '3'],
+                     ['Classic', '4']
+        ]), 'EQ_MODE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T set EQ mode");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T设置播放模式块
+Blockly.Blocks['dysv19t_set_play_mode'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Set Play Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Full Loop', '0'],
+                     ['Single Loop', '1'],
+                     ['Single Stop', '2'],
+                     ['Full Random', '3'],
+                     ['Dir Loop', '4'],
+                     ['Dir Random', '5'],
+                     ['Dir Sequence', '6'],
+                     ['Sequence', '7']
+        ]), 'PLAY_MODE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T set playback loop mode");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T插播曲目块
+Blockly.Blocks['dysv19t_insert_track'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Insert Track");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Disk")
+        .appendField(new Blockly.FieldDropdown([
+                     ['USB', '0'],
+                     ['SD Card', '1'],
+                     ['Flash', '2']
+        ]), 'INSERT_DISK');
+
+    this.appendValueInput("insert_track")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Track Number")
+      .appendField(new Blockly.FieldNumber(1), "INSERT_TRACK");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T insert track during playback");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T区间复读块
+Blockly.Blocks['dysv19t_repeat_area'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T A-B Repeat");
+
+    this.appendValueInput("start_min")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Min (0-59)")
+      .appendField(new Blockly.FieldNumber(0), "START_MIN");
+
+    this.appendValueInput("start_sec")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Sec (0-59)")
+      .appendField(new Blockly.FieldNumber(20), "START_SEC");
+
+    this.appendValueInput("end_min")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("End Min (0-59)")
+      .appendField(new Blockly.FieldNumber(0), "END_MIN");
+
+    this.appendValueInput("end_sec")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("End Sec (0-59)")
+      .appendField(new Blockly.FieldNumber(25), "END_SEC");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T set A-B repeat area (min/sec 0-59)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T结束复读块
+Blockly.Blocks['dysv19t_end_repeat'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T End A-B Repeat");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T stop A-B repeat");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T快进快退块
+Blockly.Blocks['dysv19t_seek'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Seek");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', 'forward'],
+                     ['Backward', 'back']
+        ]), 'SEEK_DIR');
+
+    this.appendValueInput("seconds")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Seconds (0-65535)")
+      .appendField(new Blockly.FieldNumber(10), "SEEK_SECONDS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T seek forward/backward by seconds");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T查询状态块
+Blockly.Blocks['dysv19t_query'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Query")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Play State', 'status'],
+                     ['Current Disk', 'disk'],
+                     ['Current Track', 'track'],
+                     ['Total Tracks', 'total_tracks'],
+                     ['Current Time', 'time'],
+                     ['Online Disks', 'online_disks']
+        ]), 'QUERY_TYPE');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T query status/info");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T组合播放块
+Blockly.Blocks['dysv19t_combination_playlist'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Combination Playlist");
+
+    this.appendValueInput("short_names")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Short Names (e.g. ['Z1','Z2'])")
+      .appendField(new Blockly.FieldTextInput("['Z1','Z2']"), "SHORT_NAMES");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Action")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Start', 'start'],
+                     ['End', 'end']
+        ]), 'PLAYLIST_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T start/end combination playlist (ZH folder)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T播放时间上报控制块
+Blockly.Blocks['dysv19t_time_report'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Play Time Report")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Enable', 'enable'],
+                     ['Disable', 'disable']
+        ]), 'REPORT_ACTION');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T enable/disable auto play time report");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
