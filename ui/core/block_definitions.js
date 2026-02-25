@@ -16119,7 +16119,7 @@ Blockly.Blocks['r60abd1_query_presence_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human presence switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16130,7 +16130,7 @@ Blockly.Blocks['r60abd1_query_presence_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human presence status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16141,7 +16141,7 @@ Blockly.Blocks['r60abd1_query_motion_info'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human motion information");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16152,7 +16152,7 @@ Blockly.Blocks['r60abd1_query_motion_param'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human body motion parameter");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16163,7 +16163,7 @@ Blockly.Blocks['r60abd1_query_human_distance'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human distance");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16174,7 +16174,7 @@ Blockly.Blocks['r60abd1_query_human_direction'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human direction (X/Y/Z)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16192,7 +16192,7 @@ Blockly.Blocks['r60abd1_control_heart_rate'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 heart rate monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16209,7 +16209,7 @@ Blockly.Blocks['r60abd1_control_hr_waveform'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 heart rate waveform report");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16220,7 +16220,7 @@ Blockly.Blocks['r60abd1_query_hr_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate monitor switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16231,7 +16231,7 @@ Blockly.Blocks['r60abd1_query_hr_wave_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate waveform report switch");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16242,7 +16242,7 @@ Blockly.Blocks['r60abd1_query_heart_rate'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate value");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16253,7 +16253,7 @@ Blockly.Blocks['r60abd1_query_hr_waveform'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate waveform data");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16271,7 +16271,7 @@ Blockly.Blocks['r60abd1_control_breath'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 breath monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16288,7 +16288,7 @@ Blockly.Blocks['r60abd1_control_breath_waveform'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 breath waveform report");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16305,7 +16305,7 @@ Blockly.Blocks['r60abd1_set_low_breath_threshold'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 low breath threshold (10-20)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16316,7 +16316,7 @@ Blockly.Blocks['r60abd1_query_breath_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath monitor switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16327,7 +16327,7 @@ Blockly.Blocks['r60abd1_query_low_breath_threshold'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 low breath threshold");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16338,7 +16338,7 @@ Blockly.Blocks['r60abd1_query_breath_info'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath status (Normal/High/Low/None)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16349,7 +16349,7 @@ Blockly.Blocks['r60abd1_query_breath_value'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath value");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16360,7 +16360,7 @@ Blockly.Blocks['r60abd1_query_breath_wave_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath waveform report switch");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16371,7 +16371,7 @@ Blockly.Blocks['r60abd1_query_breath_waveform'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath waveform data");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16389,7 +16389,7 @@ Blockly.Blocks['r60abd1_control_sleep'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 sleep monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16406,7 +16406,7 @@ Blockly.Blocks['r60abd1_control_struggle'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 abnormal struggle monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16425,7 +16425,7 @@ Blockly.Blocks['r60abd1_set_struggle_sensitivity'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 struggle sensitivity (0=Low,1=Medium,2=High)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16442,7 +16442,7 @@ Blockly.Blocks['r60abd1_control_no_person_timing'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 no person timing");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16459,7 +16459,7 @@ Blockly.Blocks['r60abd1_set_no_person_duration'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 no person timing duration (30-180min, step 10)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16476,7 +16476,7 @@ Blockly.Blocks['r60abd1_set_sleep_end_duration'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 sleep end duration (5-120min)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16487,7 +16487,7 @@ Blockly.Blocks['r60abd1_query_sleep_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep monitor switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16498,7 +16498,7 @@ Blockly.Blocks['r60abd1_query_struggle_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 abnormal struggle monitor switch");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16509,7 +16509,7 @@ Blockly.Blocks['r60abd1_query_struggle_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 abnormal struggle status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16520,7 +16520,7 @@ Blockly.Blocks['r60abd1_query_struggle_sensitivity'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 struggle sensitivity level");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16531,7 +16531,7 @@ Blockly.Blocks['r60abd1_query_no_person_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 no person timing switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16542,7 +16542,7 @@ Blockly.Blocks['r60abd1_query_no_person_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 no person timing duration");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16553,7 +16553,7 @@ Blockly.Blocks['r60abd1_query_sleep_end_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep end duration");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16564,7 +16564,7 @@ Blockly.Blocks['r60abd1_query_no_person_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 no person timing status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16575,7 +16575,7 @@ Blockly.Blocks['r60abd1_query_bed_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 bed status (Leave/Enter/None)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16586,7 +16586,7 @@ Blockly.Blocks['r60abd1_query_sleep_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep status (Deep/Light/Awake/None)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16597,7 +16597,7 @@ Blockly.Blocks['r60abd1_query_awake_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 awake duration (minutes)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16608,7 +16608,7 @@ Blockly.Blocks['r60abd1_query_light_sleep_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 light sleep duration (minutes)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16619,7 +16619,7 @@ Blockly.Blocks['r60abd1_query_deep_sleep_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 deep sleep duration (minutes)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16630,7 +16630,7 @@ Blockly.Blocks['r60abd1_query_sleep_quality_score'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep quality score");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16641,7 +16641,7 @@ Blockly.Blocks['r60abd1_query_sleep_comprehensive'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep comprehensive status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16652,7 +16652,7 @@ Blockly.Blocks['r60abd1_query_sleep_anomaly'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep anomaly status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16663,7 +16663,7 @@ Blockly.Blocks['r60abd1_query_sleep_statistics'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep statistics data");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16674,7 +16674,7 @@ Blockly.Blocks['r60abd1_query_sleep_quality_level'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep quality level (Good/Normal/Poor)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16686,6 +16686,80 @@ Blockly.Blocks['r60abd1_close'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Release R60ABD1 sensor resources");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* EC11 编码器核心初始化 *************************/
+Blockly.Blocks['ec11encoder_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/ec11encoder.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init EC11 Encoder");
+
+    this.appendValueInput("pin_a")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin A");
+
+    this.appendValueInput("pin_b")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin B");
+
+    this.appendValueInput("pin_btn")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Button Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "PIN_BTN");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init EC11 rotary encoder with optional button");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* EC11 编码器状态查询 *************************/
+// 获取旋转计数
+Blockly.Blocks['ec11encoder_get_rotation_count'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read EC11 Rotation Count");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get EC11 encoder rotation count (positive=CW, negative=CCW)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 检查按钮是否按下
+Blockly.Blocks['ec11encoder_is_button_pressed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Check EC11 Button Pressed");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if EC11 encoder button is pressed");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* EC11 编码器控制 *************************/
+// 重置旋转计数
+Blockly.Blocks['ec11encoder_reset_rotation_count'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Reset EC11 Rotation Count");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Reset EC11 encoder rotation count to 0");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };

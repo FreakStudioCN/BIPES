@@ -1560,7 +1560,35 @@
   </category>
 
   </category>
+  <category name="INPUT">
+    <category name="EC11 Encoder">
+  <label text="Library: https://your-ec11encoder-library-url.com"></label>
+  <button text="Install ec11encoder library" callbackKey="installPyLib"></button>
 
+  <label text="EC11 Rotary Encoder (with optional button)"></label>
+  <block type="ec11encoder_init">
+    <value name="pin_a">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="pin_b">
+      <shadow type="math_number">
+        <field name="NUM">3</field>
+      </shadow>
+    </value>
+    <value name="pin_btn">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ec11encoder_get_rotation_count"></block>
+  <block type="ec11encoder_is_button_pressed"></block>
+  <block type="ec11encoder_reset_rotation_count"></block>
+</category>
+
+  </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
       <label text="DHT11/11 Temperature and Humidity Sensor"></label>

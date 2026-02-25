@@ -8765,3 +8765,48 @@ Blockly.Python['r60abd1_close'] = function(block) {
   var code = 'r60abd1_sensor.close()\n';
   return code;
 };
+
+/************************* EC11 编码器核心初始化 *************************/
+Blockly.Python['ec11encoder_init'] = function(block) {
+        var pin_a = Blockly.Python.valueToCode(block, 'pin_a', Blockly.Python.ORDER_ATOMIC);
+        var pin_b = Blockly.Python.valueToCode(block, 'pin_b', Blockly.Python.ORDER_ATOMIC);
+        var pin_btn = block.getFieldValue('PIN_BTN');
+        // 处理可选按钮引脚（如果用户输入了值则使用输入值，否则用默认值）
+        var pin_btn_input = Blockly.Python.valueToCode(block, 'pin_btn', Blockly.Python.ORDER_ATOMIC);
+        pin_btn = pin_btn_input || pin_btn;
+
+        // 导入依赖（对齐AHT10的导入风格）
+        Blockly.Python.definitions_['import_pin_timer'] = 'from machine import Pin, Timer';
+        Blockly.Python.definitions_['import_ec11encoder'] = 'import ec11encoder';
+
+        // 拼接初始化代码（适配EC11驱动的实例化逻辑）
+        var code = '';
+        if (pin_btn == -1 || pin_btn === '') {
+            // 无按钮引脚的初始化
+            code += 'ec11_encoder = ec11encoder.EC11Encoder(pin_a=' + pin_a + ', pin_b=' + pin_b + ')\n';
+        } else {
+            // 带按钮引脚的初始化
+            code += 'ec11_encoder = ec11encoder.EC11Encoder(pin_a=' + pin_a + ', pin_b=' + pin_b + ', pin_btn=' + pin_btn + ')\n';
+        }
+        return code;
+  };
+
+/************************* EC11 编码器状态查询 *************************/
+// 获取旋转计数（对齐AHT10的aht_read_temp写法）
+Blockly.Python['ec11encoder_get_rotation_count'] = function(block) {
+        var code = 'ec11_encoder.get_rotation_count()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 检查按钮是否按下
+Blockly.Python['ec11encoder_is_button_pressed'] = function(block) {
+        var code = 'ec11_encoder.is_button_pressed()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* EC11 编码器控制 *************************/
+// 重置旋转计数
+Blockly.Python['ec11encoder_reset_rotation_count'] = function(block) {
+        var code = 'ec11_encoder.reset_rotation_count()\n';
+        return code;
+};
