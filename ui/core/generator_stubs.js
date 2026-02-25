@@ -7745,40 +7745,6 @@ Blockly.Python['bmp280_set_sealevel'] = function(block) {
   return code;
 };
 
-/// Flame Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['flame_sensor_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
-  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
-  var digital_pin = Blockly.Python.valueToCode(block, 'digital_pin', Blockly.Python.ORDER_ATOMIC);
-
-  // 第二步：导入语句（适配火焰传感器的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // AHT10用Pin/I2C，这里改Pin/ADC
-  Blockly.Python.definitions_['import_flame_sensor'] = 'import flame_sensor'; // 驱动文件名：flame_sensor.py
-  Blockly.Python.definitions_['import_time'] = 'import time'; // 驱动依赖time，提前导入
-
-  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
-  var code = 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ')\n';
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（检测火焰，返回ORDER_NONE）
-Blockly.Python['flame_sensor_is_detected'] = function(block) {
-  var code = 'flame_sensor_device.is_flame_detected()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐AHT10的aht_read_temp写法（读取模拟值）
-Blockly.Python['flame_sensor_read_analog'] = function(block) {
-  var code = 'flame_sensor_device.get_analog_value()';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取电压）
-Blockly.Python['flame_sensor_read_voltage'] = function(block) {
-  var code = 'flame_sensor_device.get_voltage()';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
 
 /// GUVA_S12SD Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
 Blockly.Python['guva_s12sd_init'] = function(block) {
@@ -7805,41 +7771,6 @@ Blockly.Python['guva_s12sd_read_voltage'] = function(block) {
 Blockly.Python['guva_s12sd_read_uvi'] = function(block) {
   var code = 'guva_s12sd_sensor.uvi';
   return [code, Blockly.Python.ORDER_NONE];
-};
-
-/// HallSensorOH34N Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['hall_sensor_oh34n_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
-  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-
-  // 第二步：导入语句（适配OH34N的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin'; // AHT10用Pin/I2C，这里仅需Pin
-  Blockly.Python.definitions_['import_hall_sensor_oh34n'] = 'import hall_sensor_oh34n'; // 驱动文件名：hall_sensor_oh34n.py
-  Blockly.Python.definitions_['import_micropython'] = 'import micropython'; // 驱动依赖micropython，提前导入
-
-  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
-  var code = 'hall_sensor_oh34n_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ')\n';
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（读取状态，返回ORDER_NONE）
-Blockly.Python['hall_sensor_oh34n_read'] = function(block) {
-  var code = 'hall_sensor_oh34n_device.read()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐BA111TDS的calibrate写法（启用中断）
-Blockly.Python['hall_sensor_oh34n_enable'] = function(block) {
-  var code = 'hall_sensor_oh34n_device.enable()\n';
-  code += 'print("Hall sensor interrupt enabled")\n';
-  return code;
-};
-
-// 对齐BA111TDS的calibrate写法（禁用中断）
-Blockly.Python['hall_sensor_oh34n_disable'] = function(block) {
-  var code = 'hall_sensor_oh34n_device.disable()\n';
-  code += 'print("Hall sensor interrupt disabled")\n';
-  return code;
 };
 
 /// MAX9814 Mic Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
@@ -7915,53 +7846,6 @@ Blockly.Python['max9814_mic_set_gain'] = function(block) {
   return code;
 };
 
-/// MGX Gas Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['mgx_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致，处理可选参数）
-  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
-  var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC) || 'None';
-  var rl_ohm = block.getFieldValue('RL_OHM');
-  var vref = block.getFieldValue('VREF');
-
-  // 第二步：导入语句（适配MGX的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // 基础硬件导入
-  Blockly.Python.definitions_['import_mgx'] = 'import mgx'; // 驱动文件名匹配：mgx.py
-  Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms'; // MGX依赖的time模块
-
-  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑，剔除复杂回调）
-  var code = 'mgx_adc=ADC(' + adc_pin + ')\n';
-  code += 'mgx_comp_pin=Pin(' + comp_pin + ', Pin.IN) if ' + comp_pin + ' is not None else None\n';
-  code += 'mgx_sensor=mgx.MGX(adc=mgx_adc, comp_pin=mgx_comp_pin, user_cb=None, rl_ohm=' + rl_ohm + ', vref=' + vref + ')\n';
-
-  return code;
-};
-
-// 对齐BA111TDS的set_ntc写法（选择内置传感器型号，带打印反馈）
-Blockly.Python['mgx_select_builtin'] = function(block) {
-  var sensor_type = block.getFieldValue('SENSOR_TYPE');
-  var code = '';
-
-  code = 'try:\n';
-  code += '\tmgx_sensor.select_builtin("' + sensor_type + '")\n';
-  code += '\tprint("MGX selected ' + sensor_type + ' successfully")\n';
-  code += 'except ValueError:\n';
-  code += '\tprint("MGX ' + sensor_type + ' is not supported")\n';
-
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（读取电压，返回ORDER_NONE）
-Blockly.Python['mgx_read_voltage'] = function(block) {
-  var code = 'mgx_sensor.read_voltage()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取PPM值，处理samples参数）
-Blockly.Python['mgx_read_ppm'] = function(block) {
-  var samples = block.getFieldValue('SAMPLES');
-  var code = 'mgx_sensor.read_ppm(samples=' + samples + ', delay_ms=0)';
-  return [code, Blockly.Python.ORDER_NONE];
-};
 
 /// MLX90614/MLX90615 Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
 Blockly.Python['mlx9061x_init'] = function(block) {
@@ -8001,47 +7885,6 @@ Blockly.Python['mlx9061x_read_object2'] = function(block) {
   code += '\tmlx_sensor.object2\n';
   code += 'except RuntimeError:\n';
   code += '\tNone\n';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-/// MQX (MQ2/MQ4/MQ7) Gas Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['mqx_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
-  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
-  var comp_pin = block.getFieldValue('COMP_PIN');
-  var rl_ohm = block.getFieldValue('RL_OHM');
-  var vref = block.getFieldValue('VREF');
-
-  // 第二步：导入语句（适配MQX的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // 基础硬件导入
-  Blockly.Python.definitions_['import_mqx'] = 'import mqx'; // 驱动文件名匹配：mqx.py
-  Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms'; // MQX依赖sleep_ms
-
-  // 第三步：代码拼接（最简化，屏蔽复杂的中断回调，COMP_PIN=0时设为None）
-  var code = 'mqx_adc=ADC(Pin(' + adc_pin + '))\n';
-  code += 'mqx_comp_pin=None if ' + comp_pin + ' == 0 else Pin(' + comp_pin + ')\n'; // 禁用COMP引脚简化
-  code += 'mqx_sensor=mqx.MQX(mqx_adc, mqx_comp_pin, user_cb=None, rl_ohm=' + rl_ohm + ', vref=' + vref + ')\n';
-
-  return code;
-};
-
-// 对齐AHT10的AHT_TYPE取值逻辑（选择传感器型号）
-Blockly.Python['mqx_select_sensor'] = function(block) {
-  var sensor_type = block.getFieldValue('SENSOR_TYPE');
-  var code = 'mqx_sensor.select_builtin("' + sensor_type + '")\n';
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（读取电压，返回ORDER_NONE）
-Blockly.Python['mqx_read_voltage'] = function(block) {
-  var code = 'mqx_sensor.read_voltage()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取PPM值，带样本数）
-Blockly.Python['mqx_read_ppm'] = function(block) {
-  var samples = block.getFieldValue('SAMPLES');
-  var code = 'mqx_sensor.read_ppm(samples=' + samples + ')';
   return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -8264,43 +8107,86 @@ Blockly.Python['soil_moisture_read_level'] = function(block) {
   var code = 'soil_moisture_sensor.level';
   return [code, Blockly.Python.ORDER_NONE];
 };
-
-// 初始化振动传感器（对齐aht_init/ba111tds_init写法）
+// 完全对齐AHT10的aht_init写法，适配震动传感器（含完整回调逻辑）
 Blockly.Python['vibration_sensor_init'] = function(block) {
-  // 1. 取值（和AHT10取值逻辑一致）
-  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-  var debounce_ms = block.getFieldValue('DEBOUNCE_MS');
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var debounce_ms = block.getFieldValue('DEBOUNCE_MS');
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
 
-  // 2. 导入语句（适配振动传感器依赖）
-  Blockly.Python.definitions_['import_machine_vibration'] = 'from machine import Pin';
-  Blockly.Python.definitions_['import_time_vibration'] = 'import time';
-  Blockly.Python.definitions_['import_micropython_vibration'] = 'import micropython';
-  Blockly.Python.definitions_['import_vibration_sensor'] = 'import vibration_sensor'; // 驱动文件名为vibration_sensor.py
+        // 第二步：导入语句（适配震动传感器驱动依赖）
+        Blockly.Python.definitions_['import_pin'] = 'from machine import Pin';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_vibration_sensor'] = 'import vibration_sensor'; // 对应驱动文件名
 
-  // 3. 代码拼接（实例化传感器，最简化，暂不支持回调）
-  var code = 'vibration_pin=Pin(' + pin + ', Pin.IN)\n';
-  code += 'vibration_sensor=vibration_sensor.VibrationSensor(vibration_pin, debounce_ms=' + debounce_ms + ')\n';
-  code += 'vibration_sensor.init()\n'; // 执行初始化
-  return code;
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
+        var code = '';
+        // 定义默认回调函数（匹配驱动的无参数回调格式：def callback():）
+        code += '# Vibration Sensor Default Callback (no parameters)\n';
+        code += 'def vibration_callback():\n';
+        code += '\tprint("Vibration detected!")\n\n';
+        // 初始化引脚和传感器实例
+        code += '# Initialize Vibration Sensor Pin\n';
+        code += 'vib_pin = Pin(' + pin + ', Pin.IN)\n\n';
+        // 实例化震动传感器（根据回调开关决定是否传入回调）
+        if (enable_callback === 'YES') {
+            code += '# Create Vibration Sensor Instance with Callback\n';
+            code += 'vib_sensor_device = vibration_sensor.VibrationSensor(\n';
+            code += '\tpin=vib_pin,\n';
+            code += '\tcallback=vibration_callback,\n'; // 传入无参数回调（匹配驱动格式）
+            code += '\tdebounce_ms=' + debounce_ms + '\n';
+            code += ')\n';
+        } else {
+            code += '# Create Vibration Sensor Instance without Callback\n';
+            code += 'vib_sensor_device = vibration_sensor.VibrationSensor(\n';
+            code += '\tpin=vib_pin,\n';
+            code += '\tcallback=None,\n'; // 禁用回调
+            code += '\tdebounce_ms=' + debounce_ms + '\n';
+            code += ')\n';
+        }
+        // 执行传感器初始化（调用驱动的init方法）
+        code += 'vib_sensor_device.init()\n';
+
+        return code;
 };
 
-// 读取振动传感器状态（对齐aht_read_temp写法）
+// 对齐AHT10的aht_read_temp写法（读取传感器状态，必须用ORDER_NONE）
 Blockly.Python['vibration_sensor_read'] = function(block) {
-  var code = 'vibration_sensor.read()';
-  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+        var code = 'vib_sensor_device.read()';
+        return [code, Blockly.Python.ORDER_NONE];
 };
 
-// 获取振动传感器状态信息（对齐aht_read_humidity写法）
+// 核心：设置震动传感器回调函数（匹配驱动的无参数回调格式）
+Blockly.Python['vibration_sensor_set_callback'] = function(block) {
+        // 获取用户填写的回调代码（匹配驱动的无参数回调格式：def callback():）
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（严格无参数，匹配驱动的_callback()要求）
+        var code = 'def vibration_callback():\n';
+        // 缩进用户代码（适配Python格式，无参数）
+        if (callback_code) {
+            code += callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\tprint("Vibration detected!")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数（匹配驱动的属性设计）
+        code += 'vib_sensor_device._callback = vibration_callback\n';
+        // 重新初始化以应用新回调（确保IRQ生效）
+        code += 'vib_sensor_device.deinit()\n';
+        code += 'vib_sensor_device.init()\n';
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（获取传感器状态）
 Blockly.Python['vibration_sensor_get_status'] = function(block) {
-  var code = 'vibration_sensor.get_status()';
-  return [code, Blockly.Python.ORDER_NONE];
+        var code = 'vib_sensor_device.get_status()';
+        return [code, Blockly.Python.ORDER_NONE];
 };
 
-// 反初始化振动传感器（对齐ba111tds_calibrate写法）
+// 对齐AHT10的代码生成逻辑（释放资源）
 Blockly.Python['vibration_sensor_deinit'] = function(block) {
-  var code = 'vibration_sensor.deinit()\n';
-  code += 'print("Vibration sensor deinitialized")\n';
-  return code;
+        var code = 'vib_sensor_device.deinit()\n';
+        return code;
 };
 
 // 初始化TCR5000传感器（对齐aht_init/ba111tds_init写法）
@@ -10788,4 +10674,371 @@ Blockly.Python['vibration_motor_set_brightness'] = function(block) {
 Blockly.Python['vibration_motor_get_state'] = function(block) {
         var code = 'vibration_motor_sensor.get_state()';
         return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 初始化火焰传感器（参考PIR/pir_init的回调逻辑）
+Blockly.Python['flame_sensor_init'] = function(block) {
+  // 1. 取值（对齐PIR的取值逻辑）
+  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
+  var digital_pin = Blockly.Python.valueToCode(block, 'digital_pin', Blockly.Python.ORDER_ATOMIC);
+  var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+  // 2. 导入语句（补充回调所需依赖）
+  Blockly.Python.definitions_['import_pin_adc'] = 'from machine import Pin, ADC';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+  Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+  Blockly.Python.definitions_['import_flame_sensor'] = 'import flame_sensor';
+
+  // 3. 初始化代码（含回调开关，参考PIR的写法）
+  var code = '';
+  // 定义默认回调函数模板
+  code += 'def flame_detected_callback():\n\tprint("Flame detected!")\n\n';
+  // 根据开关决定是否传入回调
+  if (enable_callback === 'YES') {
+    code += 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ', callback=flame_detected_callback)\n';
+  } else {
+    code += 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ')\n';
+  }
+
+  return code;
+};
+
+// 检测火焰（参考PIR/pir_is_motion_detected）
+Blockly.Python['flame_sensor_is_detected'] = function(block) {
+  var code = 'flame_sensor_device.is_flame_detected()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 等待火焰触发（参考PIR/pir_wait_for_motion）
+Blockly.Python['flame_sensor_wait_for_flame'] = function(block) {
+  var timeout = block.getFieldValue('TIMEOUT');
+  var timeout_code = timeout == 0 ? 'None' : timeout;
+  var code = 'flame_sensor_device.wait_for_flame(timeout=' + timeout_code + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置火焰回调函数（核心：参考PIR/pir_set_callback）
+Blockly.Python['flame_sensor_set_callback'] = function(block) {
+  // 获取用户填写的回调代码
+  var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+  // 覆盖默认回调函数
+  var code = 'def flame_detected_callback():\n';
+  // 缩进用户代码（适配Python格式）
+  if (callback_code) {
+    code += callback_code.replace(/^/gm, '\t');
+  } else {
+    code += '\tprint("Flame detected!")\n'; // 兜底逻辑
+  }
+  // 更新传感器的回调函数
+  code += 'flame_sensor_device.set_callback(flame_detected_callback)\n';
+  return code;
+};
+
+// 启用/禁用火焰回调（参考PIR/pir_toggle_callback）
+Blockly.Python['flame_sensor_toggle_callback'] = function(block) {
+  var action = block.getFieldValue('TOGGLE_ACTION');
+  var code = '';
+  if (action === 'ENABLE') {
+    code = 'flame_sensor_device.enable()\n';
+  } else {
+    code = 'flame_sensor_device.disable()\n';
+  }
+  return code;
+};
+
+// 保留原有基础块的生成逻辑
+Blockly.Python['flame_sensor_get_analog'] = function(block) {
+  var code = 'flame_sensor_device.get_analog_value()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['flame_sensor_get_voltage'] = function(block) {
+  var code = 'flame_sensor_device.get_voltage()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 完全对齐AHT10的aht_init写法，适配OH34N霍尔传感器
+Blockly.Python['hall_sensor_oh34n_init'] = function(block) {
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+        // 第二步：导入语句（适配霍尔传感器驱动依赖）
+        Blockly.Python.definitions_['import_pin'] = 'from machine import Pin'; // AHT10用Pin/I2C，这里仅用Pin
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_hall_sensor_oh34n'] = 'import hall_sensor_oh34n'; // 对应驱动文件名
+
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，新增回调开关）
+        var code = '';
+        // 定义消抖相关全局变量（适配测试代码逻辑）
+        code += '# Hall Sensor Debounce Config\n';
+        code += 'hall_flag = False\n';
+        code += 'hall_last_time = 0\n';
+        code += 'HALL_DEBOUNCE_MS = 200\n\n';
+        // 定义默认回调函数模板
+        code += 'def hall_callback():\n';
+        code += '\tglobal hall_flag, hall_last_time\n';
+        code += '\tnow = time.ticks_ms()\n';
+        code += '\tif time.ticks_diff(now, hall_last_time) > HALL_DEBOUNCE_MS:\n';
+        code += '\t\thall_flag = True\n';
+        code += '\t\thall_last_time = now\n\n';
+        // 实例化霍尔传感器（根据开关决定是否传入回调）
+        if (enable_callback === 'YES') {
+            code += 'hall_sensor_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ', callback=hall_callback)\n';
+        } else {
+            code += 'hall_sensor_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ')\n';
+        }
+
+        return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（必须用ORDER_NONE）
+Blockly.Python['hall_sensor_oh34n_read'] = function(block) {
+        var code = 'hall_sensor_device.read()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐PIR的pir_set_callback写法（回调函数设置）
+Blockly.Python['hall_sensor_oh34n_set_callback'] = function(block) {
+        // 获取用户填写的回调代码
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（保留消抖逻辑）
+        var code = 'def hall_callback():\n';
+        code += '\tglobal hall_flag, hall_last_time\n';
+        code += '\tnow = time.ticks_ms()\n';
+        code += '\tif time.ticks_diff(now, hall_last_time) > HALL_DEBOUNCE_MS:\n';
+        code += '\t\thall_flag = True\n';
+        code += '\t\thall_last_time = now\n';
+        // 缩进用户代码（适配Python格式）
+        if (callback_code) {
+            code += '\t' + callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\t\tprint("Magnetic field detected!")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数
+        code += 'hall_sensor_device.set_callback(hall_callback)\n';
+        return code;
+};
+
+// 对齐PIR的pir_toggle_callback写法（启用/禁用中断）
+Blockly.Python['hall_sensor_oh34n_toggle_interrupt'] = function(block) {
+        var action = block.getFieldValue('TOGGLE_ACTION');
+        var code = '';
+        if (action === 'ENABLE') {
+            code = 'hall_sensor_device.enable()\n';
+            code += 'print("Hall sensor interrupt enabled")\n';
+        } else {
+            code = 'hall_sensor_device.disable()\n';
+            code += 'print("Hall sensor interrupt disabled")\n';
+        }
+        return code;
+};
+
+// 完全对齐AHT10的aht_init写法，适配MQX气体传感器（含完整回调逻辑）
+Blockly.Python['mqx_init'] = function(block) {
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+        var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC);
+        var rl_ohm = block.getFieldValue('RL_OHM');
+        var vref = block.getFieldValue('VREF');
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+        // 第二步：导入语句（适配MQX驱动依赖）
+        Blockly.Python.definitions_['import_pin_adc'] = 'from machine import Pin, ADC';
+        Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms';
+        Blockly.Python.definitions_['import_micropython'] = 'from micropython import schedule';
+        Blockly.Python.definitions_['import_mqx'] = 'import mqx'; // 对应驱动文件名
+
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
+        var code = '';
+        // 定义默认回调函数（匹配MQX驱动的user_cb格式：接收voltage参数）
+        code += '# MQ Sensor Default Callback Function (matches user_cb format)\n';
+        code += 'def mqx_callback(voltage):\n';
+        code += '\tprint(f"MQ Sensor Voltage Changed: {voltage:.2f} V")\n\n';
+        // 初始化ADC和比较器引脚
+        code += '# Initialize ADC and Comparator Pins\n';
+        code += 'mq_adc = ADC(' + adc_pin + ')\n';
+        code += 'mq_comp_pin = Pin(' + comp_pin + ', Pin.IN)\n\n';
+        // 实例化MQX传感器（根据回调开关决定是否传入回调，匹配驱动__init__参数）
+        if (enable_callback === 'YES') {
+            code += 'mq_sensor_device = mqx.MQX(\n';
+            code += '\tadc=mq_adc,\n';
+            code += '\tcomp_pin=mq_comp_pin,\n';
+            code += '\tuser_cb=mqx_callback,\n'; // 传入回调函数（匹配驱动参数名）
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        } else {
+            code += 'mq_sensor_device = mqx.MQX(\n';
+            code += '\tadc=mq_adc,\n';
+            code += '\tcomp_pin=mq_comp_pin,\n';
+            code += '\tuser_cb=None,\n'; // 禁用回调
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        }
+
+        return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（必须用ORDER_NONE）
+Blockly.Python['mqx_read_voltage'] = function(block) {
+        var code = 'mq_sensor_device.read_voltage()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的aht_read_humidity写法（PPM读取）
+Blockly.Python['mqx_read_ppm'] = function(block) {
+        var samples = block.getFieldValue('SAMPLES');
+        var delay_ms = block.getFieldValue('DELAY_MS');
+        var sensor_type = block.getFieldValue('SENSOR_TYPE');
+
+        var code = 'mq_sensor_device.read_ppm(\n';
+        code += '\tsamples=' + samples + ',\n';
+        code += '\tdelay_ms=' + delay_ms + ',\n';
+        code += '\tsensor="' + sensor_type + '"\n';
+        code += ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的代码生成逻辑（选择内置模型）
+Blockly.Python['mqx_select_builtin'] = function(block) {
+        var model = block.getFieldValue('MODEL');
+        var code = 'mq_sensor_device.select_builtin("' + model + '")\n';
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（设置自定义多项式）
+Blockly.Python['mqx_set_custom_poly'] = function(block) {
+        var coeffs = block.getFieldValue('COEFFS');
+        var code = 'mq_sensor_device.set_custom_polynomial(' + coeffs + ')\n';
+        return code;
+};
+
+// 核心：设置MQX回调函数（完全对齐PIR/pir_set_callback格式，匹配驱动参数）
+Blockly.Python['mqx_set_callback'] = function(block) {
+        // 获取用户填写的回调代码（匹配MQX驱动的user_cb参数：接收voltage）
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（保留驱动要求的voltage参数）
+        var code = 'def mqx_callback(voltage):\n';
+        // 缩进用户代码（适配Python格式，保留voltage参数可用）
+        if (callback_code) {
+            code += callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\tprint(f"MQ Sensor Voltage: {voltage:.2f} V")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数（匹配驱动的属性设计）
+        code += 'mq_sensor_device.user_cb = mqx_callback\n'; // 直接赋值user_cb，匹配驱动属性
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（释放资源）
+Blockly.Python['mqx_deinit'] = function(block) {
+        var code = 'mq_sensor_device.deinit()\n';
+        return code;
+};
+
+// 完全对齐AHT10的aht_init写法，适配MGX气体传感器（含完整回调逻辑）
+Blockly.Python['mgx_init'] = function(block) {
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+        var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC);
+        var rl_ohm = block.getFieldValue('RL_OHM');
+        var vref = block.getFieldValue('VREF');
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+        // 第二步：导入语句（适配MGX驱动依赖）
+        Blockly.Python.definitions_['import_pin_adc'] = 'from machine import Pin, ADC';
+        Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms';
+        Blockly.Python.definitions_['import_micropython'] = 'from micropython import schedule';
+        Blockly.Python.definitions_['import_mgx'] = 'import mgx'; // 对应驱动文件名
+
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
+        var code = '';
+        // 定义默认回调函数（匹配MGX驱动的user_cb格式：接收voltage参数）
+        code += '# MG Sensor Default Callback Function (matches user_cb format)\n';
+        code += 'def mgx_callback(voltage):\n';
+        code += '\tprint(f"MG Sensor Voltage Changed: {voltage:.2f} V")\n\n';
+        // 初始化ADC和比较器引脚
+        code += '# Initialize ADC and Comparator Pins\n';
+        code += 'mg_adc = ADC(' + adc_pin + ')\n';
+        code += 'mg_comp_pin = Pin(' + comp_pin + ', Pin.IN)\n\n';
+        // 实例化MGX传感器（根据回调开关决定是否传入回调，匹配驱动__init__参数）
+        if (enable_callback === 'YES') {
+            code += 'mg_sensor_device = mgx.MGX(\n';
+            code += '\tadc=mg_adc,\n';
+            code += '\tcomp_pin=mg_comp_pin,\n';
+            code += '\tuser_cb=mgx_callback,\n'; // 传入回调函数（匹配驱动参数名）
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        } else {
+            code += 'mg_sensor_device = mgx.MGX(\n';
+            code += '\tadc=mg_adc,\n';
+            code += '\tcomp_pin=mg_comp_pin,\n';
+            code += '\tuser_cb=None,\n'; // 禁用回调
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        }
+
+        return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（必须用ORDER_NONE）
+Blockly.Python['mgx_read_voltage'] = function(block) {
+        var code = 'mg_sensor_device.read_voltage()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的aht_read_humidity写法（PPM读取）
+Blockly.Python['mgx_read_ppm'] = function(block) {
+        var samples = block.getFieldValue('SAMPLES');
+        var delay_ms = block.getFieldValue('DELAY_MS');
+        var sensor_type = block.getFieldValue('SENSOR_TYPE');
+
+        var code = 'mg_sensor_device.read_ppm(\n';
+        code += '\tsamples=' + samples + ',\n';
+        code += '\tdelay_ms=' + delay_ms + ',\n';
+        code += '\tsensor="' + sensor_type + '"\n';
+        code += ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的代码生成逻辑（选择内置模型）
+Blockly.Python['mgx_select_builtin'] = function(block) {
+        var model = block.getFieldValue('MODEL');
+        var code = 'mg_sensor_device.select_builtin("' + model + '")\n';
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（设置自定义多项式）
+Blockly.Python['mgx_set_custom_poly'] = function(block) {
+        var coeffs = block.getFieldValue('COEFFS');
+        var code = 'mg_sensor_device.set_custom_polynomial(' + coeffs + ')\n';
+        return code;
+};
+
+// 核心：设置MGX回调函数（完全对齐PIR/pir_set_callback格式，匹配驱动参数）
+Blockly.Python['mgx_set_callback'] = function(block) {
+        // 获取用户填写的回调代码（匹配MGX驱动的user_cb参数：接收voltage）
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（保留驱动要求的voltage参数）
+        var code = 'def mgx_callback(voltage):\n';
+        // 缩进用户代码（适配Python格式，保留voltage参数可用）
+        if (callback_code) {
+            code += callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\tprint(f"MG Sensor Voltage: {voltage:.2f} V")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数（匹配驱动的set_custom_polynomial风格）
+        code += 'mg_sensor_device.user_cb = mgx_callback\n'; // 直接赋值user_cb，匹配驱动属性
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（释放资源）
+Blockly.Python['mgx_deinit'] = function(block) {
+        var code = 'mg_sensor_device.deinit()\n';
+        return code;
 };

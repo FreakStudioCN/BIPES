@@ -14670,74 +14670,6 @@ Blockly.Blocks['bmp280_set_sealevel'] = {
   }
 };
 
-/// Start Flame Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
-Blockly.Blocks['flame_sensor_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/flame_sensor.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init Flame Sensor");
-
-    // 第二步：右对齐参数框（仅保留核心的模拟/数字引脚，对齐BA111TDS的setAlign逻辑）
-    this.appendValueInput("analog_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Analog Pin");
-
-    this.appendValueInput("digital_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Digital Pin");
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init Flame Sensor (analog + digital pin)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（检测火焰是否存在）
-Blockly.Blocks['flame_sensor_is_detected'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Flame Detected?");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Check if flame is detected (True/False)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（读取模拟值）
-Blockly.Blocks['flame_sensor_read_analog'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read Flame Sensor Analog Value");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read flame sensor analog value (0-65535)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取电压）
-Blockly.Blocks['flame_sensor_read_voltage'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read Flame Sensor Voltage (V)");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read flame sensor voltage (0-3.3V)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
 /// Start GUVA_S12SD Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
 Blockly.Blocks['guva_s12sd_init'] = {
   init: function() {
@@ -14785,71 +14717,6 @@ Blockly.Blocks['guva_s12sd_read_uvi'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read GUVA_S12SD UV Index (0-11)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-/// Start HallSensorOH34N Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
-Blockly.Blocks['hall_sensor_oh34n_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/hall_sensor_oh34n.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init Hall Sensor OH34N");
-
-    // 第二步：右对齐参数框（仅保留核心的数字引脚，对齐BA111TDS的setAlign逻辑）
-    this.appendValueInput("pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Digital Pin");
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init OH34N Hall Sensor (digital pin)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（读取霍尔传感器状态）
-Blockly.Blocks['hall_sensor_oh34n_read'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read Hall Sensor OH34N State");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read OH34N hall sensor state (True=magnet detected, False=none)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10/BA111TDS的calibrate写法（启用中断）
-Blockly.Blocks['hall_sensor_oh34n_enable'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Enable Hall Sensor OH34N Interrupt");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Enable OH34N hall sensor interrupt (rising/falling edge)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10/BA111TDS的calibrate写法（禁用中断）
-Blockly.Blocks['hall_sensor_oh34n_disable'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Disable Hall Sensor OH34N Interrupt");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Disable OH34N hall sensor interrupt");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -14971,49 +14838,6 @@ Blockly.Blocks['max9814_mic_set_gain'] = {
   }
 };
 
-/// Start MGX Gas Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
-Blockly.Blocks['mgx_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/mgx_gas.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init MGX Gas Sensor (MG811/MG812)");
-
-    // 第二步：右对齐参数框（核心必选+可选参数，对齐BA111TDS的setAlign逻辑）
-    this.appendValueInput("adc_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("ADC Pin");
-
-    this.appendValueInput("comp_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Comp Pin (Optional)");
-
-    this.appendValueInput("rl_ohm")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("RL Resistance (Ω)")
-      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
-
-    this.appendValueInput("vref")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Vref (V)")
-      .appendField(new Blockly.FieldNumber(3.3), "VREF");
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init MGX gas sensor (MG811/MG812) with ADC/comp pin");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
 
 // 对齐BA111TDS的set_ntc写法（选择内置传感器型号）
 Blockly.Blocks['mgx_select_builtin'] = {
@@ -15226,97 +15050,6 @@ Blockly.Blocks['mlx90640_get_frame'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MLX90640 thermal frame data (768 temperature values)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-/// Start MQX (MQ2/MQ4/MQ7) Gas Sensor（完全对齐AHT10/BA111TDS写法）
-Blockly.Blocks['mqx_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/mqx.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init MQX (MQ2/MQ4/MQ7) Gas Sensor");
-
-    // 第二步：核心参数（右对齐，对齐AHT10的I2C/SDA/SCL结构）
-    this.appendValueInput("adc_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("ADC Pin");
-
-    this.appendValueInput("comp_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("COMP Pin (0=Disable)")
-      .appendField(new Blockly.FieldNumber(0), "COMP_PIN"); // 默认禁用COMP引脚
-
-    this.appendValueInput("rl_ohm")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("RL Resistance (Ω)")
-      .appendField(new Blockly.FieldNumber(10000), "RL_OHM"); // 默认10KΩ
-
-    this.appendValueInput("vref")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("VREF (V)")
-      .appendField(new Blockly.FieldNumber(3.3), "VREF"); // 默认3.3V
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init MQX (MQ2/MQ4/MQ7) gas sensor via ADC");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的AHT_TYPE下拉写法（选择传感器型号）
-Blockly.Blocks['mqx_select_sensor'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Select MQX Sensor Type")
-        .appendField(new Blockly.FieldDropdown([
-          ['MQ2 (Smoke/CO)', "MQ2"],
-          ['MQ4 (Methane)', "MQ4"],
-          ['MQ7 (CO)', "MQ7"]
-        ]), "SENSOR_TYPE");
-
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Select built-in MQX sensor type (MQ2/MQ4/MQ7)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（读取电压）
-Blockly.Blocks['mqx_read_voltage'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read MQX Voltage (V)");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read MQX gas sensor voltage output");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取PPM值）
-Blockly.Blocks['mqx_read_ppm'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read MQX PPM Value")
-        .appendField("Samples")
-        .appendField(new Blockly.FieldNumber(1), "SAMPLES"); // 默认1个样本
-
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read MQX gas concentration (PPM)");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -15650,10 +15383,10 @@ Blockly.Blocks['soil_moisture_read_level'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
-// 初始化振动传感器（对齐aht_init/ba111tds_init风格）
+// 完全对齐AHT10的块定义写法，适配滚珠震动传感器（含完整回调配置）
 Blockly.Blocks['vibration_sensor_init'] = {
   init: function() {
-    // 基础信息+图标（占位路径）
+    // 第一步：appendDummyInput（图标尺寸300x300，对齐MQ/MGX风格）
     this.appendDummyInput()
         .appendField("Init Vibration Sensor")
         .appendField(new Blockly.FieldImage(
@@ -15662,64 +15395,90 @@ Blockly.Blocks['vibration_sensor_init'] = {
           "*"
         ));
 
-    // 引脚配置（对齐AHT10的I2C/SDA/SCL参数）
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
     this.appendValueInput("pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Pin");
+      .appendField("GPIO Pin");
 
-    // 防抖时间（默认50ms，对齐BA111TDS的波特率默认值）
+    // 消抖参数（对齐BA111TDS的可选参数风格）
     this.appendValueInput("debounce_ms")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Debounce (ms)")
+      .appendField("Debounce Time (ms)")
       .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_MS");
 
+    // 回调开关（参考PIR传感器写法，核心回调配置）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init Vibration Sensor with pin and debounce time");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+    this.setColour(230); // 与AHT10/MQ/MGX一致的颜色值
+    this.setTooltip("Init ball-type vibration sensor with debounce and callback");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
   }
 };
 
-// 读取振动传感器状态（对齐aht_read_temp风格）
+// 对齐AHT10的aht_read_temp写法（读取传感器状态）
 Blockly.Blocks['vibration_sensor_read'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Read Vibration Sensor State");
-    this.setOutput(true, null);
+    this.setOutput(true, "Boolean");
     this.setColour(230);
-    this.setTooltip("Read current state of vibration sensor (True/False)");
+    this.setTooltip("Read current vibration sensor state (True=vibration detected)");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 获取振动传感器状态信息（对齐aht_read_humidity风格）
+// 核心：设置震动传感器回调函数（匹配驱动的无参数回调格式）
+Blockly.Blocks['vibration_sensor_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Vibration Sensor Callback");
+    // 回调函数内容（无参数，严格匹配驱动的_callback()格式）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when vibration detected (no params)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on vibration detection (no parameters)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（获取传感器状态）
 Blockly.Blocks['vibration_sensor_get_status'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get Vibration Sensor Status");
-    this.setOutput(true, null);
+    this.setOutput(true, "Dictionary");
     this.setColour(230);
-    this.setTooltip("Get status info (last state, debounce, callback)");
+    this.setTooltip("Get sensor status (last_state, debounce_ms, callback_set)");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 反初始化振动传感器（对齐ba111tds_calibrate风格）
+// 对齐AHT10的块定义写法（释放资源）
 Blockly.Blocks['vibration_sensor_deinit'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Deinit Vibration Sensor");
+        .appendField("Deinitialize Vibration Sensor");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Disable vibration sensor interrupt");
+    this.setTooltip("Release vibration sensor resources and disable IRQ");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
-
 // 初始化TCR5000传感器（对齐aht_init/ba111tds_init风格）
 Blockly.Blocks['tcr5000_init'] = {
   init: function() {
@@ -20341,6 +20100,549 @@ Blockly.Blocks['vibration_motor_get_state'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Get current vibration motor state (True=On, False=Off)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 初始化火焰传感器（新增回调开关，对齐PIR/pir_init风格）
+Blockly.Blocks['flame_sensor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Flame Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/flame_sensor.png",
+          300, 300,
+          "*"
+        ));
+
+    // 火焰传感器AO/DO引脚（保留原有）
+    this.appendValueInput("analog_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Analog Pin (AO)");
+
+    this.appendValueInput("digital_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Digital Pin (DO)");
+
+    // 回调开关（参考PIR的ENABLE_CALLBACK下拉框）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Flame Sensor (with/without callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 检测火焰（保留原有，对齐PIR/pir_is_motion_detected）
+Blockly.Blocks['flame_sensor_is_detected'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Is Flame Detected?");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if flame is detected (digital DO pin)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 等待火焰触发（保留原有，对齐PIR/pir_wait_for_motion）
+Blockly.Blocks['flame_sensor_wait_for_flame'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Wait for Flame Detection");
+    this.appendValueInput("timeout")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Timeout (seconds)")
+      .appendField(new Blockly.FieldNumber(0), "TIMEOUT");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Wait until flame is detected (or timeout)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置火焰回调函数（参考PIR/pir_set_callback写法）
+Blockly.Blocks['flame_sensor_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Flame Detection Callback");
+    // 回调函数内容（使用StatementInput接收用户代码）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when flame detected");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run when flame is detected");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启用/禁用火焰回调（参考PIR/pir_toggle_callback写法）
+Blockly.Blocks['flame_sensor_toggle_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Flame Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Enable', 'ENABLE'],
+          ['Disable', 'DISABLE']
+        ]), 'TOGGLE_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable flame detection callback");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 保留原有基础块
+Blockly.Blocks['flame_sensor_get_analog'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Flame Sensor Analog Value (AO)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get raw ADC value from AO pin (0-65535)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['flame_sensor_get_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Flame Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Convert AO value to voltage (0-3.3V)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的块定义写法，适配OH34N霍尔传感器
+Blockly.Blocks['hall_sensor_oh34n_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（新增图标FieldImage，尺寸300x300，对齐BA111TDS风格）
+    this.appendDummyInput()
+        .appendField("Init Hall Sensor OH34N") // 对应AHT10的"Init AHTx0 Sensor"
+        .appendField(new Blockly.FieldImage(
+          "media/hall_sensor_oh34n.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Digital Pin (DO)"); // 替换AHT10的"I2C"
+
+    // 回调开关（参考PIR传感器写法，对齐业务逻辑）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10/BA111TDS/PIR一致的颜色值
+    this.setTooltip("Init OH34N Hall Sensor with digital pin (with/without callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法
+Blockly.Blocks['hall_sensor_oh34n_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Hall Sensor State"); // 对应AHT10的"Read Temperature (Degrees C)"
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if magnetic field is detected (digital DO pin)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（回调函数设置，参考PIR）
+Blockly.Blocks['hall_sensor_oh34n_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Hall Sensor Callback");
+    // 回调函数内容（使用StatementInput接收用户代码）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when magnetic field detected");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on magnetic field detection");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（启用/禁用中断，参考PIR）
+Blockly.Blocks['hall_sensor_oh34n_toggle_interrupt'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Hall Sensor Interrupt")
+        .appendField(new Blockly.FieldDropdown([
+          ['Enable', 'ENABLE'],
+          ['Disable', 'DISABLE']
+        ]), 'TOGGLE_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable Hall sensor interrupt detection");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的块定义写法，适配MQX气体传感器（含完整回调函数配置）
+Blockly.Blocks['mqx_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（新增图标FieldImage，尺寸300x300）
+    this.appendDummyInput()
+        .appendField("Init MQ Gas Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/mqx.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin (AO)");
+
+    this.appendValueInput("comp_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Comparator Pin (DO)");
+
+    // 可选参数（对齐BA111TDS的BAUDRATE写法）
+    this.appendValueInput("rl_ohm")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Load Resistor (Ω)")
+      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Reference Voltage (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    // 回调开关（参考PIR/霍尔传感器写法，核心回调配置）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10/BA111TDS一致的颜色值
+    this.setTooltip("Init MQ series gas sensor (AO/DO with IRQ & Callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法
+Blockly.Blocks['mqx_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MQ Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read analog voltage from MQ sensor AO pin");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法
+Blockly.Blocks['mqx_read_ppm'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MQ Sensor PPM");
+    // 采样参数（对齐BA111TDS的参数风格）
+    this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Samples")
+      .appendField(new Blockly.FieldNumber(1), "SAMPLES");
+
+    this.appendValueInput("delay_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(0), "DELAY_MS");
+
+    // 传感器类型选择（对齐AHT10的AHT_TYPE下拉框）
+    this.appendDummyInput()
+        .appendField("Sensor Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['MQ2', 'MQ2'],
+          ['MQ4', 'MQ4'],
+          ['MQ7', 'MQ7']
+        ]), 'SENSOR_TYPE');
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Calculate gas concentration in PPM using built-in polynomial");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（选择内置传感器模型）
+Blockly.Blocks['mqx_select_builtin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Select MQ Sensor Model")
+        .appendField(new Blockly.FieldDropdown([
+          ['MQ2', 'MQ2'],
+          ['MQ4', 'MQ4'],
+          ['MQ7', 'MQ7']
+        ]), 'MODEL');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select built-in polynomial model for MQ sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（设置自定义多项式）
+Blockly.Blocks['mqx_set_custom_poly'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MQ Custom Polynomial");
+    this.appendValueInput("coeffs")
+      .setCheck("Array")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Coefficients [a0,a1,a2...]")
+      .appendField(new Blockly.FieldTextInput("[0.0,100.0,-20.0]"), "COEFFS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set custom polynomial coefficients for PPM calculation");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 新增：设置MQX回调函数（完全对齐PIR/pir_set_callback格式，匹配驱动回调参数）
+Blockly.Blocks['mqx_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MQ Sensor Callback");
+    // 回调函数内容（接收电压参数，匹配MQX驱动的user_cb格式）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when voltage changes (param: voltage)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on MQ sensor voltage change");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（释放资源）
+Blockly.Blocks['mqx_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinitialize MQ Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release MQ sensor resources and disable IRQ");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的块定义写法，适配MGX气体传感器（含完整回调函数配置）
+Blockly.Blocks['mgx_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（新增图标FieldImage，尺寸300x300）
+    this.appendDummyInput()
+        .appendField("Init MG Gas Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/mgx_gas.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin (AO)");
+
+    this.appendValueInput("comp_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Comparator Pin (DO)");
+
+    // 可选参数（对齐BA111TDS的BAUDRATE写法）
+    this.appendValueInput("rl_ohm")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Load Resistor (Ω)")
+      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Reference Voltage (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    // 回调开关（参考PIR/霍尔传感器写法，核心回调配置）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10/BA111TDS一致的颜色值
+    this.setTooltip("Init MG series gas sensor (AO/DO with IRQ & Callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法
+Blockly.Blocks['mgx_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MG Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read analog voltage from MG sensor AO pin");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法
+Blockly.Blocks['mgx_read_ppm'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MG Sensor PPM");
+    // 采样参数（对齐BA111TDS的参数风格）
+    this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Samples")
+      .appendField(new Blockly.FieldNumber(1), "SAMPLES");
+
+    this.appendValueInput("delay_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(0), "DELAY_MS");
+
+    // 传感器类型选择（对齐AHT10的AHT_TYPE下拉框）
+    this.appendDummyInput()
+        .appendField("Sensor Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['MG811', 'MG811'],
+          ['MG812', 'MG812']
+        ]), 'SENSOR_TYPE');
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Calculate gas concentration in PPM using built-in polynomial");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（选择内置传感器模型）
+Blockly.Blocks['mgx_select_builtin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Select MG Sensor Model")
+        .appendField(new Blockly.FieldDropdown([
+          ['MG811', 'MG811'],
+          ['MG812', 'MG812']
+        ]), 'MODEL');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select built-in polynomial model for MG sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（设置自定义多项式）
+Blockly.Blocks['mgx_set_custom_poly'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MG Custom Polynomial");
+    this.appendValueInput("coeffs")
+      .setCheck("Array")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Coefficients [a0,a1,a2...]")
+      .appendField(new Blockly.FieldTextInput("[0.0,100.0,-20.0]"), "COEFFS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set custom polynomial coefficients for PPM calculation");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 新增：设置MGX回调函数（完全对齐PIR/pir_set_callback格式）
+Blockly.Blocks['mgx_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MG Sensor Callback");
+    // 回调函数内容（接收电压参数，匹配MGX驱动的user_cb格式）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when voltage changes (param: voltage)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on MG sensor voltage change");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（释放资源）
+Blockly.Blocks['mgx_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinitialize MG Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release MG sensor resources and disable IRQ");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
