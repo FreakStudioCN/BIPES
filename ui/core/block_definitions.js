@@ -19678,3 +19678,316 @@ Blockly.Blocks['fan_pwm_get_speed'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// FM8118雾化器初始化块
+Blockly.Blocks['fm8118_atomization_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init FM8118 Ultrasonic Atomizer")
+        .appendField(new Blockly.FieldImage(
+                     "media/fm8118_atomization.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Control Pin")
+      .appendField(new Blockly.FieldNumber(6), "PIN");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init FM8118-based ultrasonic atomization module via GPIO");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 雾化器开启块
+Blockly.Blocks['fm8118_atomization_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn FM8118 Atomizer ON");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on ultrasonic atomizer (set pin LOW)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 雾化器关闭块
+Blockly.Blocks['fm8118_atomization_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn FM8118 Atomizer OFF");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off ultrasonic atomizer (high→low→high sequence)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 雾化器状态切换块
+Blockly.Blocks['fm8118_atomization_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Toggle FM8118 Atomizer State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle atomizer state (ON↔OFF)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取雾化器状态块
+Blockly.Blocks['fm8118_atomization_is_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Check FM8118 Atomizer Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Return True if atomizer is ON, False if OFF");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 初始化舵机控制器
+Blockly.Blocks['bus_servo_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Bus PWM Servo Controller")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(50), "FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCA9685 based PWM servo controller");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 挂载舵机
+Blockly.Blocks['bus_servo_attach'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Attach Servo to Channel")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo_attach.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendDummyInput()
+        .appendField("Servo Type")
+        .appendField(new Blockly.FieldDropdown([
+                     ['180° Servo', '180'],
+                     ['360° Servo', '360']
+        ]), 'SERVO_TYPE');
+
+    this.appendValueInput("min_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Min Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(500), "MIN_US");
+
+    this.appendValueInput("max_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Max Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(2500), "MAX_US");
+
+    this.appendValueInput("neutral_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Neutral Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(1500), "NEUTRAL_US");
+
+    this.appendDummyInput()
+        .appendField("Reversed")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "REVERSED");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Attach servo to specified channel with calibration parameters");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置180°舵机角度
+Blockly.Blocks['bus_servo_set_angle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set 180° Servo Angle")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo_angle.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendValueInput("angle")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Angle (0-180)")
+      .appendField(new Blockly.FieldNumber(90), "ANGLE");
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (deg/s)")
+      .appendField(new Blockly.FieldNumber(0), "SPEED");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set angle for 180° servo on specified channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置360°舵机速度
+Blockly.Blocks['bus_servo_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set 360° Servo Speed")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo_speed.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (-1.0~1.0)")
+      .appendField(new Blockly.FieldNumber(0), "SPEED");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set speed for 360° servo on specified channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 直接设置脉宽
+Blockly.Blocks['bus_servo_set_pulse'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Servo Pulse Width")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo_pulse.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendValueInput("pulse_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(1500), "PULSE_US");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set pulse width directly for servo on specified channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止舵机
+Blockly.Blocks['bus_servo_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop Servo")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo_stop.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop servo on specified channel (set to neutral or turn off)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 卸载舵机
+Blockly.Blocks['bus_servo_detach'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Detach Servo")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo_detach.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Detach servo from specified channel and stop output");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

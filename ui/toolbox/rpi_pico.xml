@@ -2594,6 +2594,130 @@
 
   <block type="fan_pwm_get_speed"></block>
 </category>
+    <category name="FM8118 Ultrasonic Atomizer">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install fm8118_atomization library" callbackKey="installPyLib"></button>
+
+  <label text="FM8118-based Ultrasonic Atomization Module (GPIO Control)"></label>
+  <block type="fm8118_atomization_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="fm8118_atomization_on"></block>
+  <block type="fm8118_atomization_off"></block>
+  <block type="fm8118_atomization_toggle"></block>
+  <block type="fm8118_atomization_is_on"></block>
+</category>
+    <category name="Bus PWM Servo (PCA9685)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install bus_servo library" callbackKey="installPyLib"></button>
+  <button text="Install pca9685 library" callbackKey="installPyLib"></button>
+
+  <label text="PCA9685 16-channel PWM Servo Controller"></label>
+  <block type="bus_servo_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_attach">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="min_us">
+      <shadow type="math_number">
+        <field name="NUM">500</field>
+      </shadow>
+    </value>
+    <value name="max_us">
+      <shadow type="math_number">
+        <field name="NUM">2500</field>
+      </shadow>
+    </value>
+    <value name="neutral_us">
+      <shadow type="math_number">
+        <field name="NUM">1500</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_set_angle">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="angle">
+      <shadow type="math_number">
+        <field name="NUM">90</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_set_speed">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_set_pulse">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="pulse_us">
+      <shadow type="math_number">
+        <field name="NUM">1500</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_stop">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_detach">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

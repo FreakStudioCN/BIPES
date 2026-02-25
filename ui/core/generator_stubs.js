@@ -10488,3 +10488,143 @@ Blockly.Python['fan_pwm_get_speed'] = function(block) {
         var code = 'fan.get_speed() if fan is not None else 0';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// FM8118雾化器初始化代码生成
+Blockly.Python['fm8118_atomization_init'] = function(block) {
+        var pin = block.getFieldValue('PIN');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin'] = 'from machine import Pin';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_fm8118_atomization'] = 'from fm8118_atomization import FM8118_Atomization';
+
+        // 初始化逻辑（包含参数校验和实例化）
+        var code = '# Initialize FM8118 Ultrasonic Atomizer\n';
+        code += 'try:\n';
+        code += '\t# Create FM8118_Atomization instance (control pin=' + pin + ')\n';
+        code += '\tatomizer = FM8118_Atomization(pin=' + pin + ')\n';
+        code += '\tprint(f"FM8118 Atomizer initialized on pin {pin} (initial state: OFF)")\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("Atomizer initialization error:", e)\n';
+        code += '\tatomizer = None\n';
+        return code;
+};
+
+// 雾化器开启代码生成
+Blockly.Python['fm8118_atomization_on'] = function(block) {
+        var code = '# Turn FM8118 Atomizer ON\n';
+        code += 'if atomizer is not None:\n';
+        code += '\tatomizer.on()\n';
+        code += '\tprint(f"Atomizer ON - Current status: {atomizer.is_on()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Atomizer not initialized!")\n';
+        return code;
+};
+
+// 雾化器关闭代码生成
+Blockly.Python['fm8118_atomization_off'] = function(block) {
+        var code = '# Turn FM8118 Atomizer OFF\n';
+        code += 'if atomizer is not None:\n';
+        code += '\tatomizer.off()\n';
+        code += '\tprint(f"Atomizer OFF - Current status: {atomizer.is_on()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Atomizer not initialized!")\n';
+        return code;
+};
+
+// 雾化器状态切换代码生成
+Blockly.Python['fm8118_atomization_toggle'] = function(block) {
+        var code = '# Toggle FM8118 Atomizer State\n';
+        code += 'if atomizer is not None:\n';
+        code += '\tatomizer.toggle()\n';
+        code += '\tprint(f"Atomizer toggled - New status: {atomizer.is_on()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Atomizer not initialized!")\n';
+        return code;
+};
+
+// 获取雾化器状态代码生成
+Blockly.Python['fm8118_atomization_is_on'] = function(block) {
+        var code = 'atomizer.is_on() if atomizer is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 初始化舵机控制器
+Blockly.Python['bus_servo_init'] = function(block) {
+    var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+    var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+    var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+    var freq = block.getFieldValue('FREQ');
+
+    // 导入必要模块
+    Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+    Blockly.Python.definitions_['import_pca9685'] = 'from pca9685 import PCA9685';
+    Blockly.Python.definitions_['import_bus_servo'] = 'import bus_servo';
+
+    // 生成初始化代码
+    var code = 'i2c_servo=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+    code += 'pca9685=PCA9685(i2c_servo)\n';
+    code += 'servo_controller=bus_servo.BusPWMServoController(pca9685, freq=' + freq + ')\n';
+    return code;
+};
+
+// 挂载舵机
+Blockly.Python['bus_servo_attach'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var servo_type = block.getFieldValue('SERVO_TYPE');
+    var min_us = block.getFieldValue('MIN_US');
+    var max_us = block.getFieldValue('MAX_US');
+    var neutral_us = block.getFieldValue('NEUTRAL_US');
+    var reversed = block.getFieldValue('REVERSED') === 'TRUE' ? 'True' : 'False';
+
+    // 转换舵机类型为常量
+    var type_code = servo_type === '180' ? 'servo_controller.SERVO_180' : 'servo_controller.SERVO_360';
+
+    var code = 'servo_controller.attach_servo(' + channel + ', ' + type_code + ', min_us=' + min_us + ', max_us=' + max_us + ', neutral_us=' + neutral_us + ', reversed=' + reversed + ')\n';
+    return code;
+};
+
+// 设置180°舵机角度
+Blockly.Python['bus_servo_set_angle'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var angle = block.getFieldValue('ANGLE');
+    var speed = block.getFieldValue('SPEED');
+
+    var speed_param = speed === '0' ? '' : ', speed_deg_per_s=' + speed;
+    var code = 'servo_controller.set_angle(' + channel + ', ' + angle + speed_param + ')\n';
+    return code;
+};
+
+// 设置360°舵机速度
+Blockly.Python['bus_servo_set_speed'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var speed = block.getFieldValue('SPEED');
+
+    var code = 'servo_controller.set_speed(' + channel + ', ' + speed + ')\n';
+    return code;
+};
+
+// 直接设置脉宽
+Blockly.Python['bus_servo_set_pulse'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var pulse_us = block.getFieldValue('PULSE_US');
+
+    var code = 'servo_controller.set_pulse_us(' + channel + ', ' + pulse_us + ')\n';
+    return code;
+};
+
+// 停止舵机
+Blockly.Python['bus_servo_stop'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'servo_controller.stop(' + channel + ')\n';
+    return code;
+};
+
+// 卸载舵机
+Blockly.Python['bus_servo_detach'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'servo_controller.detach_servo(' + channel + ')\n';
+    return code;
+};
