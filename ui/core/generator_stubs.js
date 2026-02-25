@@ -9948,3 +9948,77 @@ Blockly.Python['lm386_stop'] = function(block) {
         code += '\t\tprint("LM386 stop error:", e)\n';
         return code;
 };
+
+// 蜂鸣器初始化代码生成
+Blockly.Python['buzzer_init'] = function(block) {
+        var pwm_pin = Blockly.Python.valueToCode(block, 'pwm_pin', Blockly.Python.ORDER_ATOMIC);
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_buzzer'] = 'import buzzer';
+
+        // 初始化蜂鸣器（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize PWM Buzzer module\n';
+        code += '\tbuzzer_device = buzzer.Buzzer(pin=' + pwm_pin + ')\n';
+        code += '\tprint("Buzzer initialized on PWM pin", ' + pwm_pin + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("Buzzer init error:", e)\n';
+        code += '\tbuzzer_device = None\n';
+        return code;
+};
+
+// 蜂鸣器播放单音代码生成
+Blockly.Python['buzzer_play_tone'] = function(block) {
+        var frequency = block.getFieldValue('FREQUENCY');
+        var duration = block.getFieldValue('DURATION');
+
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play tone: ' + frequency + 'Hz for ' + duration + 'ms\n';
+        code += '\t\tbuzzer_device.play_tone(' + frequency + ', ' + duration + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer play tone error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器播放旋律代码生成
+Blockly.Python['buzzer_play_melody'] = function(block) {
+        var melody = block.getFieldValue('MELODY');
+
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play melody sequence\n';
+        code += '\t\tmelody_sequence = ' + melody + '\n';
+        code += '\t\tbuzzer_device.play_melody(melody_sequence)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer play melody error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器停止播放代码生成
+Blockly.Python['buzzer_stop_tone'] = function(block) {
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Stop buzzer playback\n';
+        code += '\t\tbuzzer_device.stop_tone()\n';
+        code += '\t\tprint("Buzzer stopped")\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer stop error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器播放预设音符代码生成
+Blockly.Python['buzzer_play_note'] = function(block) {
+        var note_freq = block.getFieldValue('NOTE');
+        var duration = block.getFieldValue('DURATION');
+
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play preset note: ' + note_freq + 'Hz for ' + duration + 'ms\n';
+        code += '\t\tbuzzer_device.play_tone(' + note_freq + ', ' + duration + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer play note error:", e)\n';
+        return code;
+};

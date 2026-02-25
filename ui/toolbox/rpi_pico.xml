@@ -2244,6 +2244,50 @@
 
   <block type="lm386_stop"></block>
 </category>
+    <category name="Buzzer (PWM)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install buzzer library" callbackKey="installPyLib"></button>
+
+  <label text="PWM Buzzer Module (Note/Melody Playback)"></label>
+  <block type="buzzer_init">
+    <value name="pwm_pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_play_tone">
+    <value name="frequency">
+      <shadow type="math_number">
+        <field name="NUM">440</field>
+      </shadow>
+    </value>
+    <value name="duration">
+      <shadow type="math_number">
+        <field name="NUM">400</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_play_note">
+    <value name="duration">
+      <shadow type="math_number">
+        <field name="NUM">400</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_play_melody">
+    <value name="melody">
+      <shadow type="text">
+        <field name="TEXT">[('C4',400),('C4',400),('G4',400),('G4',400),('A4',400),('A4',400),('G4',800)]</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_stop_tone"></block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">

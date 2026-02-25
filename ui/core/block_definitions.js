@@ -18841,3 +18841,116 @@ Blockly.Blocks['lm386_stop'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 蜂鸣器初始化块
+Blockly.Blocks['buzzer_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Buzzer (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/buzzer.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pwm_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Pin");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PWM Buzzer module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器播放单音块
+Blockly.Blocks['buzzer_play_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Play Tone");
+
+    this.appendValueInput("frequency")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(440), "FREQUENCY");
+
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duration (ms)")
+      .appendField(new Blockly.FieldNumber(400), "DURATION");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play single tone with specified frequency and duration");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器播放旋律块
+Blockly.Blocks['buzzer_play_melody'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Play Melody");
+
+    this.appendValueInput("melody")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Melody [(note, dur), ...]")
+      .appendField(new Blockly.FieldTextInput("[('C4',400),('C4',400),('G4',400),('G4',400),('A4',400),('A4',400),('G4',800)]"), "MELODY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play melody sequence (note + duration)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器停止播放块
+Blockly.Blocks['buzzer_stop_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Stop Playback");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop buzzer playback and mute");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器播放预设音符块（快捷选择常用音符）
+Blockly.Blocks['buzzer_play_note'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Play Note")
+        .appendField(new Blockly.FieldDropdown([
+                     ['C4', '261'],
+                     ['D4', '293'],
+                     ['E4', '329'],
+                     ['F4', '349'],
+                     ['G4', '392'],
+                     ['A4', '440'],
+                     ['B4', '493'],
+                     ['C5', '523']
+        ]), 'NOTE');
+
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duration (ms)")
+      .appendField(new Blockly.FieldNumber(400), "DURATION");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play preset musical note (C4-B4/C5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
