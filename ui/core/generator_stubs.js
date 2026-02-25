@@ -8914,3 +8914,55 @@ Blockly.Python['potentiometer_get_vref'] = function(block) {
         var code = 'potentiometer_sensor.vref';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// PCF8574按键初始化代码生成
+Blockly.Python['pcf8574keys_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C, Timer';
+        Blockly.Python.definitions_['import_pcf8574'] = 'import pcf8574';
+        Blockly.Python.definitions_['import_pcf8574keys'] = 'import pcf8574keys';
+
+        // 初始化I2C和PCF8574按键
+        var code = 'i2cPCF8574=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+        code += 'pcf_dev=pcf8574.PCF8574(i2cPCF8574, ' + addr + ')\n';
+        code += 'pcf_keys=pcf8574keys.PCF8574Keys(pcf_dev, pcf8574keys.KEYS_MAP)\n';
+        return code;
+};
+
+// 读取单个按键状态代码生成
+Blockly.Python['pcf8574keys_read_key'] = function(block) {
+        var key_name = block.getFieldValue('KEY_NAME');
+        var code = 'pcf_keys.read_key("' + key_name + '")';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取所有按键状态代码生成
+Blockly.Python['pcf8574keys_read_all'] = function(block) {
+        var code = 'pcf_keys.read_all()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// LED控制代码生成
+Blockly.Python['pcf8574keys_led'] = function(block) {
+        var led_state = block.getFieldValue('LED_STATE');
+        var code = '';
+        if (led_state === 'ON') {
+            code = 'pcf_keys.led_on()\n';
+        } else {
+            code = 'pcf_keys.led_off()\n';
+        }
+        return code;
+};
+
+// 释放资源代码生成
+Blockly.Python['pcf8574keys_deinit'] = function(block) {
+        var code = 'pcf_keys.deinit()\n';
+        code += 'del pcf_keys\n';
+        code += 'del pcf_dev\n';
+        return code;
+};

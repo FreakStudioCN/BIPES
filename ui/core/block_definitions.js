@@ -16947,3 +16947,106 @@ Blockly.Blocks['potentiometer_get_vref'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PCF8574五向按键初始化块
+Blockly.Blocks['pcf8574keys_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PCF8574 Keys")
+        .appendField(new Blockly.FieldImage(
+                     "media/pcf8574keys.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address")
+      .appendField(new Blockly.FieldNumber(0x20), "ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCF8574 based 5-way key module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取单个按键状态块
+Blockly.Blocks['pcf8574keys_read_key'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read PCF8574 Key")
+        .appendField(new Blockly.FieldDropdown([
+                     ['UP', 'UP'],
+                     ['DOWN', 'DOWN'],
+                     ['LEFT', 'LEFT'],
+                     ['RIGHT', 'RIGHT'],
+                     ['CENTER', 'CENTER'],
+                     ['SW1', 'SW1'],
+                     ['SW2', 'SW2']
+        ]), 'KEY_NAME');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read single PCF8574 key state (True=Pressed, False=Released)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取所有按键状态块
+Blockly.Blocks['pcf8574keys_read_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read All PCF8574 Keys");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read all PCF8574 keys state as dictionary");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LED控制块（PCF8574按键模块自带LED）
+Blockly.Blocks['pcf8574keys_led'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCF8574 Keys LED")
+        .appendField(new Blockly.FieldDropdown([
+                     ['ON', 'ON'],
+                     ['OFF', 'OFF']
+        ]), 'LED_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Control PCF8574 keys module LED");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 释放资源块
+Blockly.Blocks['pcf8574keys_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit PCF8574 Keys");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release PCF8574 keys module resources");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
