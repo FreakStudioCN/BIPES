@@ -20243,3 +20243,104 @@ Blockly.Blocks['serial_servo_read_voltage'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 初始化震动马达
+Blockly.Blocks['vibration_motor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Vibration Motor")
+        .appendField(new Blockly.FieldImage(
+                     "media/vibration_motor.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Frequency")
+      .appendField(new Blockly.FieldNumber(1000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Vibration Motor with specified pin and PWM frequency");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启动震动马达（全速）
+Blockly.Blocks['vibration_motor_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Vibration Motor On (Full Speed)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on vibration motor at full speed");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止震动马达
+Blockly.Blocks['vibration_motor_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Vibration Motor Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off vibration motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 切换震动马达状态
+Blockly.Blocks['vibration_motor_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Vibration Motor Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle vibration motor state (on/off)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置震动强度
+Blockly.Blocks['vibration_motor_set_brightness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Vibration Motor Intensity");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty (0-1023)")
+      .appendField(new Blockly.FieldNumber(512), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set vibration motor intensity (0-1023)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取震动马达状态
+Blockly.Blocks['vibration_motor_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Vibration Motor State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current vibration motor state (True=On, False=Off)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

@@ -10744,3 +10744,48 @@ Blockly.Python['serial_servo_read_voltage'] = function(block) {
         var code = 'serial_servo_sensor.read_servo_voltage(servo_id=' + servo_id + ')';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// 初始化震动马达
+Blockly.Python['vibration_motor_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var pwm_freq = block.getFieldValue('PWM_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_vibration_motor'] = 'import vibration_motor';
+
+        // 生成初始化代码
+        var code = 'vibration_motor_sensor=vibration_motor.VibrationMotor(pin=' + pin + ', pwm_freq=' + pwm_freq + ')\n';
+        return code;
+};
+
+// 启动震动马达
+Blockly.Python['vibration_motor_on'] = function(block) {
+        var code = 'vibration_motor_sensor.on()\n';
+        return code;
+};
+
+// 停止震动马达
+Blockly.Python['vibration_motor_off'] = function(block) {
+        var code = 'vibration_motor_sensor.off()\n';
+        return code;
+};
+
+// 切换震动马达状态
+Blockly.Python['vibration_motor_toggle'] = function(block) {
+        var code = 'vibration_motor_sensor.toggle()\n';
+        return code;
+};
+
+// 设置震动强度
+Blockly.Python['vibration_motor_set_brightness'] = function(block) {
+        var duty = block.getFieldValue('DUTY');
+        var code = 'vibration_motor_sensor.set_brightness(' + duty + ')\n';
+        return code;
+};
+
+// 获取震动马达状态
+Blockly.Python['vibration_motor_get_state'] = function(block) {
+        var code = 'vibration_motor_sensor.get_state()';
+        return [code, Blockly.Python.ORDER_NONE];
+};

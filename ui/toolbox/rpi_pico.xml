@@ -2839,6 +2839,39 @@
     </value>
   </block>
 </category>
+    <category name="Vibration Motor Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install vibration_motor library" callbackKey="installPyLib"></button>
+
+  <label text="Vibration Motor (PWM Control)"></label>
+  <block type="vibration_motor_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN">6</field>
+      </shadow>
+    </value>
+    <value name="pwm_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="vibration_motor_on">
+  </block>
+  <block type="vibration_motor_off">
+  </block>
+  <block type="vibration_motor_toggle">
+  </block>
+  <block type="vibration_motor_set_brightness">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">512</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="vibration_motor_get_state">
+  </block>
+</category>
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
