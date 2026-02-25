@@ -18954,3 +18954,105 @@ Blockly.Blocks['buzzer_play_note'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PCA9546ADR初始化块
+Blockly.Blocks['pca9546adr_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PCA9546ADR I2C MUX")
+        .appendField(new Blockly.FieldImage(
+                     "media/pca9546adr.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c_bus")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Bus");
+
+    this.appendValueInput("sda_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA Pin");
+
+    this.appendValueInput("scl_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL Pin");
+
+    this.appendValueInput("i2c_addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (Hex)")
+      .appendField(new Blockly.FieldNumber(0x70), "I2C_ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCA9546ADR 4-channel I2C multiplexer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR选择通道块
+Blockly.Blocks['pca9546adr_select_channel'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Select Channel");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel (0-3)")
+      .appendField(new Blockly.FieldDropdown([
+                   ['Channel 0', '0'],
+                   ['Channel 1', '1'],
+                   ['Channel 2', '2'],
+                   ['Channel 3', '3']
+        ]), 'CHANNEL');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select single channel (0-3) on PCA9546ADR");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR关闭所有通道块
+Blockly.Blocks['pca9546adr_disable_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Disable All Channels");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable all channels on PCA9546ADR");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR读取状态块
+Blockly.Blocks['pca9546adr_read_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Read Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current channel status/mask from PCA9546ADR");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR扫描I2C地址块
+Blockly.Blocks['pca9546adr_scan_i2c'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Scan I2C Addresses");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Scan I2C bus for devices on selected PCA9546ADR channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

@@ -10022,3 +10022,67 @@ Blockly.Python['buzzer_play_note'] = function(block) {
         code += '\t\tprint("Buzzer play note error:", e)\n';
         return code;
 };
+
+// PCA9546ADR初始化代码生成
+Blockly.Python['pca9546adr_init'] = function(block) {
+        var i2c_bus = Blockly.Python.valueToCode(block, 'i2c_bus', Blockly.Python.ORDER_ATOMIC);
+        var sda_pin = Blockly.Python.valueToCode(block, 'sda_pin', Blockly.Python.ORDER_ATOMIC);
+        var scl_pin = Blockly.Python.valueToCode(block, 'scl_pin', Blockly.Python.ORDER_ATOMIC);
+        var i2c_addr = block.getFieldValue('I2C_ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_pca9546adr'] = 'import pca9546adr';
+
+        // 初始化PCA9546ADR（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize PCA9546ADR I2C multiplexer\n';
+        code += '\ti2c_pca = I2C(' + i2c_bus + ', scl=Pin(' + scl_pin + '), sda=Pin(' + sda_pin + '))\n';
+        code += '\tpca9546adr_mux = pca9546adr.PCA9546ADR(i2c_pca, addr7=' + i2c_addr + ')\n';
+        code += '\tprint("PCA9546ADR initialized on I2C bus", ' + i2c_bus + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("PCA9546ADR init error:", e)\n';
+        code += '\tpca9546adr_mux = None\n';
+        return code;
+};
+
+// PCA9546ADR选择通道代码生成
+Blockly.Python['pca9546adr_select_channel'] = function(block) {
+        var channel = block.getFieldValue('CHANNEL');
+
+        var code = 'if pca9546adr_mux is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Select PCA9546ADR channel ' + channel + '\n';
+        code += '\t\tpca9546adr_mux.select_channel(' + channel + ')\n';
+        code += '\t\tprint("PCA9546ADR channel", ' + channel + ', "selected")\n';
+        code += '\texcept ValueError as e:\n';
+        code += '\t\tprint("PCA9546ADR invalid channel:", e)\n';
+        code += '\texcept OSError as e:\n';
+        code += '\t\tprint("PCA9546ADR select channel error:", e)\n';
+        return code;
+};
+
+// PCA9546ADR关闭所有通道代码生成
+Blockly.Python['pca9546adr_disable_all'] = function(block) {
+        var code = 'if pca9546adr_mux is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Disable all PCA9546ADR channels\n';
+        code += '\t\tpca9546adr_mux.disable_all()\n';
+        code += '\t\tprint("All PCA9546ADR channels disabled")\n';
+        code += '\texcept OSError as e:\n';
+        code += '\t\tprint("PCA9546ADR disable all error:", e)\n';
+        return code;
+};
+
+// PCA9546ADR读取状态代码生成
+Blockly.Python['pca9546adr_read_status'] = function(block) {
+        var code = 'pca9546adr_mux.read_status() if pca9546adr_mux is not None else 0';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// PCA9546ADR扫描I2C地址代码生成
+Blockly.Python['pca9546adr_scan_i2c'] = function(block) {
+        var code = 'i2c_pca.scan() if "i2c_pca" in locals() and i2c_pca is not None else []';
+        return [code, Blockly.Python.ORDER_NONE];
+};
