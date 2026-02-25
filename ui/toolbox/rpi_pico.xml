@@ -2417,6 +2417,73 @@
   <block type="snr9816_tts_query_status"></block>
 </category>
   </category>
+  <category name="Motor Drivers">
+    <category name="Bus DC Motor (PCA9685)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install pca9685 library" callbackKey="installPyLib"></button>
+  <button text="Install bus_dc_motor library" callbackKey="installPyLib"></button>
+  <label text="Bus DC Motor Control via PCA9685 (I2C)"></label>
+  <block type="bus_dc_motor_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="motor_count">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="i2c_freq">
+      <shadow type="math_number">
+        <field name="NUM">400000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_set_speed">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">4000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_stop">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_break">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_scan_i2c"></block>
+</category>
+
+  </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
       <label text="DHT11/11 Temperature and Humidity Sensor"></label>

@@ -10242,3 +10242,89 @@ def get_tts_status_str():
 get_tts_status_str()''';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// 总线直流电机初始化代码生成
+Blockly.Python['bus_dc_motor_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var motor_count = block.getFieldValue('MOTOR_COUNT');
+        var i2c_freq = block.getFieldValue('I2C_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_pca9685'] = 'import pca9685';
+        Blockly.Python.definitions_['import_bus_dc_motor'] = 'from bus_dc_motor import BusDCMotor';
+
+        // 初始化逻辑（包含I2C扫描、PCA9685初始化、电机实例化）
+        var code = '# Initialize I2C for PCA9685\n';
+        code += 'i2c_pca9685 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=' + i2c_freq + ')\n';
+        code += '# Scan I2C devices to find PCA9685\n';
+        code += 'pca9685_addr = 0x40\n';
+        code += 'devices = i2c_pca9685.scan()\n';
+        code += 'for dev in devices:\n';
+        code += '\tif 0x40 <= dev <= 0x4F:\n';
+        code += '\t\tpca9685_addr = dev\n';
+        code += '\t\tbreak\n';
+        code += '# Create PCA9685 and DC motor instances\n';
+        code += 'pca9685 = pca9685.PCA9685(i2c_pca9685, pca9685_addr)\n';
+        code += 'dc_motor = BusDCMotor(pca9685, ' + motor_count + ')\n';
+        code += 'print("Bus DC Motor initialized with PCA9685 at address:", hex(pca9685_addr))\n';
+        return code;
+};
+
+// 设置电机速度和方向代码生成
+Blockly.Python['bus_dc_motor_set_speed'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+        var speed = block.getFieldValue('SPEED');
+        var direction = block.getFieldValue('DIRECTION');
+
+        var code = '# Set motor ' + motor_id + ' speed and direction\n';
+        code += 'try:\n';
+        code += '\tdc_motor.set_motor_speed(' + motor_id + ', ' + speed + ', ' + direction + ')\n';
+        code += '\tprint("Motor ' + motor_id + ' set to", "forward" if ' + direction + ' == 0 else "backward", "at speed", ' + speed + ')\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Motor speed error:", e)\n';
+        return code;
+};
+
+// 停止电机代码生成
+Blockly.Python['bus_dc_motor_stop'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Stop motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tdc_motor.stop_motor(' + motor_id + ')\n';
+        code += '\tprint("Motor ' + motor_id + ' stopped smoothly")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Motor stop error:", e)\n';
+        return code;
+};
+
+// 刹车电机代码生成
+Blockly.Python['bus_dc_motor_break'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Brake motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tdc_motor.break_motor(' + motor_id + ')\n';
+        code += '\tprint("Motor ' + motor_id + ' braked quickly")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Motor brake error:", e)\n';
+        return code;
+};
+
+// 扫描I2C设备代码生成
+Blockly.Python['bus_dc_motor_scan_i2c'] = function(block) {
+        var code = '''
+def scan_pca9685_address():
+    i2c_scan = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
+    devices = i2c_scan.scan()
+    for dev in devices:
+        if 0x40 <= dev <= 0x4F:
+            return hex(dev)
+    return "No PCA9685 found"
+scan_pca9685_address()''';
+        return [code, Blockly.Python.ORDER_NONE];
+};
