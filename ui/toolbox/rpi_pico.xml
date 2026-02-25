@@ -1992,6 +1992,36 @@
 </category>
 
   </category>
+  <category name="Misc">
+    <category name="DS1232 Watchdog">
+      <!-- 标注库来源，和AHT10格式一致 -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 安装按钮，格式对齐AHT10 -->
+      <button text="Install ds1232 library" callbackKey="installPyLib"></button>
+
+      <!-- 传感器说明，和AHT10风格一致 -->
+      <label text="DS1232 External Watchdog Module"></label>
+
+      <!-- DS1232初始化块（带默认值，和AHT10的块结构一致） -->
+      <block type="ds1232_init">
+        <value name="wdi_pin">
+          <shadow type="pinout">
+            <field name="PIN">7</field>
+          </shadow>
+        </value>
+        <value name="feed_interval">
+          <shadow type="math_number">
+            <field name="NUM">1000</field>
+          </shadow>
+        </value>
+      </block>
+      <!-- 手动喂狗块 -->
+      <block type="ds1232_kick"></block>
+      <!-- 停止喂狗块 -->
+      <block type="ds1232_stop"></block>
+    </category>
+
+  </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
       <label text="DHT11/11 Temperature and Humidity Sensor"></label>

@@ -18149,3 +18149,61 @@ Blockly.Blocks['uvmatrix_get_state'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+
+// DS1232 初始化积木块（对齐AHT10的aht_init写法）
+Blockly.Blocks['ds1232_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init DS1232 Watchdog")
+        .appendField(new Blockly.FieldImage(
+          "media/ds1232.png",
+          300, 300,
+          "*"
+        ));
+
+    this.appendValueInput("wdi_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("WDI Pin");
+
+    this.appendValueInput("feed_interval")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Feed Interval (ms)")
+      .appendField(new Blockly.FieldNumber(1000), "FEED_INTERVAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+
+    this.setColour(230);
+    this.setTooltip("Init DS1232 watchdog module and start auto feeding");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1232 手动喂狗积木块（对齐AHT10的aht_read_temp写法）
+Blockly.Blocks['ds1232_kick'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Manual Feed DS1232 Watchdog");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Manually feed DS1232 watchdog by toggling WDI pin once");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1232 停止喂狗积木块（对齐AHT10的代码风格）
+Blockly.Blocks['ds1232_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop DS1232 Auto Feeding");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop auto feeding DS1232 watchdog, WDI pin set to low");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
