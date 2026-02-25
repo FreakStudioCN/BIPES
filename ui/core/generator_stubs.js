@@ -10423,3 +10423,68 @@ Blockly.Python['bus_step_motor_stop_step'] = function(block) {
         code += '\tprint("Stop step motion error:", e)\n';
         return code;
 };
+
+// PWM散热风扇初始化代码生成
+Blockly.Python['fan_pwm_init'] = function(block) {
+        var pin = block.getFieldValue('PIN');
+        var pwm_freq = block.getFieldValue('PWM_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_fan_pwm'] = 'from fan_pwm import FanPWM';
+
+        // 初始化逻辑（包含参数校验和实例化）
+        var code = '# Initialize PWM Cooling Fan\n';
+        code += 'try:\n';
+        code += '\t# Create FanPWM instance (pin=' + pin + ', freq=' + pwm_freq + 'Hz)\n';
+        code += '\tfan = FanPWM(pin=' + pin + ', pwm_freq=' + pwm_freq + ')\n';
+        code += '\tprint(f"PWM Fan initialized on pin {pin}, freq={pwm_freq}Hz")\n';
+        code += 'except (ValueError, RuntimeError) as e:\n';
+        code += '\tprint("Fan initialization error:", e)\n';
+        code += '\tfan = None\n';
+        return code;
+};
+
+// 风扇开启代码生成
+Blockly.Python['fan_pwm_on'] = function(block) {
+        var code = '# Turn fan ON (full speed)\n';
+        code += 'if fan is not None:\n';
+        code += '\tfan.on()\n';
+        code += '\tprint(f"Fan ON - Current duty: {fan.get_speed()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Fan not initialized!")\n';
+        return code;
+};
+
+// 风扇关闭代码生成
+Blockly.Python['fan_pwm_off'] = function(block) {
+        var code = '# Turn fan OFF\n';
+        code += 'if fan is not None:\n';
+        code += '\tfan.off()\n';
+        code += '\tprint(f"Fan OFF - Current duty: {fan.get_speed()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Fan not initialized!")\n';
+        return code;
+};
+
+// 设置风扇转速代码生成
+Blockly.Python['fan_pwm_set_speed'] = function(block) {
+        var duty = block.getFieldValue('DUTY');
+
+        var code = '# Set fan speed (duty=' + duty + ')\n';
+        code += 'if fan is not None:\n';
+        code += '\t# Clamp duty to 0-1023 range\n';
+        code += '\tduty_val = max(0, min(1023, ' + duty + '))\n';
+        code += '\tfan.set_speed(duty_val)\n';
+        code += '\tprint(f"Fan speed set to {duty_val} (0-1023)")\n';
+        code += 'else:\n';
+        code += '\tprint("Fan not initialized!")\n';
+        return code;
+};
+
+// 获取风扇转速代码生成
+Blockly.Python['fan_pwm_get_speed'] = function(block) {
+        var code = 'fan.get_speed() if fan is not None else 0';
+        return [code, Blockly.Python.ORDER_NONE];
+};

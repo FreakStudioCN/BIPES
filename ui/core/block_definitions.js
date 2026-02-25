@@ -19589,3 +19589,92 @@ Blockly.Blocks['bus_step_motor_stop_step'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PWM散热风扇初始化块
+Blockly.Blocks['fan_pwm_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PWM Cooling Fan")
+        .appendField(new Blockly.FieldImage(
+                     "media/fan_pwm.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Pin")
+      .appendField(new Blockly.FieldNumber(6), "PIN");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(25000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PWM controlled cooling fan (default 25kHz)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 风扇开启块（全速）
+Blockly.Blocks['fan_pwm_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn PWM Fan ON (Full Speed)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn cooling fan on at full speed (duty=1023)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 风扇关闭块
+Blockly.Blocks['fan_pwm_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn PWM Fan OFF");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn cooling fan off (duty=0)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置风扇转速块
+Blockly.Blocks['fan_pwm_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PWM Fan Speed");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty (0-1023)")
+      .appendField(new Blockly.FieldNumber(512), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set fan speed with duty cycle (0=OFF, 1023=FULL)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取风扇转速块
+Blockly.Blocks['fan_pwm_get_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get PWM Fan Current Speed");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current fan duty cycle (0-1023)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
