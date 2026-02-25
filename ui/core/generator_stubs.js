@@ -9151,3 +9151,57 @@ Blockly.Python['ad8232_read_module_status'] = function(block) {
         var code = 'ad8232_sensor.query_module_status()';
         return [code, Blockly.Python.ORDER_NONE];
 };
+
+// CH9328初始化代码生成
+Blockly.Python['ch9328_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+        var keyboard_mode = block.getFieldValue('KEYBOARD_MODE');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_time'] = 'import time\nfrom machine import Pin, UART';
+        Blockly.Python.definitions_['import_ch9328'] = 'import ch9328';
+
+        // 初始化CH9328模块
+        var code = 'uart_ch9328=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += 'ch9328_keyboard=ch9328.CH9328(uart_ch9328)\n';
+        code += 'ch9328_keyboard.set_keyboard_mode(' + keyboard_mode + ')\n';
+        return code;
+};
+
+// 发送字符串代码生成
+Blockly.Python['ch9328_send_string'] = function(block) {
+        var text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+        var delay = block.getFieldValue('DELAY');
+
+        var code = 'ch9328_keyboard.send_string(' + text + ', delay=' + delay + ')\n';
+        return code;
+};
+
+// 敲击单个按键代码生成
+Blockly.Python['ch9328_tap_key'] = function(block) {
+        var key_code = 'ch9328.CH9328.' + block.getFieldValue('KEY_CODE');
+        var modifier = 'ch9328.CH9328.' + block.getFieldValue('MODIFIER');
+        var delay = block.getFieldValue('DELAY');
+
+        var code = 'ch9328_keyboard.tap_key(' + key_code + ', ' + modifier + ', delay=' + delay + ')\n';
+        return code;
+};
+
+// 发送快捷键代码生成
+Blockly.Python['ch9328_hotkey'] = function(block) {
+        var modifier = 'ch9328.CH9328.' + block.getFieldValue('MODIFIER');
+        var key_code = 'ch9328.CH9328.' + block.getFieldValue('KEY_CODE');
+        var delay = block.getFieldValue('DELAY');
+
+        var code = 'ch9328_keyboard.hotkey(' + modifier + ', ' + key_code + ', delay=' + delay + ')\n';
+        return code;
+};
+
+// 发送换行代码生成
+Blockly.Python['ch9328_send_crlf'] = function(block) {
+        var code = 'ch9328_keyboard.crlf()\n';
+        return code;
+};

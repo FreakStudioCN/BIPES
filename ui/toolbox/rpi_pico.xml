@@ -1560,7 +1560,7 @@
   </category>
 
   </category>
-  <category name="INPUT">
+  <category name="Input">
     <category name="EC11 Encoder">
   <label text="Library: https://your-ec11encoder-library-url.com"></label>
   <button text="Install ec11encoder library" callbackKey="installPyLib"></button>
@@ -1794,45 +1794,48 @@
   <block type="limitswitch_enable"></block>
   <block type="limitswitch_disable"></block>
 </category>
-    <category name="AD8232 ECG Sensor">
+    <category name="CH9328 Keyboard Module">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-  <button text="Install ad8232 library" callbackKey="installPyLib"></button>
+  <button text="Install ch9328 library" callbackKey="installPyLib"></button>
 
-  <label text="AD8232 ECG and Heart Rate Sensor"></label>
-  <block type="ad8232_init">
+  <label text="CH9328 USB Keyboard Emulation Module"></label>
+  <block type="ch9328_init">
     <value name="uart_port">
       <shadow type="math_number">
-        <field name="NUM">1</field>
+        <field name="NUM">0</field>
       </shadow>
     </value>
     <value name="tx_pin">
       <shadow type="pinout">
-        <field name="PIN">8</field>
+        <field name="PIN">0</field>
       </shadow>
     </value>
     <value name="rx_pin">
       <shadow type="pinout">
-        <field name="PIN">9</field>
+        <field name="PIN">1</field>
       </shadow>
     </value>
     <value name="baudrate">
       <shadow type="math_number">
-        <field name="NUM">115200</field>
-      </shadow>
-    </value>
-    <value name="parse_interval">
-      <shadow type="math_number">
-        <field name="NUM">5</field>
+        <field name="NUM">9600</field>
       </shadow>
     </value>
   </block>
-  <block type="ad8232_control_start_stop"></block>
-  <block type="ad8232_set_active_output"></block>
-  <block type="ad8232_read_raw_ecg"></block>
-  <block type="ad8232_read_filtered_ecg"></block>
-  <block type="ad8232_read_lead_status"></block>
-  <block type="ad8232_read_heart_rate"></block>
-  <block type="ad8232_read_module_status"></block>
+  <block type="ch9328_send_string">
+    <value name="text">
+      <shadow type="text">
+        <field name="TEXT">Hello World!</field>
+      </shadow>
+    </value>
+    <value name="delay">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ch9328_tap_key"></block>
+  <block type="ch9328_hotkey"></block>
+  <block type="ch9328_send_crlf"></block>
 </category>
   </category>
   <category name="Sensors">
@@ -2313,8 +2316,49 @@
     </value>
   </block>
 </category>
+    <category name="AD8232 ECG Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install ad8232_uart library" callbackKey="installPyLib"></button>
+  <button text="Install ad8232_data_flow_processor library" callbackKey="installPyLib"></button>
 
+  <label text="AD8232 ECG and Heart Rate Sensor"></label>
+  <block type="ad8232_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">8</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">9</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+    <value name="parse_interval">
+      <shadow type="math_number">
+        <field name="NUM">5</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ad8232_control_start_stop"></block>
+  <block type="ad8232_set_active_output"></block>
+  <block type="ad8232_read_raw_ecg"></block>
+  <block type="ad8232_read_filtered_ecg"></block>
+  <block type="ad8232_read_lead_status"></block>
+  <block type="ad8232_read_heart_rate"></block>
+  <block type="ad8232_read_module_status"></block>
+</category>
     <category name="PIR Motion Sensor">
+
   <label text="Library: https://github.com/your-repo/micropython-pir "></label>
   <button text="Install pir library" callbackKey="installPyLib"></button>
 

@@ -17482,3 +17482,189 @@ Blockly.Blocks['ad8232_read_module_status'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// CH9328初始化块
+Blockly.Blocks['ch9328_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init CH9328 Keyboard Module")
+        .appendField(new Blockly.FieldImage(
+                     "media/ch9328.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+
+    this.appendDummyInput()
+        .appendField("Keyboard Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Mode 0', '0'],
+                     ['Mode 1', '1'],
+                     ['Mode 2', '2'],
+                     ['Mode 3', '3']
+        ]), 'KEYBOARD_MODE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init CH9328 USB keyboard emulation module via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 发送字符串块
+Blockly.Blocks['ch9328_send_string'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Send String");
+
+    this.appendValueInput("text")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Text");
+
+    this.appendValueInput("delay")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(10), "DELAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send text string via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 敲击单个按键块
+Blockly.Blocks['ch9328_tap_key'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Tap Key");
+
+    this.appendDummyInput()
+        .appendField("Key")
+        .appendField(new Blockly.FieldDropdown([
+                     ['A', 'KEY_A'], ['B', 'KEY_B'], ['C', 'KEY_C'], ['D', 'KEY_D'], ['E', 'KEY_E'],
+                     ['F', 'KEY_F'], ['G', 'KEY_G'], ['H', 'KEY_H'], ['I', 'KEY_I'], ['J', 'KEY_J'],
+                     ['K', 'KEY_K'], ['L', 'KEY_L'], ['M', 'KEY_M'], ['N', 'KEY_N'], ['O', 'KEY_O'],
+                     ['P', 'KEY_P'], ['Q', 'KEY_Q'], ['R', 'KEY_R'], ['S', 'KEY_S'], ['T', 'KEY_T'],
+                     ['U', 'KEY_U'], ['V', 'KEY_V'], ['W', 'KEY_W'], ['X', 'KEY_X'], ['Y', 'KEY_Y'], ['Z', 'KEY_Z'],
+                     ['1', 'KEY_1'], ['2', 'KEY_2'], ['3', 'KEY_3'], ['4', 'KEY_4'], ['5', 'KEY_5'],
+                     ['6', 'KEY_6'], ['7', 'KEY_7'], ['8', 'KEY_8'], ['9', 'KEY_9'], ['0', 'KEY_0'],
+                     ['Enter', 'KEY_ENTER'], ['Space', 'KEY_SPACE'], ['Backspace', 'KEY_BACKSPACE'],
+                     ['Tab', 'KEY_TAB'], ['ESC', 'KEY_ESCAPE'], ['Left Ctrl', 'KEY_LEFT_CTRL'],
+                     ['Left Shift', 'KEY_LEFT_SHIFT'], ['Left Alt', 'KEY_LEFT_ALT'], ['Left GUI', 'KEY_LEFT_GUI']
+        ]), 'KEY_CODE');
+
+    this.appendDummyInput()
+        .appendField("Modifier")
+        .appendField(new Blockly.FieldDropdown([
+                     ['None', 'MODIFIER_NONE'],
+                     ['Left Ctrl', 'MODIFIER_LEFT_CTRL'],
+                     ['Left Shift', 'MODIFIER_LEFT_SHIFT'],
+                     ['Left Alt', 'MODIFIER_LEFT_ALT'],
+                     ['Left GUI', 'MODIFIER_LEFT_GUI'],
+                     ['Right Ctrl', 'MODIFIER_RIGHT_CTRL'],
+                     ['Right Shift', 'MODIFIER_RIGHT_SHIFT'],
+                     ['Right Alt', 'MODIFIER_RIGHT_ALT'],
+                     ['Right GUI', 'MODIFIER_RIGHT_GUI']
+        ]), 'MODIFIER');
+
+    this.appendValueInput("delay")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DELAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Tap a single key via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 发送快捷键块
+Blockly.Blocks['ch9328_hotkey'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Hotkey");
+
+    this.appendDummyInput()
+        .appendField("Modifier")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Left Ctrl', 'MODIFIER_LEFT_CTRL'],
+                     ['Left Shift', 'MODIFIER_LEFT_SHIFT'],
+                     ['Left Alt', 'MODIFIER_LEFT_ALT'],
+                     ['Left GUI', 'MODIFIER_LEFT_GUI'],
+                     ['Right Ctrl', 'MODIFIER_RIGHT_CTRL'],
+                     ['Right Shift', 'MODIFIER_RIGHT_SHIFT'],
+                     ['Right Alt', 'MODIFIER_RIGHT_ALT'],
+                     ['Right GUI', 'MODIFIER_RIGHT_GUI']
+        ]), 'MODIFIER');
+
+    this.appendDummyInput()
+        .appendField("Key")
+        .appendField(new Blockly.FieldDropdown([
+                     ['A', 'KEY_A'], ['B', 'KEY_B'], ['C', 'KEY_C'], ['D', 'KEY_D'], ['E', 'KEY_E'],
+                     ['F', 'KEY_F'], ['G', 'KEY_G'], ['H', 'KEY_H'], ['I', 'KEY_I'], ['J', 'KEY_J'],
+                     ['K', 'KEY_K'], ['L', 'KEY_L'], ['M', 'KEY_M'], ['N', 'KEY_N'], ['O', 'KEY_O'],
+                     ['P', 'KEY_P'], ['Q', 'KEY_Q'], ['R', 'KEY_R'], ['S', 'KEY_S'], ['T', 'KEY_T'],
+                     ['U', 'KEY_U'], ['V', 'KEY_V'], ['W', 'KEY_W'], ['X', 'KEY_X'], ['Y', 'KEY_Y'], ['Z', 'KEY_Z'],
+                     ['1', 'KEY_1'], ['2', 'KEY_2'], ['3', 'KEY_3'], ['4', 'KEY_4'], ['5', 'KEY_5'],
+                     ['6', 'KEY_6'], ['7', 'KEY_7'], ['8', 'KEY_8'], ['9', 'KEY_9'], ['0', 'KEY_0'],
+                     ['Enter', 'KEY_ENTER'], ['Space', 'KEY_SPACE'], ['Backspace', 'KEY_BACKSPACE'],
+                     ['Tab', 'KEY_TAB'], ['ESC', 'KEY_ESCAPE'], ['F1', 'KEY_F1'], ['F2', 'KEY_F2'],
+                     ['F3', 'KEY_F3'], ['F4', 'KEY_F4'], ['F5', 'KEY_F5'], ['F6', 'KEY_F6'],
+                     ['F7', 'KEY_F7'], ['F8', 'KEY_F8'], ['F9', 'KEY_F9'], ['F10', 'KEY_F10'],
+                     ['F11', 'KEY_F11'], ['F12', 'KEY_F12']
+        ]), 'KEY_CODE');
+
+    this.appendValueInput("delay")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DELAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send hotkey combination via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 发送换行块
+Blockly.Blocks['ch9328_send_crlf'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Send Enter (CRLF)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send Enter/CRLF via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
