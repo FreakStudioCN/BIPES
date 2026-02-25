@@ -10688,3 +10688,59 @@ Blockly.Python['opto_mos_deinit'] = function(block) {
         var code = 'opto_mos_driver.deinit()\n';
         return code;
 };
+
+// 串口舵机初始化代码生成
+Blockly.Python['serial_servo_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_serial_servo'] = 'import serial_servo';
+
+        // 初始化UART和舵机实例
+        var code = 'uart_servo=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += 'serial_servo_sensor=serial_servo.SerialServo(uart_servo)\n';
+        return code;
+};
+
+// 立即转动舵机代码生成
+Blockly.Python['serial_servo_move_immediate'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var angle = Blockly.Python.valueToCode(block, 'angle', Blockly.Python.ORDER_ATOMIC);
+        var time_ms = Blockly.Python.valueToCode(block, 'time_ms', Blockly.Python.ORDER_ATOMIC);
+
+        var code = 'serial_servo_sensor.move_servo_immediate(servo_id=' + servo_id + ', angle=' + angle + ', time_ms=' + time_ms + ')\n';
+        return code;
+};
+
+// 读取舵机当前角度代码生成
+Blockly.Python['serial_servo_read_position'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.read_servo_position(servo_id=' + servo_id + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 停止舵机转动代码生成
+Blockly.Python['serial_servo_stop'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.stop_servo(servo_id=' + servo_id + ')\n';
+        return code;
+};
+
+// 读取舵机温度代码生成
+Blockly.Python['serial_servo_read_temp'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.read_servo_temp(servo_id=' + servo_id + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取舵机电压代码生成
+Blockly.Python['serial_servo_read_voltage'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.read_servo_voltage(servo_id=' + servo_id + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};

@@ -20101,3 +20101,145 @@ Blockly.Blocks['opto_mos_deinit'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 串口舵机初始化积木
+Blockly.Blocks['serial_servo_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Serial Servo")
+        .appendField(new Blockly.FieldImage(
+                     "media/serial_servo.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(115200), "BAUDRATE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Serial Servo via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 立即转动舵机积木
+Blockly.Blocks['serial_servo_move_immediate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move Serial Servo Immediately");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.appendValueInput("angle")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Angle (0-240°)");
+
+    this.appendValueInput("time_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Time (ms)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Move serial servo to target angle immediately");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取舵机当前角度积木
+Blockly.Blocks['serial_servo_read_position'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Serial Servo Position");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current angle of serial servo");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止舵机转动积木
+Blockly.Blocks['serial_servo_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop Serial Servo");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop serial servo movement immediately");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取舵机温度积木
+Blockly.Blocks['serial_servo_read_temp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Serial Servo Temperature");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read real-time temperature of serial servo");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取舵机电压积木
+Blockly.Blocks['serial_servo_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Serial Servo Voltage");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read real-time voltage of serial servo");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

@@ -2721,6 +2721,7 @@
   </block>
 </category>
     <category name="Opto-MOS PWM Driver">
+
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install opto_mos_simple library" callbackKey="installPyLib"></button>
 
@@ -2764,6 +2765,79 @@
   <block type="opto_mos_off"></block>
   <block type="opto_mos_get_status"></block>
   <block type="opto_mos_deinit"></block>
+</category>
+    <category name="Serial Servo Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install serial_servo library" callbackKey="installPyLib"></button>
+
+  <label text="TTL Serial Servo Control"></label>
+  <block type="serial_servo_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">16</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">17</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_move_immediate">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="angle">
+      <shadow type="math_number">
+        <field name="NUM">90</field>
+      </shadow>
+    </value>
+    <value name="time_ms">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_read_position">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_stop">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_read_temp">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_read_voltage">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
 </category>
   </category>
   <category name="Sensors">
