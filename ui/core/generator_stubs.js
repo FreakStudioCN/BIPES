@@ -9381,3 +9381,61 @@ Blockly.Python['ledbar_clear'] = function(block) {
         code += '\t\tprint("LEDBar clear error:", e)\n';
         return code;
 };
+
+// PiranhaLED初始化代码生成
+Blockly.Python['piranhaled_init'] = function(block) {
+        var pin_number = Blockly.Python.valueToCode(block, 'pin_number', Blockly.Python.ORDER_ATOMIC);
+        var polarity = block.getFieldValue('LED_POLARITY');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_const'] = 'from machine import Pin\nfrom micropython import const';
+        Blockly.Python.definitions_['import_piranhaled'] = 'import piranhaled';
+
+        // 初始化PiranhaLED（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Define polarity constants (match piranhaled library)\n';
+        code += '\tPOLARITY_CATHODE = const(0)\n';
+        code += '\tPOLARITY_ANODE = const(1)\n';
+        code += '\t# Initialize PiranhaLED\n';
+        code += '\tpiranhaled_led = piranhaled.PiranhaLED(pin_number=' + pin_number + ', polarity=' + polarity + ')\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("PiranhaLED init error:", e)\n';
+        code += '\tpiranhaled_led = None\n';
+        return code;
+};
+
+// PiranhaLED打开代码生成
+Blockly.Python['piranhaled_on'] = function(block) {
+        var code = 'if piranhaled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpiranhaled_led.on()\n';
+        code += '\texcept RuntimeError as e:\n';
+        code += '\t\tprint("PiranhaLED on error:", e)\n';
+        return code;
+};
+
+// PiranhaLED关闭代码生成
+Blockly.Python['piranhaled_off'] = function(block) {
+        var code = 'if piranhaled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpiranhaled_led.off()\n';
+        code += '\texcept RuntimeError as e:\n';
+        code += '\t\tprint("PiranhaLED off error:", e)\n';
+        return code;
+};
+
+// PiranhaLED切换状态代码生成
+Blockly.Python['piranhaled_toggle'] = function(block) {
+        var code = 'if piranhaled_led is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tpiranhaled_led.toggle()\n';
+        code += '\texcept RuntimeError as e:\n';
+        code += '\t\tprint("PiranhaLED toggle error:", e)\n';
+        return code;
+};
+
+// PiranhaLED读取状态代码生成
+Blockly.Python['piranhaled_is_on'] = function(block) {
+        var code = 'piranhaled_led.is_on() if piranhaled_led is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};

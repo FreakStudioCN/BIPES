@@ -1903,7 +1903,7 @@
   </block>
   <block type="powerled_get_state"></block>
 </category>
-    <category name="LEDBar (PCF8574) Module">
+    <category name="LEDBar (PCF8574)">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install led_bar library" callbackKey="installPyLib"></button>
   <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
@@ -1943,6 +1943,23 @@
     </value>
   </block>
   <block type="ledbar_clear"></block>
+</category>
+    <category name="PiranhaLED">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install piranha_led library" callbackKey="installPyLib"></button>
+
+  <label text="PiranhaLED with Configurable Polarity (Cathode/Anode)"></label>
+  <block type="piranhaled_init">
+    <value name="pin_number">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="piranhaled_on"></block>
+  <block type="piranhaled_off"></block>
+  <block type="piranhaled_toggle"></block>
+  <block type="piranhaled_is_on"></block>
 </category>
 
   </category>

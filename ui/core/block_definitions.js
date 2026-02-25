@@ -17966,3 +17966,85 @@ Blockly.Blocks['ledbar_clear'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// PiranhaLED初始化块
+Blockly.Blocks['piranhaled_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PiranhaLED")
+        .appendField(new Blockly.FieldImage(
+                     "media/piranhaled.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin_number")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Pin Number");
+
+    this.appendDummyInput()
+        .appendField("Polarity")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Cathode (0)', '0'],
+                     ['Anode (1)', '1']
+        ]), 'LED_POLARITY');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PiranhaLED with configurable polarity (Cathode/Anode)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED打开块
+Blockly.Blocks['piranhaled_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Turn On");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on PiranhaLED (respects polarity setting)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED关闭块
+Blockly.Blocks['piranhaled_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Turn Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off PiranhaLED (respects polarity setting)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED切换状态块
+Blockly.Blocks['piranhaled_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle PiranhaLED on/off state");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED读取状态块
+Blockly.Blocks['piranhaled_is_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Is On? (True/False)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if PiranhaLED is currently on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
