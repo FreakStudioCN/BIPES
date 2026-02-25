@@ -8810,3 +8810,52 @@ Blockly.Python['ec11encoder_reset_rotation_count'] = function(block) {
         var code = 'ec11_encoder.reset_rotation_count()\n';
         return code;
 };
+
+/************************* Joystick 摇杆核心初始化 *************************/
+Blockly.Python['joystick_init'] = function(block) {
+        // 取值（对齐AHT10的取值逻辑）
+        var vrx_pin = Blockly.Python.valueToCode(block, 'vrx_pin', Blockly.Python.ORDER_ATOMIC);
+        var vry_pin = Blockly.Python.valueToCode(block, 'vry_pin', Blockly.Python.ORDER_ATOMIC);
+        var vsw_pin = block.getFieldValue('VSW_PIN');
+        var freq = block.getFieldValue('FREQ');
+
+        // 处理可选开关引脚
+        var vsw_pin_input = Blockly.Python.valueToCode(block, 'vsw_pin', Blockly.Python.ORDER_ATOMIC);
+        vsw_pin = vsw_pin_input || vsw_pin;
+
+        // 导入依赖（对齐AHT10的导入风格）
+        Blockly.Python.definitions_['import_machine'] = 'from machine import ADC, Timer, Pin';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_joystick'] = 'import joystick';
+
+        // 拼接初始化代码（适配Joystick驱动的实例化逻辑）
+        var code = '';
+        if (vsw_pin == -1 || vsw_pin === '') {
+            // 无开关引脚的初始化
+            code += 'joystick_sensor = joystick.Joystick(vrx_pin=' + vrx_pin + ', vry_pin=' + vry_pin + ', freq=' + freq + ')\n';
+        } else {
+            // 带开关引脚的初始化
+            code += 'joystick_sensor = joystick.Joystick(vrx_pin=' + vrx_pin + ', vry_pin=' + vry_pin + ', vsw_pin=' + vsw_pin + ', freq=' + freq + ')\n';
+        }
+        return code;
+  };
+
+/************************* Joystick 摇杆控制 *************************/
+// 启动摇杆采样（对齐AHT10的语句型积木写法）
+Blockly.Python['joystick_start'] = function(block) {
+        var code = 'joystick_sensor.start()\n';
+        return code;
+};
+
+// 停止摇杆采样
+Blockly.Python['joystick_stop'] = function(block) {
+        var code = 'joystick_sensor.stop()\n';
+        return code;
+};
+
+/************************* Joystick 摇杆状态查询 *************************/
+// 获取摇杆所有值（对齐AHT10的aht_read_temp写法）
+Blockly.Python['joystick_get_values'] = function(block) {
+        var code = 'joystick_sensor.get_values()';
+        return [code, Blockly.Python.ORDER_NONE];
+};

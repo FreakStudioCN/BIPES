@@ -16763,3 +16763,84 @@ Blockly.Blocks['ec11encoder_reset_rotation_count'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+/************************* Joystick 摇杆核心初始化 *************************/
+Blockly.Blocks['joystick_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Joystick Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/joystick.png",
+          300, 300,
+          "*"
+        ));
+
+    this.appendValueInput("vrx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VRX Pin");
+
+    this.appendValueInput("vry_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VRY Pin");
+
+    this.appendValueInput("vsw_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Switch Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "VSW_PIN");
+
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Sample Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(100), "FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Joystick sensor with X/Y axis and optional switch");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* Joystick 摇杆控制 *************************/
+// 启动摇杆采样
+Blockly.Blocks['joystick_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Start Joystick Sampling");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start periodic sampling of joystick values");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止摇杆采样
+Blockly.Blocks['joystick_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop Joystick Sampling");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop periodic sampling of joystick values");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* Joystick 摇杆状态查询 *************************/
+// 获取摇杆所有值（X/Y/SW）
+Blockly.Blocks['joystick_get_values'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Joystick Values (X/Y/SW)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current joystick X, Y and switch values");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
