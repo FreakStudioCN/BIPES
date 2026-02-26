@@ -4533,6 +4533,159 @@
     </value>
   </block>
 </category>
+    <!-- ===================== SI5351 Clock Generator ===================== -->
+    <category name="SI5351 Clock Generator">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: SI5351 Clock Generator (MicroPython)"></label>
+
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install silicon5351 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 传感器说明（对齐AHT10的label） -->
+  <label text="SI5351 I2C Clock Generator (25MHz Crystal)"></label>
+
+  <!-- 4. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="si5351_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+    <value name="crystal">
+      <shadow type="math_number">
+        <field name="NUM">25000000</field> <!-- 默认25MHz晶振 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 配置PLL积木块 -->
+  <block type="si5351_setup_pll">
+    <value name="mul">
+      <shadow type="math_number">
+        <field name="NUM">15</field> <!-- 默认倍频15 -->
+      </shadow>
+    </value>
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="denom">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 6. 初始化时钟输出积木块 -->
+  <block type="si5351_init_clock"></block>
+
+  <!-- 7. 设置输出频率积木块 -->
+  <block type="si5351_set_freq">
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">2000000</field> <!-- 默认2MHz -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 8. 使能输出积木块 -->
+  <block type="si5351_enable_output"></block>
+
+  <!-- 9. 禁用输出积木块 -->
+  <block type="si5351_disable_output"></block>
+</category>
+  </category>
+
+  <category name="Storage">
+    <!-- ===================== AT24CXX EEPROM ===================== -->
+    <category name="AT24CXX EEPROM">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: AT24CXX EEPROM (AT24C32/64/128/256/512)"></label>
+
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install at24c256 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 传感器说明（对齐AHT10的label） -->
+  <label text="AT24CXX I2C EEPROM Memory (AT24C256 default)"></label>
+
+  <!-- 4. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="at24cxx_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 写入单字节积木块 -->
+  <block type="at24cxx_write_byte">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认地址0 -->
+      </shadow>
+    </value>
+    <value name="data">
+      <shadow type="math_number">
+        <field name="NUM">0xAB</field> <!-- 默认数据0xAB -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 6. 读取单字节积木块 -->
+  <block type="at24cxx_read_byte"></block>
+
+  <!-- 7. 写入页数据积木块 -->
+  <block type="at24cxx_write_page">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 默认起始地址1 -->
+      </shadow>
+    </value>
+    <value name="length">
+      <shadow type="math_number">
+        <field name="NUM">64</field> <!-- 默认64字节 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 8. 顺序读取数据积木块 -->
+  <block type="at24cxx_read_sequence"></block>
+
+  <!-- 9. 擦除数据积木块 -->
+  <block type="at24cxx_erase_data">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认起始地址0 -->
+      </shadow>
+    </value>
+    <value name="length">
+      <shadow type="math_number">
+        <field name="NUM">64</field> <!-- 默认擦除64字节 -->
+      </shadow>
+    </value>
+  </block>
+</category>
   </category>
 <category name="Actuators">
 

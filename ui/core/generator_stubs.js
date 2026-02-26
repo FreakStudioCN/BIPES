@@ -11205,3 +11205,146 @@ Blockly.Python['mcp4725_config'] = function(block) {
   code += 'time.sleep_ms(50)\n'; // 配置后延时确保生效
   return code;
 };
+
+// ===================== SI5351 Python Code Generator =====================
+Blockly.Python['si5351_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var crystal = block.getFieldValue('CRYSTAL');
+  var addr = block.getFieldValue('ADDR');
+  var load = block.getFieldValue('LOAD');
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_si5351'] = 'import silicon5351';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'i2c_si5351 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=100000)\n';
+  code += 'time.sleep(3)\n'; // 上电延时
+  code += 'si5351 = silicon5351.SI5351_I2C(i2c_si5351, crystal=' + crystal + ', load=' + load + ', address=' + addr + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_setup_pll'] = function(block) {
+  // 配置PLL代码生成
+  var pll = block.getFieldValue('PLL');
+  var mul = block.getFieldValue('MUL');
+  var num = block.getFieldValue('NUM');
+  var denom = block.getFieldValue('DENOM');
+
+  var code = 'si5351.setup_pll(pll=' + pll + ', mul=' + mul + ', num=' + num + ', denom=' + denom + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_init_clock'] = function(block) {
+  // 初始化时钟输出代码生成
+  var output = block.getFieldValue('OUTPUT');
+  var pll = block.getFieldValue('PLL');
+  var drive = block.getFieldValue('DRIVE');
+  var quadrature = block.getFieldValue('QUADRATURE');
+  var invert = block.getFieldValue('INVERT');
+
+  var code = 'si5351.init_clock(output=' + output + ', pll=' + pll + ', quadrature=' + quadrature + ', invert=' + invert + ', drive_strength=' + drive + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_set_freq'] = function(block) {
+  // 设置输出频率代码生成
+  var output = block.getFieldValue('OUTPUT');
+  var freq = block.getFieldValue('FREQ');
+
+  var code = 'si5351.set_freq_fixedpll(output=' + output + ', freq=' + freq + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_enable_output'] = function(block) {
+  // 使能输出代码生成
+  var output = block.getFieldValue('OUTPUT');
+
+  var code = 'si5351.enable_output(output=' + output + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_disable_output'] = function(block) {
+  // 禁用输出代码生成
+  var output = block.getFieldValue('OUTPUT');
+
+  var code = 'si5351.disable_output(output=' + output + ')\n';
+  return code;
+};
+
+// ===================== AT24CXX Python Code Generator =====================
+Blockly.Python['at24cxx_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var chip_size = block.getFieldValue('CHIP_SIZE');
+  var addr = block.getFieldValue('ADDR');
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_at24cxx'] = 'import at24c256'; // 对应驱动文件名at24c256.py
+  Blockly.Python.definitions_['import_time'] = 'import time';
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'time.sleep(3)\n'; // 上电延时
+  code += 'i2c_at24cxx = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=100000)\n';
+  code += 'at24cxx = at24c256.AT24CXX(i2c_at24cxx, chip_size=' + chip_size + ', addr=' + addr + ')\n';
+  return code;
+};
+
+Blockly.Python['at24cxx_write_byte'] = function(block) {
+  // 写入单字节代码生成
+  var address = block.getFieldValue('ADDRESS');
+  var data = block.getFieldValue('DATA');
+
+  var code = 'at24cxx.write_byte(' + address + ', ' + data + ')\n';
+  return code;
+};
+
+Blockly.Python['at24cxx_read_byte'] = function(block) {
+  // 读取单字节代码生成（输出型，对齐AHT10的read_temp）
+  var address = block.getFieldValue('ADDRESS');
+
+  var code = 'at24cxx.read_byte(' + address + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['at24cxx_write_page'] = function(block) {
+  // 写入页数据代码生成（简化版：生成0~length-1的测试数据）
+  var address = block.getFieldValue('ADDRESS');
+  var length = block.getFieldValue('LENGTH');
+
+  var code = 'data_to_write = bytes(range(' + length + '))\n';
+  code += 'at24cxx.write_page(' + address + ', data_to_write)\n';
+  return code;
+};
+
+Blockly.Python['at24cxx_read_sequence'] = function(block) {
+  // 顺序读取数据代码生成（输出型）
+  var start_addr = block.getFieldValue('START_ADDR');
+  var length = block.getFieldValue('LENGTH');
+
+  var code = 'at24cxx.read_sequence(' + start_addr + ', ' + length + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['at24cxx_erase_data'] = function(block) {
+  // 擦除数据代码生成（复用驱动中的擦除逻辑）
+  var address = block.getFieldValue('ADDRESS');
+  var length = block.getFieldValue('LENGTH');
+
+  // 定义擦除函数（首次使用时自动添加）
+  Blockly.Python.definitions_['define_erase_data'] = `
+def erase_data(at24cxx, start_address, length):
+    data_to_erase = bytes([0xFF] * length)
+    at24cxx.write_page(start_address, data_to_erase)
+`;
+
+  var code = 'erase_data(at24cxx, ' + address + ', ' + length + ')\n';
+  return code;
+};

@@ -21047,3 +21047,412 @@ Blockly.Blocks['mcp4725_config'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// ===================== SI5351 Clock Generator =====================
+Blockly.Blocks['si5351_init'] = {
+  init: function() {
+    // 初始化积木块（对齐AHT10结构 + 300x300图片）
+    this.appendDummyInput()
+        .appendField("Init SI5351 Clock Generator")
+        .appendField(new Blockly.FieldImage(
+          "media/si5351.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // 晶振频率配置
+    this.appendValueInput("crystal")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Crystal Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(25000000), "CRYSTAL");
+
+    // I2C地址配置
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldDropdown([
+          ["0x60", "0x60"],
+          ["0x61", "0x61"]
+        ]), "ADDR");
+
+    // 晶振负载电容配置
+    this.appendDummyInput()
+        .appendField("Crystal Load")
+        .appendField(new Blockly.FieldDropdown([
+          ["6PF", "1"],
+          ["8PF", "2"],
+          ["10PF", "3"]
+        ]), "LOAD");
+
+    // 语句块属性（对齐AHT10样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init SI5351 clock generator via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_setup_pll'] = {
+  init: function() {
+    // 配置PLL积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Setup PLL");
+
+    // PLL选择
+    this.appendDummyInput()
+        .appendField("PLL")
+        .appendField(new Blockly.FieldDropdown([
+          ["PLLA (0)", "0"],
+          ["PLLB (1)", "1"]
+        ]), "PLL");
+
+    // 倍频系数
+    this.appendValueInput("mul")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Multiplier (15-90)")
+      .appendField(new Blockly.FieldNumber(15), "MUL");
+
+    // 分数分子/分母（可选）
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Fraction Num")
+      .appendField(new Blockly.FieldNumber(0), "NUM");
+
+    this.appendValueInput("denom")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Fraction Denom")
+      .appendField(new Blockly.FieldNumber(1), "DENOM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Configure SI5351 PLL multiplier (25MHz * mul = VCO freq)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_init_clock'] = {
+  init: function() {
+    // 初始化时钟输出积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Init Clock Output");
+
+    // 输出通道选择
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    // PLL选择
+    this.appendDummyInput()
+        .appendField("Use PLL")
+        .appendField(new Blockly.FieldDropdown([
+          ["PLLA (0)", "0"],
+          ["PLLB (1)", "1"]
+        ]), "PLL");
+
+    // 驱动强度
+    this.appendDummyInput()
+        .appendField("Drive Strength")
+        .appendField(new Blockly.FieldDropdown([
+          ["2mA", "0"],
+          ["4mA", "1"],
+          ["6mA", "2"],
+          ["8mA", "3"]
+        ]), "DRIVE");
+
+    // 正交/反相配置
+    this.appendDummyInput()
+        .appendField("Quadrature Output")
+        .appendField(new Blockly.FieldDropdown([
+          ["No", "False"],
+          ["Yes", "True"]
+        ]), "QUADRATURE");
+
+    this.appendDummyInput()
+        .appendField("Invert Output")
+        .appendField(new Blockly.FieldDropdown([
+          ["No", "False"],
+          ["Yes", "True"]
+        ]), "INVERT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Initialize SI5351 clock output channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_set_freq'] = {
+  init: function() {
+    // 设置输出频率积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Set Output Frequency");
+
+    // 输出通道
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    // 目标频率
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(2000000), "FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set SI5351 clock output frequency (fixed PLL mode)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_enable_output'] = {
+  init: function() {
+    // 使能输出积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Enable Output");
+
+    // 输出通道
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable SI5351 clock output channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_disable_output'] = {
+  init: function() {
+    // 禁用输出积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Disable Output");
+
+    // 输出通道
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable SI5351 clock output channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// ===================== AT24CXX EEPROM =====================
+Blockly.Blocks['at24cxx_init'] = {
+  init: function() {
+    // 初始化积木块（对齐AHT10结构 + 300x300图片）
+    this.appendDummyInput()
+        .appendField("Init AT24CXX EEPROM")
+        .appendField(new Blockly.FieldImage(
+          "media/at24c256.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // EEPROM型号选择
+    this.appendDummyInput()
+        .appendField("EEPROM Type")
+        .appendField(new Blockly.FieldDropdown([
+          ["AT24C32 (4KB)", "4096"],
+          ["AT24C64 (8KB)", "8192"],
+          ["AT24C128 (16KB)", "16384"],
+          ["AT24C256 (32KB)", "32768"],
+          ["AT24C512 (64KB)", "65536"]
+        ]), "CHIP_SIZE");
+
+    // I2C地址配置
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldNumber(0x50, 0x50, 0x57), "ADDR");
+
+    // 语句块属性（对齐AHT10样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init AT24CXX EEPROM via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_write_byte'] = {
+  init: function() {
+    // 写入单字节积木块
+    this.appendDummyInput()
+        .appendField("AT24CXX Write Byte");
+
+    // 地址配置
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Address")
+      .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    // 数据配置
+    this.appendValueInput("data")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Data (0-255)")
+      .appendField(new Blockly.FieldNumber(0, 0, 255), "DATA");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write one byte to AT24CXX at specified address");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_read_byte'] = {
+  init: function() {
+    // 读取单字节积木块（输出型，对齐AHT10的read_temp）
+    this.appendDummyInput()
+        .appendField("AT24CXX Read Byte from Address")
+        .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read one byte from AT24CXX at specified address");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_write_page'] = {
+  init: function() {
+    // 写入页数据积木块
+    this.appendDummyInput()
+        .appendField("AT24CXX Write Page");
+
+    // 起始地址
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Address")
+      .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    // 数据长度（简化版：固定长度/输入长度，这里选输入长度）
+    this.appendValueInput("length")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Data Length")
+      .appendField(new Blockly.FieldNumber(64, 1, 64), "LENGTH");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write page data to AT24CXX (max 64 bytes)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_read_sequence'] = {
+  init: function() {
+    // 顺序读取数据积木块（输出型）
+    this.appendDummyInput()
+        .appendField("AT24CXX Read Sequence");
+
+    // 起始地址
+    this.appendDummyInput()
+        .appendField("Start Address")
+        .appendField(new Blockly.FieldNumber(0), "START_ADDR");
+
+    // 读取长度
+    this.appendDummyInput()
+        .appendField("Length")
+        .appendField(new Blockly.FieldNumber(64, 1, 1024), "LENGTH");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read sequential bytes from AT24CXX");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_erase_data'] = {
+  init: function() {
+    // 擦除数据积木块
+    this.appendDummyInput()
+        .appendField("AT24CXX Erase Data (0xFF)");
+
+    // 起始地址
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Address")
+      .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    // 擦除长度
+    this.appendValueInput("length")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Length")
+      .appendField(new Blockly.FieldNumber(64, 1, 1024), "LENGTH");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Erase AT24CXX data to 0xFF at specified address range");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
