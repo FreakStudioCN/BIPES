@@ -11128,3 +11128,37 @@ Blockly.Python['ads1115_set_alert_callback'] = function(block) {
         code += 'ads1115.callback = __ads1115_irq_func\n';
         return code;
 };
+
+// ===================== DS3502 Python Code Generator =====================
+Blockly.Python['ds3502_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var addr = block.getFieldValue('ADDR'); // 固定字段值
+  var mode = block.getFieldValue('MODE'); // 下拉选择值
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_ds3502'] = 'import ds3502';
+  Blockly.Python.definitions_['import_time'] = 'import time'; // DS3502依赖time模块
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'i2c_ds3502 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=400000)\n';
+  code += 'ds3502_sensor = ds3502.DS3502(i2c_ds3502, ' + addr + ')\n';
+  code += 'ds3502_sensor.set_mode(' + mode + ')\n'; // 设置工作模式
+  return code;
+};
+
+Blockly.Python['ds3502_write_wiper'] = function(block) {
+  // 写入Wiper值的代码生成
+  var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+  var code = 'ds3502_sensor.write_wiper(' + value + ')\n';
+  return code;
+};
+
+Blockly.Python['ds3502_read_wiper'] = function(block) {
+  // 读取Wiper值的代码生成（输出型，对齐AHT10的read_temp）
+  var code = 'ds3502_sensor.read_wiper()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须返回数组+ORDER_NONE
+};

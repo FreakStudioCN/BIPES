@@ -4443,7 +4443,45 @@
 </category>
   </category>
   <category name="Signal Generation">
+    <!-- ===================== DS3502 Digital Potentiometer ===================== -->
+<category name="DS3502 Digital Potentiometer">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: DS3502 I2C Digital Potentiometer (MicroPython)"></label>
 
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install ds3502 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="ds3502_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 默认I2C1 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">2</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">3</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 4. 写入Wiper值积木块（带默认值） -->
+  <block type="ds3502_write_wiper">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">63</field> <!-- 默认中间值 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 读取Wiper值积木块 -->
+  <block type="ds3502_read_wiper"></block>
+</category>
 
   </category>
 <category name="Actuators">

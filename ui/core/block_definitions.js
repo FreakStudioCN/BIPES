@@ -20844,3 +20844,87 @@ Blockly.Blocks['ads1115_set_alert_callback'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// ===================== DS3502 Digital Potentiometer =====================
+Blockly.Blocks['ds3502_init'] = {
+  init: function() {
+    // 初始化DS3502积木块（对齐AHT10的结构+300x300图片）
+    this.appendDummyInput()
+        .appendField("Init DS3502")
+        .appendField(new Blockly.FieldImage(
+          "media/ds3502.png",  // 需确保该图片文件存在于BIPES的media目录
+          300, 300,            // 按要求设置图片尺寸
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // I2C地址配置（默认0x28）
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Addr")
+      .appendField(new Blockly.FieldNumber(0x28), "ADDR");
+
+    // 工作模式下拉选择（Mode0/Mode1）
+    this.appendDummyInput()
+        .appendField("Mode")
+        .appendField(new Blockly.FieldDropdown([
+          ["Mode 0 (Slow)", "0"],
+          ["Mode 1 (Fast)", "1"]
+        ]), "MODE");
+
+    // 语句块属性（对齐AHT10的样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init DS3502 digital potentiometer via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定链接
+  }
+};
+
+Blockly.Blocks['ds3502_write_wiper'] = {
+  init: function() {
+    // 写入Wiper值积木块
+    this.appendDummyInput()
+        .appendField("DS3502 Write Wiper");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-127)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set DS3502 wiper value (0-127)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['ds3502_read_wiper'] = {
+  init: function() {
+    // 读取Wiper值积木块（输出型，对齐AHT10的read_temp）
+    this.appendDummyInput()
+        .appendField("DS3502 Read Wiper");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current wiper value from DS3502");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
