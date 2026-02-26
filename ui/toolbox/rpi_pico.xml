@@ -2839,8 +2839,6 @@
     </value>
   </block>
 </category>
-    <!-- 完全对齐AHT10的XML写法，适配滚珠震动传感器（含回调块配置） -->
-    <!-- 完全对齐AHT10的XML写法，适配滚珠震动传感器（含回调块配置） -->
     <category name="Vibration Sensor">
   <!-- 第一步：label标注库来源（和AHT10一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -4325,8 +4323,129 @@
   </category>
 
   </category>
+  <category name="Signal Acquisition">
+    <category name="ADS1115 ADC">
+  <label text="Library: ads1115.py (MicroPython 16-bit ADC)"></label>
+  <button text="Install ads1115 library" callbackKey="installPyLib"></button>
+
+  <label text="ADS1115 16-bit Analog-to-Digital Converter"></label>
+
+  <block type="ads1115_init">
+    <value name="i2c_id">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda_pin">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="scl_pin">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">72</field>
+      </shadow>
+    </value>
+    <value name="gain">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="alert_pin">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_read_raw">
+    <value name="rate">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="channel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="channel2">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_read_voltage">
+    <value name="rate">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="channel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="channel2">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_alert_start">
+    <value name="rate">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="channel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="channel2">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+    <value name="threshold_high">
+      <shadow type="math_number">
+        <field name="NUM">16384</field>
+      </shadow>
+    </value>
+    <value name="threshold_low">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_alert_read"></block>
+
+  <block type="ads1115_set_alert_callback">
+    <statement name="CALLBACK_CODE">
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">ADS1115 Alert Triggered</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+</category>
+  </category>
+  <category name="Signal Generation">
 
 
+  </category>
 <category name="Actuators">
 
 

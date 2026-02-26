@@ -11042,3 +11042,89 @@ Blockly.Python['mgx_deinit'] = function(block) {
         var code = 'mg_sensor_device.deinit()\n';
         return code;
 };
+
+// 完全对齐AHT10的aht_init写法，适配ADS1115初始化
+Blockly.Python['ads1115_init'] = function(block) {
+        var i2c_id = Blockly.Python.valueToCode(block, 'i2c_id', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda_pin', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl_pin', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('ADDRESS');
+        var gain = block.getFieldValue('GAIN');
+        var alert_pin = block.getFieldValue('ALERT_PIN');
+
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_ads1115'] = 'import ads1115';
+
+        var code = 'i2c_ads1115 = I2C(' + i2c_id + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=400000)\n';
+
+        if (alert_pin === "-1") {
+            code += 'ads1115 = ads1115.ADS1115(i2c_ads1115, address=' + addr + ', gain=' + gain + ')\n';
+        } else {
+            code += 'ads1115 = ads1115.ADS1115(i2c_ads1115, address=' + addr + ', gain=' + gain + ', alert_pin=' + alert_pin + ')\n';
+        }
+        return code;
+};
+
+// 对齐AHT10 aht_read_temp → 读ADS1115原始值
+Blockly.Python['ads1115_read_raw'] = function(block) {
+        var rate = block.getFieldValue('RATE');
+        var ch1 = block.getFieldValue('CHANNEL1');
+        var ch2 = block.getFieldValue('CHANNEL2');
+
+        var code = '';
+        if (ch2 === "-1") {
+            code = 'ads1115.read(rate=' + rate + ', channel1=' + ch1 + ')';
+        } else {
+            code = 'ads1115.read(rate=' + rate + ', channel1=' + ch1 + ', channel2=' + ch2 + ')';
+        }
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10 aht_read_humidity → 读ADS1115电压
+Blockly.Python['ads1115_read_voltage'] = function(block) {
+        var rate = block.getFieldValue('RATE');
+        var ch1 = block.getFieldValue('CHANNEL1');
+        var ch2 = block.getFieldValue('CHANNEL2');
+
+        var code = '';
+        if (ch2 === "-1") {
+            code = 'ads1115.raw_to_v(ads1115.read(rate=' + rate + ', channel1=' + ch1 + '))';
+        } else {
+            code = 'ads1115.raw_to_v(ads1115.read(rate=' + rate + ', channel1=' + ch1 + ', channel2=' + ch2 + '))';
+        }
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// ADS1115 启动Alert模式
+Blockly.Python['ads1115_alert_start'] = function(block) {
+        var rate = block.getFieldValue('RATE');
+        var ch1 = block.getFieldValue('CHANNEL1');
+        var ch2 = block.getFieldValue('CHANNEL2');
+        var th = block.getFieldValue('HIGH_THRESH');
+        var tl = block.getFieldValue('LOW_THRESH');
+        var latched = block.getFieldValue('LATCHED');
+
+        var code = '';
+        if (ch2 === "-1") {
+            code += 'ads1115.alert_start(rate=' + rate + ', channel1=' + ch1 + ', ';
+        } else {
+            code += 'ads1115.alert_start(rate=' + rate + ', channel1=' + ch1 + ', channel2=' + ch2 + ', ';
+        }
+        code += 'threshold_high=' + th + ', threshold_low=' + tl + ', latched=' + (latched === "YES") + ')\n';
+        return code;
+};
+
+// 读取Alert数据
+Blockly.Python['ads1115_alert_read'] = function(block) {
+        var code = 'ads1115.alert_read()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置Alert回调
+Blockly.Python['ads1115_set_alert_callback'] = function(block) {
+        var cb = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        var code = 'def __ads1115_irq_func(pin):\n';
+        code += '    ' + cb.replace(/\n/g, '\n    ') + '\n';
+        code += 'ads1115.callback = __ads1115_irq_func\n';
+        return code;
+};

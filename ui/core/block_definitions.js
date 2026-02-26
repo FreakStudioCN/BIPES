@@ -20646,3 +20646,201 @@ Blockly.Blocks['mgx_deinit'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 完全对齐AHT10的aht_init写法，适配ADS1115初始化
+Blockly.Blocks['ads1115_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（图标尺寸300x300，对齐AHT10风格）
+    this.appendDummyInput()
+        .appendField("Init ADS1115 Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/ads1115.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("i2c_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C ID");
+
+    this.appendValueInput("sda_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA Pin");
+
+    this.appendValueInput("scl_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL Pin");
+
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address")
+      .appendField(new Blockly.FieldNumber(0x48), "ADDRESS");
+
+    this.appendValueInput("gain")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Gain")
+      .appendField(new Blockly.FieldNumber(2), "GAIN");
+
+    this.appendValueInput("alert_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Alert Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "ALERT_PIN");
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10一致的颜色值
+    this.setTooltip("Init ADS1115 16-bit ADC sensor (I2C)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取ADC原始值）
+Blockly.Blocks['ads1115_read_raw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read ADS1115 Raw Value");
+
+    this.appendValueInput("rate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Rate (0-7)")
+      .appendField(new Blockly.FieldNumber(4), "RATE");
+
+    this.appendValueInput("channel1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 1")
+      .appendField(new Blockly.FieldNumber(0), "CHANNEL1");
+
+    this.appendValueInput("channel2")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 2 (Diff)")
+      .appendField(new Blockly.FieldNumber(-1), "CHANNEL2");
+
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Read raw ADC value from ADS1115");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取电压值）
+Blockly.Blocks['ads1115_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read ADS1115 Voltage (V)");
+
+    this.appendValueInput("rate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Rate (0-7)")
+      .appendField(new Blockly.FieldNumber(4), "RATE");
+
+    this.appendValueInput("channel1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 1")
+      .appendField(new Blockly.FieldNumber(0), "CHANNEL1");
+
+    this.appendValueInput("channel2")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 2 (Diff)")
+      .appendField(new Blockly.FieldNumber(-1), "CHANNEL2");
+
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Read voltage value from ADS1115");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10风格（启动Alert模式）
+Blockly.Blocks['ads1115_alert_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("ADS1115 Start Alert Mode");
+
+    this.appendValueInput("rate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Rate (0-7)")
+      .appendField(new Blockly.FieldNumber(4), "RATE");
+
+    this.appendValueInput("channel1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 1")
+      .appendField(new Blockly.FieldNumber(0), "CHANNEL1");
+
+    this.appendValueInput("channel2")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 2 (Diff)")
+      .appendField(new Blockly.FieldNumber(-1), "CHANNEL2");
+
+    this.appendValueInput("threshold_high")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("High Threshold")
+      .appendField(new Blockly.FieldNumber(0x4000), "HIGH_THRESH");
+
+    this.appendValueInput("threshold_low")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Low Threshold")
+      .appendField(new Blockly.FieldNumber(0), "LOW_THRESH");
+
+    this.appendDummyInput()
+        .appendField("Latched")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'LATCHED');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start ADS1115 alert mode with thresholds");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10风格（读取Alert数据）
+Blockly.Blocks['ads1115_alert_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read ADS1115 Alert Data");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Read data from ADS1115 alert mode");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10风格（设置Alert回调）
+Blockly.Blocks['ads1115_set_alert_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set ADS1115 Alert Callback");
+
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Callback Code");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for ADS1115 alert pin interrupt");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
