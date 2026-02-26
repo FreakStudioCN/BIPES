@@ -4444,7 +4444,7 @@
   </category>
   <category name="Signal Generation">
     <!-- ===================== DS3502 Digital Potentiometer ===================== -->
-<category name="DS3502 Digital Potentiometer">
+    <category name="DS3502 Digital Potentiometer">
   <!-- 1. 库说明（对齐AHT10的label格式） -->
   <label text="Library: DS3502 I2C Digital Potentiometer (MicroPython)"></label>
 
@@ -4482,7 +4482,57 @@
   <!-- 5. 读取Wiper值积木块 -->
   <block type="ds3502_read_wiper"></block>
 </category>
+    <!-- ===================== MCP4725 12-bit DAC ===================== -->
+    <category name="MCP4725 DAC Sensor">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: MCP4725 12-bit DAC (MicroPython)"></label>
 
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install mcp4725 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 传感器说明（对齐AHT10的label） -->
+  <label text="MCP4725 12-bit Digital-to-Analog Converter"></label>
+
+  <!-- 4. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="mcp4725_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 写入DAC值积木块（带默认值） -->
+  <block type="mcp4725_write">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认值0 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 6. 读取DAC状态积木块 -->
+  <block type="mcp4725_read"></block>
+
+  <!-- 7. 配置DAC积木块（带默认值） -->
+  <block type="mcp4725_config">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认配置值0 -->
+      </shadow>
+    </value>
+  </block>
+</category>
   </category>
 <category name="Actuators">
 

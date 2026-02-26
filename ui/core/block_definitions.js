@@ -20928,3 +20928,122 @@ Blockly.Blocks['ds3502_read_wiper'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// ===================== MCP4725 12-bit DAC =====================
+Blockly.Blocks['mcp4725_init'] = {
+  init: function() {
+    // 初始化积木块（对齐AHT10结构 + 300x300图片）
+    this.appendDummyInput()
+        .appendField("Init MCP4725 DAC")
+        .appendField(new Blockly.FieldImage(
+          "media/mcp4725.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // I2C地址配置（默认0x60，下拉选择常用地址）
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldDropdown([
+          ["0x60", "0x60"],
+          ["0x61", "0x61"],
+          ["0x62", "0x62"],
+          ["0x63", "0x63"]
+        ]), "ADDR");
+
+    // 语句块属性（对齐AHT10样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MCP4725 12-bit DAC via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['mcp4725_write'] = {
+  init: function() {
+    // 写入DAC值积木块
+    this.appendDummyInput()
+        .appendField("MCP4725 Write Value");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-4095)")
+      .appendField(new Blockly.FieldNumber(0), "VALUE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write 12-bit value to MCP4725 (0-4095)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['mcp4725_read'] = {
+  init: function() {
+    // 读取DAC状态积木块（输出型，对齐AHT10的read_temp）
+    this.appendDummyInput()
+        .appendField("MCP4725 Read Status");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read power down mode and DAC value from MCP4725");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['mcp4725_config'] = {
+  init: function() {
+    // 配置DAC积木块
+    this.appendDummyInput()
+        .appendField("MCP4725 Config");
+
+    // 电源关断模式下拉选择
+    this.appendDummyInput()
+        .appendField("Power Down Mode")
+        .appendField(new Blockly.FieldDropdown([
+          ["Off", "Off"],
+          ["1k", "1k"],
+          ["100k", "100k"],
+          ["500k", "500k"]
+        ]), "POWER_MODE");
+
+    // 配置值输入
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-4095)")
+      .appendField(new Blockly.FieldNumber(0), "CONFIG_VALUE");
+
+    // 是否写入EEPROM
+    this.appendDummyInput()
+        .appendField("Write to EEPROM")
+        .appendField(new Blockly.FieldDropdown([
+          ["No", "False"],
+          ["Yes", "True"]
+        ]), "EEPROM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Configure MCP4725 power down mode and save to EEPROM");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

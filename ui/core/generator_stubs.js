@@ -11162,3 +11162,46 @@ Blockly.Python['ds3502_read_wiper'] = function(block) {
   var code = 'ds3502_sensor.read_wiper()';
   return [code, Blockly.Python.ORDER_NONE]; // 必须返回数组+ORDER_NONE
 };
+
+// ===================== MCP4725 Python Code Generator =====================
+Blockly.Python['mcp4725_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var addr = block.getFieldValue('ADDR');
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_mcp4725'] = 'import mcp4725';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'i2c_mcp4725 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=400000)\n';
+  code += 'mcp4725_dac = mcp4725.MCP4725(i2c_mcp4725, address=' + addr + ')\n';
+  return code;
+};
+
+Blockly.Python['mcp4725_write'] = function(block) {
+  // 写入DAC值的代码生成
+  var value = block.getFieldValue('VALUE');
+  var code = 'mcp4725_dac.write(' + value + ')\n';
+  return code;
+};
+
+Blockly.Python['mcp4725_read'] = function(block) {
+  // 读取DAC状态的代码生成（输出型，对齐AHT10的read_temp）
+  var code = 'mcp4725_dac.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须返回数组+ORDER_NONE
+};
+
+Blockly.Python['mcp4725_config'] = function(block) {
+  // 配置DAC的代码生成
+  var power_mode = block.getFieldValue('POWER_MODE');
+  var value = block.getFieldValue('CONFIG_VALUE');
+  var eeprom = block.getFieldValue('EEPROM');
+
+  var code = 'mcp4725_dac.config(power_down="' + power_mode + '", value=' + value + ', eeprom=' + eeprom + ')\n';
+  code += 'time.sleep_ms(50)\n'; // 配置后延时确保生效
+  return code;
+};
