@@ -7879,15 +7879,6 @@ Blockly.Python['mlx9061x_read_object'] = function(block) {
   return [code, Blockly.Python.ORDER_NONE];
 };
 
-// 可选扩展：读取物体2温度（加异常处理，对齐BA111TDS的异常逻辑）
-Blockly.Python['mlx9061x_read_object2'] = function(block) {
-  var code = 'try:\n';
-  code += '\tmlx_sensor.object2\n';
-  code += 'except RuntimeError:\n';
-  code += '\tNone\n';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
 // 初始化PIR传感器（对齐aht_init/ba111tds_init写法）
 Blockly.Python['pir_init'] = function(block) {
   // 1. 取值（和AHT10取值逻辑一致）
