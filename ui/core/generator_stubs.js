@@ -10878,7 +10878,7 @@ Blockly.Python['mqx_set_callback'] = function(block) {
         var code = 'def mqx_callback(voltage):\n';
         // 缩进用户代码（适配Python格式，保留voltage参数可用）
         if (callback_code) {
-            code += callback_code.replace(/^/gm, '\t');
+            code += callback_code.replace(/^/gm, '\n');
         } else {
             code += '\tprint(f"MQ Sensor Voltage: {voltage:.2f} V")\n'; // 兜底逻辑
         }
