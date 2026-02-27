@@ -10688,7 +10688,7 @@ Blockly.Python['flame_sensor_set_callback'] = function(block) {
   var code = 'def flame_detected_callback():\n';
   // 缩进用户代码（适配Python格式）
   if (callback_code) {
-    code += callback_code.replace(/^/gm, '\t');
+    code += callback_code.replace(/^/gm, '\n');
   } else {
     code += '\tprint("Flame detected!")\n'; // 兜底逻辑
   }
