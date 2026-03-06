@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a4ba074-55e2-4309-aa6d-b76bf49ef0ca" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BIPES.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/py_block_definitions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/test_translate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/ds1307.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/ds1307_blocks.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/py_xml.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/pylibs/ds1307.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +68,7 @@
       <updated>1772246006554</updated>
       <workItem from="1772246008519" duration="3898000" />
       <workItem from="1772721423833" duration="3000" />
-      <workItem from="1772803849399" duration="2778000" />
+      <workItem from="1772803849399" duration="5905000" />
     </task>
     <servers />
   </component>
