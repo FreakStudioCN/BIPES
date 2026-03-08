@@ -5,42 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a4ba074-55e2-4309-aa6d-b76bf49ef0ca" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/ds1307.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ds1307.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/guva_s12sd.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hall_sensor_oh34n.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jedm_gas_meas.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/joystick.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/max9814_mic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/max9814_mic.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/relay.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/relay.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/serial_imu.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/soil_moisture.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/soil_moisture.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tm1637.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tm1637.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/py_ast2json.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/py_ast2json_gui.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/py_json2block_definition.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/py2blocktools/view_json.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/guva_s12sd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/hall_sensor_oh34n.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/jedm_gas_meas.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/joystick.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/max9814_mic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/relay.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/serial_imu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/soil_moisture.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/pylibs/tm1637.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/core/block_definitions.js" beforeDir="false" afterPath="$PROJECT_DIR$/ui/core/block_definitions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/py2blocktools/py_block_definitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/py2blocktools/py_block_definitions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/py2blocktools/py_xml.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/py2blocktools/py_xml.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/pylibs/ds1307.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/pylibs/ds1307.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/pylibs/ds1307.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/pylibs/ds1307_blocks.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/toolbox/rpi_pico.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ui/toolbox/rpi_pico.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +73,7 @@
       <workItem from="1772803849399" duration="8780000" />
       <workItem from="1772862030536" duration="265000" />
       <workItem from="1772862867967" duration="14008000" />
-      <workItem from="1772879830811" duration="5566000" />
+      <workItem from="1772879830811" duration="6346000" />
     </task>
     <servers />
   </component>
